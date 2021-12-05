@@ -2,16 +2,21 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+import model.Configmail;
 import model.TipoRol;
 import model.TipoRolDAO;
 
@@ -20,6 +25,12 @@ import model.TipoDocumentoDAO;
 
 import model.Usuario;
 import model.UsuarioDAO;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 
 
@@ -29,6 +40,21 @@ import model.UsuarioDAO;
  */
 @WebServlet("/UsuarioController")
 public class UsuarioController extends HttpServlet {
+	
+	private String host;
+	private String puerto;
+	private String remitente;
+	private String password;
+	
+	public void init() {
+		ServletContext contexto=getServletContext();
+		host=contexto.getInitParameter("host");
+		puerto=contexto.getInitParameter("puerto");
+		remitente=contexto.getInitParameter("remitente");
+		password=contexto.getInitParameter("password");
+	}
+	
+	
 	private static final long serialVersionUID = 1L;
 	
 	Usuario u=new Usuario();
@@ -119,6 +145,10 @@ public class UsuarioController extends HttpServlet {
                     case "changeEstado":
                     	changeEstado(request,response);
                     break;
+                    
+                    case "reporteUsuarios":
+    					reporterUsuarios(request,response);
+    				break;
           	                    
                     default:
                         response.sendRedirect("login.jsp");
@@ -135,6 +165,58 @@ public class UsuarioController extends HttpServlet {
             }
         }
 	}
+	
+	
+	private void reporterUsuarios(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		//Crear objeto de tipo ServletOutputStream
+		ServletOutputStream out = response.getOutputStream();
+        try {
+        	//Declarar variables de im�genes y de reporte con sus rutas en webapp
+            java.io.InputStream logo = this.getServletConfig()
+                    .getServletContext()
+                    .getResourceAsStream("reportes/img/iluminarte.png");
+			java.io.InputStream reporteUsuario = this.getServletConfig()
+                            .getServletContext()
+                            .getResourceAsStream("reportes/reporteUsu.jasper");
+			//Validar que no vengan vacios
+            if (logo != null && reporteUsuario != null) {
+                //Crear lista de la clase Vo para guardar resultado de la consulta
+                List<Usuario> reporteUsuario1 = new ArrayList<>();
+                reporteUsuario1=ud.Listar();
+                
+                //Declarar variable tipo Jasper Reports asignando el reporte creado
+                JasperReport report = (JasperReport) JRLoader.loadObject(reporteUsuario);
+                //Declarar variable ds para asignar el reporteUsuario1
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(reporteUsuario1.toArray());
+                
+                //Mapeamos los parámetros del Jasper reports
+                Map<String, Object> parameters = new HashMap();
+                parameters.put("ds", ds);
+                parameters.put("logo", logo);
+                //Formateamos la salida del reporte
+                response.setContentType("application/pdf");
+                //Para abrir el reporte en otra pestaña
+                response.addHeader("Content-disposition", "inline; filename=ReporteUsuarios.pdf");
+                //Imprimimos el reporte
+                JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
+                JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+                out.flush();
+                out.close();
+            } else {
+                response.setContentType("text/plain");
+                out.println("no se pudo generar el reporte");
+                out.println("esto puede deberse a que la lista de datos no fue recibida o el "
+                		+ "archivo plantilla del reporte no se ha encontrado");
+                out.println("contacte a soporte");
+            }
+        } catch (Exception e) {
+            response.setContentType("text/plain");
+            out.print("ocurrió un error al intentar generar el reporte:" + e.getMessage());
+            e.printStackTrace();
+        }
+	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -272,6 +354,21 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     else {
     	u.setEstadoUsuario(false);
     }
+    
+    String destinatario=request.getParameter("correo");
+    String asunto="BIENVENIDO A ILUMINARTE";
+    String cuerpo="<h1> Gracias por registrarse en Iluminarte </h1>"
+    		//+ " <img src ='https://www.clinicaveterinariaanimalandia.com/images/clinica-veterinaria-animalandia-logo.png'/>"
+    		+ " <img src ='https://www.google.com/maps/uv?pb=!1s0x8e3f9fcf38f7cc9b%3A0x164d202916a48999!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMJzYZdNYjJ9v53Lm06UQrCwijddZr5G5Zx831h%3Dw292-h196-n-k-no!5siluminarte%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOfrS1O_T3Vijw20cXWHlU6EF4PHQsDvr7Q7HlU&hl=es#'/>"
+    		+ " <h4> Para iniciar sesión </h4>"    			
+    		+" <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>Haga click aquí</a>";
+    try {
+    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
+    	System.out.println("Se envió el mensaje al nuevo usuario");
+    }catch(Exception e) {
+    	System.out.println("Se produjo un error al enviar el mensaje al nuevo usuario "+e.getMessage());
+    }
+    
     try{
     	ud.registrar(u);
         //request.getRequestDispatcher("views/role.jsp").forward(request, response);

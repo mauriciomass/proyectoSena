@@ -95,5 +95,11 @@ public class Usuario {
 		this.idRolFK = idRolFK;
 	}
 
+	public String getIdRolFKRep() {
+		return this.idRolFK !=null ? this.idRolFK.getNombreRol() : "--";
+	}
 	
+	public String getEstadoUsuarioRep() {
+		return this.estadoUsuario ? "Activo" : "Inactivo";
+	}
 }

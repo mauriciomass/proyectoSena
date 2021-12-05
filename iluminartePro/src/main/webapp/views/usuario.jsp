@@ -8,9 +8,13 @@
 <div class="full-width panel mdl-shadow--5dp"> 
 
 <h1>Lista de Usuarios</h1>
-  <a type="button" class="btn btn-primary" href="UsuarioController?accion=abrirForm" <c:if test="${usua.idRolFK.idRol!=1}"> hidden </c:if>>
+  <a type="button" class="btn btn-success" href="UsuarioController?accion=abrirForm" <c:if test="${usua.idRolFK.idRol!=1}"> hidden </c:if>>
   <i class="bi bi-plus-circle"></i> 
   Agregar Usuario
+  </a>
+  <a type="button" class="btn btn-primary" href="UsuarioController?accion=reporteUsuarios" <c:if test="${usua.idRolFK.idRol!=1}"> hidden </c:if>>
+  <i class="bi bi-plus-circle"></i> 
+  Reporte Usuarios
   </a>
 <div class="table-responsive">
  <table class="table table-hover table-bordered" id ="datat">
