@@ -41,7 +41,33 @@
         <td>${p.getNombreProducto()}</td>
         <td>${p.getPrecioProducto()}</td>        
         <td>${p.getDescripcionProducto()}</td>
-        <td><img src="ProductoIMGController?id=${p.getIdProducto()}" width="100" height="100"></td>    
+        <td>
+        	    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modal${p.getIdProducto()}">
+                     Ver
+                 </button>
+                 
+                 <!-- Modal -->
+                    <div class="modal fade" id="modal${p.getIdProducto()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header bg-dark">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">${p.getNombreProducto()}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="http://localhost/img/${p.getImagenProducto()}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>                            
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+        
+        </td>
+         
         <td>${p.getStockProducto()}</td>  
           
         <c:if test="${p.isEstadoProducto() == true}">

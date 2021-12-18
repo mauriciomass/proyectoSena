@@ -9,13 +9,13 @@ public class Producto {
 	private String nombreProducto;
 	private Double precioProducto;
 	private String descripcionProducto;
-	private InputStream imagenProducto;
+	private String imagenProducto;
 	private Categoria idCategoriaFK;
 	private Proveedor idProveedorFK;
 	private Boolean estadoProducto;
 	private int stockProducto;
 	public Producto(int idProducto, String nombreProducto, Double precioProducto, String descripcionProducto,
-			InputStream imagenProducto, Categoria idCategoriaFK, Proveedor idProveedorFK,Boolean estadoProducto, int stockProducto) {
+			String imagenProducto, Categoria idCategoriaFK, Proveedor idProveedorFK,Boolean estadoProducto, int stockProducto) {
 		super();
 		this.idProducto = idProducto;
 		this.nombreProducto = nombreProducto;
@@ -31,6 +31,11 @@ public class Producto {
 	public Producto() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String ImagenPhoto(String imagenProducto) {
+		return this.imagenProducto = imagenProducto;
+	}
+	
 	public int getIdProducto() {
 		return idProducto;
 	}
@@ -58,11 +63,11 @@ public class Producto {
 
 	
 
-	public InputStream getImagenProducto() {
+	public String getImagenProducto() {
 		return imagenProducto;
 	}
 
-	public void setImagenProducto(InputStream imagenProducto) {
+	public void setImagenProducto(String imagenProducto) {
 		this.imagenProducto = imagenProducto;
 	}
 

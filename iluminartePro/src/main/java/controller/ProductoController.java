@@ -1,7 +1,12 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+
 
 import model.Producto;
 import model.ProductoDAO;
@@ -38,6 +45,11 @@ public class ProductoController extends HttpServlet {
 	
 	Producto p=new Producto();
 	ProductoDAO pro=new ProductoDAO();
+	
+	private String pathFiles = "C:\\xampp\\htdocs\\"+File.separator+"img\\"+File.separator;
+	
+	private File uploads = new File(pathFiles);
+	private String[] extens = {".ico", ".png", ".jpg", ".jpeg"};
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -161,8 +173,9 @@ private void obtenerProveedores(HttpServletRequest request) {
     }
 }
 
-private void add(HttpServletRequest request, HttpServletResponse response) {
-	   
+private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+try {
     if(request.getParameter("categoria")!=null && request.getParameter("proveedor")!=null) {
        	Categoria r = new Categoria();
         r.setIdCategoria(Integer.parseInt(request.getParameter("categoria")));
@@ -176,49 +189,84 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     	p.setPrecioProducto(Double.parseDouble(request.getParameter("precio")));
     	p.setDescripcionProducto(request.getParameter("descripcion"));
     	
-    	Part part = null;
-		try {
-			part = request.getPart("imagen");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	InputStream inputStream = null;
-		try {
-			inputStream = part.getInputStream();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	p.setImagenProducto(inputStream);
-    	
-    	
     	p.setStockProducto(Integer.parseInt(request.getParameter("stock")));
     	
-
+    	Part part = request.getPart("imagen");
     	
-    }
-    if(request.getParameter("chkEstado")!=null) {
-    	p.setEstadoProducto(true);
-    }
-    else {
-    	p.setEstadoProducto(false);
-    }
-    try{
-    	pro.registrar(p);
-        //request.getRequestDispatcher("views/role.jsp").forward(request, response);
-        response.sendRedirect("ProductoController?accion=listar");
-    	System.out.println("Producto Registrado");
-    }catch(Exception e){
-        request.setAttribute("msje", "No se pudo registrar el producto controller" + e.getMessage());
-        System.out.println("No se pudo registrar el producto controller" + e.getMessage());
-    }finally{
-    	//ud=null;
-    }
+		  if(part == null) {
+					System.out.println("No ha seleccionado un archivo");
+					return;
+				}
+				
+				if(isExtension(part.getSubmittedFileName(), extens)) {
+					String imagenProd = saveFile(part, uploads);
+					
+					//Producto ip= new Producto();
+					
+					p.ImagenPhoto(imagenProd);
+				
+					
+					pro.registrar(p);
+					
+					
+					
+				}
+		
+				if(request.getParameter("chkEstado")!=null) {
+			    	p.setEstadoProducto(true);
+			    }
+			    else {
+			    	p.setEstadoProducto(false);
+			    }
+			 		
+				
+				
+      }	
+    }catch (Exception e) {
+				e.printStackTrace();
+	}
+			
+    response.sendRedirect("ProductoController?accion=listar");
 }
+  
+
+private String saveFile(Part part, File pathUploads) {
+	String pathAbsolute = "";
+	String ruta="";
+	
+	try {
+		
+		Path path = Paths.get(part.getSubmittedFileName());
+		String fileName = path.getFileName().toString();
+		InputStream input = part.getInputStream();
+		
+		if(input != null) {
+			
+			File file = File.createTempFile("imagen",fileName, pathUploads);
+			pathAbsolute = file.getAbsolutePath();
+			ruta=file.getName();
+			System.out.println(ruta);
+			Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	return ruta;
+}
+
+private boolean isExtension(String fileName, String[] extensions) {
+	for(String et : extensions) {
+		if(fileName.toLowerCase().endsWith(et)) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+	   
+    
 
 private void eliminar(HttpServletRequest request, HttpServletResponse response) {
 	
@@ -259,60 +307,57 @@ private void ver(HttpServletRequest request, HttpServletResponse response) {
 
  }
 
-private void edit(HttpServletRequest request, HttpServletResponse response) {
-	
-	if(request.getParameter("id")!=null &&  request.getParameter("categoria")!=null ) {
-		
-		p.setIdProducto(Integer.parseInt(request.getParameter("id")));
-		
-		Categoria r = new Categoria();
-        r.setIdCategoria(Integer.parseInt(request.getParameter("categoria")));
-        p.setIdCategoriaFK(r);
-        
-    	Proveedor prov = new Proveedor();
-    	prov.setIdProveedor(Integer.parseInt(request.getParameter("proveedor")));
-        p.setIdProveedorFK(prov);
-        
-    	p.setNombreProducto(request.getParameter("nombre"));    	
-    	p.setPrecioProducto(Double.parseDouble(request.getParameter("precio")));
-    	p.setDescripcionProducto(request.getParameter("descripcion"));
-    	
-    	
-    	   	
-    	
-    	Part part = null;
-		try {
-			part = request.getPart("imagen");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	InputStream inputStream = null;
-		try {
-			inputStream = part.getInputStream();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	p.setImagenProducto(inputStream);
-    	
- 	 
-    }
-    if(request.getParameter("chkEstado")!=null) {
-    	p.setEstadoProducto(true);
-    }
-    else {
-    	p.setEstadoProducto(false);
-    }
-    
-    p.setStockProducto(Integer.parseInt(request.getParameter("stock")));
-    
+private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	try {
-		pro.actualizar(p);
-		response.sendRedirect("ProductoController?accion=listar");
+		if(request.getParameter("id")!=null &&  request.getParameter("categoria")!=null ) {
+			
+			p.setIdProducto(Integer.parseInt(request.getParameter("id")));
+			
+			Categoria r = new Categoria();
+	        r.setIdCategoria(Integer.parseInt(request.getParameter("categoria")));
+	        p.setIdCategoriaFK(r);
+	        
+	    	Proveedor prov = new Proveedor();
+	    	prov.setIdProveedor(Integer.parseInt(request.getParameter("proveedor")));
+	        p.setIdProveedorFK(prov);
+	        
+	    	p.setNombreProducto(request.getParameter("nombre"));    	
+	    	p.setPrecioProducto(Double.parseDouble(request.getParameter("precio")));
+	    	p.setDescripcionProducto(request.getParameter("descripcion"));
+	    	
+	  	
+	    	Part part = request.getPart("imagen");
+	    	
+			  if(part == null) {
+						System.out.println("No ha seleccionado un archivo");
+						return;
+					}
+					
+					if(isExtension(part.getSubmittedFileName(), extens)) {
+						String imagenProd = saveFile(part, uploads);
+						
+						//Producto ip= new Producto();
+						
+						p.ImagenPhoto(imagenProd);
+					
+						
+						pro.actualizar(p);
+						response.sendRedirect("ProductoController?accion=listar");
+					
+											
+					}
+	    	
+	 	 
+	    }
+	    if(request.getParameter("chkEstado")!=null) {
+	    	p.setEstadoProducto(true);
+	    }
+	    else {
+	    	p.setEstadoProducto(false);
+	    }
+	    
+	    p.setStockProducto(Integer.parseInt(request.getParameter("stock")));
+	   
 		
 		
 	}catch(Exception e) {

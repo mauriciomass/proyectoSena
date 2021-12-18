@@ -91,6 +91,7 @@ public class UsuarioController extends HttpServlet {
                 	case "login":
                 		u.setCorreoUsuario(request.getParameter("correo"));
                 		u.setContrasenaUsuario(ud.MD5(request.getParameter("password")));
+                		//u.setContrasenaUsuario(request.getParameter("password"));
                 		try {
                 			u=ud.validarUsuario(u.getCorreoUsuario(), u.getContrasenaUsuario());
                 			if(u.getCorreoUsuario()!=null && u.isEstadoUsuario()==true) {

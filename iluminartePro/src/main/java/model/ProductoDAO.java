@@ -1,9 +1,6 @@
 package model;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,7 +54,7 @@ public class ProductoDAO {
 				p.setNombreProducto(rs.getString(4));
 				p.setPrecioProducto(rs.getDouble(5));
 				p.setDescripcionProducto(rs.getString(6));
-				p.setImagenProducto(rs.getBinaryStream(7));
+				p.setImagenProducto(rs.getString(7));
 				
 				p.setEstadoProducto(rs.getBoolean(8));
 				
@@ -76,50 +73,6 @@ public class ProductoDAO {
 	}
 	
 	
-	public void listarImg(int id, HttpServletResponse response) {
-		
-		sql="SELECT * FROM producto WHERE idProducto=" + id;
-		
-	
-			
-		InputStream inputStream=null;
-		OutputStream outputStream=null;
-		BufferedInputStream bufferedInputStream = null;
-		BufferedOutputStream bufferedOutputStream = null;
-		
-		try {
-			outputStream = response.getOutputStream();
-			con=c.conectar(); //abrir conexion
-			ps=con.prepareStatement(sql); //preparando la sentencia
-			
-			//ejecutamos la consulta y guardamos en el objeto rs
-			rs=ps.executeQuery();
-			//procesamos el resultado de la consulta
-			if (rs.next()) {
-				inputStream=rs.getBinaryStream("imagenProducto");
-			}
-			
-		
-			bufferedInputStream = new BufferedInputStream(inputStream);
-			bufferedOutputStream = new BufferedOutputStream(outputStream);
-			
-			
-			int i=0;
-			while ((i = bufferedInputStream.read()) != -1) {
-				
-				bufferedOutputStream.write(i);
-				System.out.println("Cuantos veces ingreso a IMG "+ i);
-				
-			}
-			
-		}catch (Exception e) {
-			
-			System.out.println("No existen imagenes definidas "+e.getMessage());
-		}
-		
-	}
-	
-	
 	public int registrar(Producto pr) throws SQLException {
 		sql="INSERT INTO producto (idCategoriaFK,idProveedorFK, nombreProducto, precioProducto,descripcionProducto,imagenProducto,estadoProducto,stockProducto) VALUES (?,?,?,?,?,?,?,?)";
 		try {
@@ -132,7 +85,7 @@ public class ProductoDAO {
 			ps.setString(3, pr.getNombreProducto());
 			ps.setDouble(4, pr.getPrecioProducto());
 			ps.setString(5, pr.getDescripcionProducto());
-			ps.setBlob(6, pr.getImagenProducto());
+			ps.setString(6, pr.getImagenProducto());
 			ps.setBoolean(7, pr.isEstadoProducto());
 			ps.setInt(8, pr.getStockProducto());
 			
@@ -188,7 +141,7 @@ public class ProductoDAO {
 				p.setNombreProducto(rs.getString(4));
 				p.setPrecioProducto(rs.getDouble(5));
 				p.setDescripcionProducto(rs.getString(6));
-				p.setImagenProducto (rs.getBinaryStream(7));
+				p.setImagenProducto (rs.getString(7));
 				p.setEstadoProducto(rs.getBoolean(8));
 				p.setStockProducto(rs.getInt(9));
 				
@@ -217,7 +170,7 @@ public class ProductoDAO {
 			ps.setString(3, pr.getNombreProducto());
 			ps.setDouble(4, pr.getPrecioProducto());
 			ps.setString(5, pr.getDescripcionProducto());
-			ps.setBlob(6, pr.getImagenProducto());
+			ps.setString(6, pr.getImagenProducto());
 			ps.setBoolean(7, pr.isEstadoProducto());
 			ps.setInt(8, pr.getStockProducto());
 			
