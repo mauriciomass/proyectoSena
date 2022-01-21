@@ -14,8 +14,9 @@ public class Producto {
 	private Proveedor idProveedorFK;
 	private Boolean estadoProducto;
 	private int stockProducto;
+	private String codProducto;
 	public Producto(int idProducto, String nombreProducto, Double precioProducto, String descripcionProducto,
-			String imagenProducto, Categoria idCategoriaFK, Proveedor idProveedorFK,Boolean estadoProducto, int stockProducto) {
+			String imagenProducto, Categoria idCategoriaFK, Proveedor idProveedorFK,Boolean estadoProducto, int stockProducto,String codProducto) {
 		super();
 		this.idProducto = idProducto;
 		this.nombreProducto = nombreProducto;
@@ -26,6 +27,7 @@ public class Producto {
 		this.idProveedorFK = idProveedorFK;
 		this.estadoProducto = estadoProducto;
 		this.stockProducto = stockProducto;
+		this.codProducto = codProducto;
 	}
 	
 	public Producto() {
@@ -35,6 +37,11 @@ public class Producto {
 	public String ImagenPhoto(String imagenProducto) {
 		return this.imagenProducto = imagenProducto;
 	}
+	
+	public String productoCod(String codProducto) {
+		return this.codProducto = codProducto ;
+	}
+	
 	
 	public int getIdProducto() {
 		return idProducto;
@@ -99,7 +106,16 @@ public class Producto {
 	public void setStockProducto(int stockProducto) {
 		this.stockProducto = stockProducto;
 	}
-	
-	
+
+	public String getCodProducto() {
+		return codProducto;
+	}
+
+	public void setCodProducto(String codProducto) {
+		this.codProducto = codProducto;
+	}
+
+
+			
 
 }

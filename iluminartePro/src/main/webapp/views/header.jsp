@@ -28,11 +28,23 @@ if(session.getAttribute("usua")!=null){
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
 	
+			<style>
+		
+			@media print{
+			
+				.parte01,.parte02, .parte03, .btn, .accion {
+					display:none;
+				}
+			
+			}
+		
+		</style>
+	
 </head>
 <body>
 	
 	<!-- navBar -->
-	<div class="full-width navBar">
+	<div class="full-width navBar parte01">
 		<div class="full-width navBar-options">
 			<i class="zmdi zmdi-more-vert btn-menu" id="btn-menu"></i>	
 			<div class="mdl-tooltip" for="btn-menu">Menu</div>
@@ -58,7 +70,7 @@ if(session.getAttribute("usua")!=null){
 		</div>
 	</div>
 	<!-- navLateral -->
-	<section class="full-width navLateral">
+	<section class="full-width navLateral parte02">
 		<div class="full-width navLateral-bg btn-menu"></div>
 		<div class="full-width navLateral-body">
 			<div class="full-width navLateral-body-logo text-center tittles">
@@ -140,7 +152,7 @@ if(session.getAttribute("usua")!=null){
 						</a>
 						
 						<li class="full-width divider-menu-h"></li>
-					<li class="full-width" <c:if test="${usua.idRolFK.idRol!=1}"> hidden </c:if>>
+					<li class="full-width" <c:if test="${usua.idRolFK.idRol==3}"> hidden </c:if>>
 						<a href="#!" class="full-width btn-subMenu">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-lamp"></i>
@@ -178,7 +190,7 @@ if(session.getAttribute("usua")!=null){
 						</a>
 						<ul class="full-width menu-principal sub-menu-options">
 							<li class="full-width">
-								<a href="views/venta.jsp" class="full-width">
+								<a href="VentasController?menu=NuevaVenta&accion=default" class="full-width">
 									<div class="navLateral-body-cl">
 										<i class="zmdi zmdi-plus-square"></i>
 									</div>
@@ -188,19 +200,16 @@ if(session.getAttribute("usua")!=null){
 								</a>
 							</li>
 
-		<div class="full-width pageContent">
-		</div>
-
-
-
 						</ul>
 					</li>
 				</ul>
 			</nav>
 		</div>
 	</section>
+	
 	</body>
 </html> 
+
  <% 
   }else{
 	  request.getRequestDispatcher("login.jsp").forward(request,response);

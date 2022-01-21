@@ -4,13 +4,13 @@ public class Usuario {
 
 	private int idUsuario;
 	private String nombreUsuario, apellidoUsuario,contrasenaUsuario,numerodeIdentificacionUsuario,direccionUsuario,
-	               telefonoUsuario,correoUsuario;
+	               telefonoUsuario,correoUsuario,numeroUsuario;
 	private Boolean estadoUsuario;
 	private TipoDocumento idTipodeDocumentoFK;
 	private TipoRol idRolFK;
 	public Usuario(int idUsuario, String nombreUsuario, String apellidoUsuario, String contrasenaUsuario,
 			String numerodeIdentificacionUsuario, String direccionUsuario, String telefonoUsuario, String correoUsuario,
-			boolean estadoUsuario, TipoDocumento idTipodeDocumentoFK, TipoRol idRolFK) {
+			boolean estadoUsuario, TipoDocumento idTipodeDocumentoFK, TipoRol idRolFK,String numeroUsuario) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
@@ -23,7 +23,15 @@ public class Usuario {
 		this.estadoUsuario = estadoUsuario;
 		this.idTipodeDocumentoFK = idTipodeDocumentoFK;
 		this.idRolFK = idRolFK;
+		this.numeroUsuario = numeroUsuario;
+		
 	}
+	
+	public String numeroIdentificacion(String numerodeIdentificacionUsuario) {
+		return this.numerodeIdentificacionUsuario = numerodeIdentificacionUsuario;
+	}
+	
+	
 	public String getDireccionUsuario() {
 		return direccionUsuario;
 	}
@@ -102,4 +110,14 @@ public class Usuario {
 	public String getEstadoUsuarioRep() {
 		return this.estadoUsuario ? "Activo" : "Inactivo";
 	}
+
+	public String getNumeroUsuario() {
+		return numeroUsuario;
+	}
+
+	public String setNumeroUsuario(String numeroUsuario) {
+		return this.numeroUsuario = numeroUsuario;
+	}
+	
+	
 }

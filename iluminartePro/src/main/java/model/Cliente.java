@@ -1,21 +1,22 @@
 package model;
 
-public class Cliente  extends Usuario {
+public class Cliente {
 	
 	private int idCliente;	
 	private Usuario idUsuarioFK;
-	private Divipola idMubicipioFK;
-	
-	public Cliente(int idUsuario, String nombreUsuario, String apellidoUsuario, String contrasenaUsuario,
-			String numerodeIdentificacionUsuario, String direecionUsuario, String telefonoUsuario, String correoUsuario,
-			int estadoUsuario, int idTipodeDocumentoFK, int idRolFK, int idCliente, Usuario idUsuarioFK,
-			Divipola idMubicipioFK) {
-		super(idUsuario, nombreUsuario, apellidoUsuario, contrasenaUsuario, numerodeIdentificacionUsuario,
-				direecionUsuario, telefonoUsuario, correoUsuario, estadoUsuario, idTipodeDocumentoFK, idRolFK);
+	private Divipola idMunicipioFK;
+	public Cliente(int idCliente, Usuario idUsuarioFK, Divipola idMunicipioFK) {
+		super();
 		this.idCliente = idCliente;
 		this.idUsuarioFK = idUsuarioFK;
-		this.idMubicipioFK = idMubicipioFK;
+		this.idMunicipioFK = idMunicipioFK;
+		
 	}
+	
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getIdCliente() {
 		return idCliente;
 	}
@@ -28,15 +29,12 @@ public class Cliente  extends Usuario {
 	public void setIdUsuarioFK(Usuario idUsuarioFK) {
 		this.idUsuarioFK = idUsuarioFK;
 	}
-	public Divipola getIdMubicipioFK() {
-		return idMubicipioFK;
+	public Divipola getIdMunicipioFK() {
+		return idMunicipioFK;
 	}
-	public void setIdMubicipioFK(Divipola idMubicipioFK) {
-		this.idMubicipioFK = idMubicipioFK;
+	public void setIdMunicipioFK(Divipola idMunicipioFK) {
+		this.idMunicipioFK = idMunicipioFK;
 	}
-	
-	
-	
-	
-	
+
+		
 }

@@ -1,19 +1,19 @@
 package model;
 
-public class Vendedor extends Usuario{
+public class Vendedor{
 	
 	private int idVendedor;
 	private String tipoVendedor;
 	private Usuario idUsuarioFK;
-	public Vendedor(int idUsuario, String nombreUsuario, String apellidoUsuario, String contrasenaUsuario,
-			String numerodeIdentificacionUsuario, String direecionUsuario, String telefonoUsuario, String correoUsuario,
-			int estadoUsuario, int idTipodeDocumentoFK, int idRolFK, int idVendedor, String tipoVendedor,
+	public Vendedor(int idVendedor, String tipoVendedor,
 			Usuario idUsuarioFK) {
-		super(idUsuario, nombreUsuario, apellidoUsuario, contrasenaUsuario, numerodeIdentificacionUsuario,
-				direecionUsuario, telefonoUsuario, correoUsuario, estadoUsuario, idTipodeDocumentoFK, idRolFK);
+		super();
 		this.idVendedor = idVendedor;
 		this.tipoVendedor = tipoVendedor;
 		this.idUsuarioFK = idUsuarioFK;
+	}
+	public Vendedor() {
+		// TODO Auto-generated constructor stub
 	}
 	public int getIdVendedor() {
 		return idVendedor;
@@ -32,6 +32,10 @@ public class Vendedor extends Usuario{
 	}
 	public void setIdUsuarioFK(Usuario idUsuarioFK) {
 		this.idUsuarioFK = idUsuarioFK;
+	}
+	public static Vendedor parseVendedor(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

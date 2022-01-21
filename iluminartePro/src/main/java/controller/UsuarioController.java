@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Configmail;
+import model.Pedido;
 import model.TipoRol;
 import model.TipoRolDAO;
 
@@ -173,7 +174,7 @@ public class UsuarioController extends HttpServlet {
 		//Crear objeto de tipo ServletOutputStream
 		ServletOutputStream out = response.getOutputStream();
         try {
-        	//Declarar variables de im�genes y de reporte con sus rutas en webapp
+        	//Declarar variables de imagenes y de reporte con sus rutas en webapp
             java.io.InputStream logo = this.getServletConfig()
                     .getServletContext()
                     .getResourceAsStream("reportes/img/iluminarte.png");
@@ -273,6 +274,7 @@ public class UsuarioController extends HttpServlet {
   
         
         try{
+ 
         	List usu=ud.Listar();
             request.setAttribute("user", usu);
             request.getRequestDispatcher("views/usuario.jsp").forward(request, response);
@@ -359,8 +361,9 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     String destinatario=request.getParameter("correo");
     String asunto="BIENVENIDO A ILUMINARTE";
     String cuerpo="<h1> Gracias por registrarse en Iluminarte </h1>"
-    		//+ " <img src ='https://www.clinicaveterinariaanimalandia.com/images/clinica-veterinaria-animalandia-logo.png'/>"
-    		+ " <img src ='https://www.google.com/maps/uv?pb=!1s0x8e3f9fcf38f7cc9b%3A0x164d202916a48999!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMJzYZdNYjJ9v53Lm06UQrCwijddZr5G5Zx831h%3Dw292-h196-n-k-no!5siluminarte%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOfrS1O_T3Vijw20cXWHlU6EF4PHQsDvr7Q7HlU&hl=es#'/>"
+    		
+    		//+ " <img src ='https://www.google.com/maps/uv?pb=!1s0x8e3f9fcf38f7cc9b%3A0x164d202916a48999!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMJzYZdNYjJ9v53Lm06UQrCwijddZr5G5Zx831h%3Dw292-h196-n-k-no!5siluminarte%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOfrS1O_T3Vijw20cXWHlU6EF4PHQsDvr7Q7HlU&hl=es#'/>"
+    		+ " <img src ='http://localhost/img/iluminarte.png'/>"
     		+ " <h4> Para iniciar sesión </h4>"    			
     		+" <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>Haga click aquí</a>";
     try {
@@ -372,8 +375,16 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     
     try{
     	ud.registrar(u);
-        //request.getRequestDispatcher("views/role.jsp").forward(request, response);
+    	
+    	
+    	int persona = Integer.parseInt(request.getParameter("tiporol"));
+    	
+    	ud.registrarPersona(persona);
+    	
+    	System.out.println("tipo de persona: " + persona);
+        
         response.sendRedirect("UsuarioController?accion=listar");
+    	
     	System.out.println("Usuario Registrado");
     }catch(Exception e){
         request.setAttribute("msje", "No se pudo registrar el usuario controller" + e.getMessage());

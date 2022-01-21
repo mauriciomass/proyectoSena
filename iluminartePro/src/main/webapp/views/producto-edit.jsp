@@ -69,9 +69,13 @@
   	
   	<div class="form-group">
   		<label for="stock">Stock</label>
-  		<input type="text" class="form-control" name="stock" id="stock" placeholder="Ingrese la Imagen" value="${producto.stockProducto}"/>  		
+  		<input type="text" class="form-control" name="stock" id="stock" placeholder="Ingrese el stock" value="${producto.stockProducto}"/>  		
   	</div>
   	
+  	<div class="form-group">
+  		<label for="codProducto">Codigo Producto</label>
+  		<input type="text" class="form-control" name="codProducto" id="codProducto" placeholder="Ingrese el codigo del producto" value="${producto.codProducto}"/>  		
+  	</div>
   	
   	
   	<div class="form-check">

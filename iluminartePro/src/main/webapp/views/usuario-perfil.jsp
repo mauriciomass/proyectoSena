@@ -9,24 +9,24 @@
   
   <form method="post" action="UsuarioController?accion=verPerfil">
   	
-  	<input type="text" class="form-control" name="id" value="${usua.idUsuario}"/>
+  	<input type="hidden" class="form-control" name="id" value="${usua.idUsuario}"/>
  	
   	<div class="form-group">
   	
   	  <label>Tipo Documento</label>
            
-                <select class="form-select" name="tipodocumento" autofocus=""  required="">
+  		          <select class="form-select" name="tipodocumento" autofocus=""  required=""  disabled>
                       
                  		<c:forEach items="${tip}" var="tip">
-                          
-                                     
-                             <p>${tip.nombreTipoDocumento}</p>
+                            <option value="${tip.idTipoDocumento} "  
+                             <c:if test="${tip.idTipoDocumento == usua.idTipodeDocumentoFK.idTipoDocumento}">
+                                   selected
+                             </c:if>         
+                             >${tip.nombreTipoDocumento} </option>
                     	</c:forEach>
-                                            
-                </select>
-                
+                                          
+                 </select>           
          
-  		 <!--<input type="text" class="form-control" name="tipodocumento" id="tipodocumento" placeholder="Tipo de documento" value="${tip.nombreTipoDocumento}"/>-->
                                              
     </div>
     

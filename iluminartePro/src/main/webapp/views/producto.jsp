@@ -23,7 +23,8 @@
             <th>Precio <br>Producto</th>
             <th>Descripcion</th>
             <th>Imagen</th>
-             <th>Stock</th>                            
+             <th>Stock</th>
+             <th>Cod</th>                            
             <th><center>Estado</center></th>                        
             <th colspan="2"><center>Acciones</center></th>
             
@@ -68,7 +69,9 @@
         
         </td>
          
-        <td>${p.getStockProducto()}</td>  
+        <td>${p.getStockProducto()}</td>
+        
+        <td>${p.getCodProducto()}</td>  
           
         <c:if test="${p.isEstadoProducto() == true}">
            <td><span class="badge bg-success active">Producto Activo</span></td> 

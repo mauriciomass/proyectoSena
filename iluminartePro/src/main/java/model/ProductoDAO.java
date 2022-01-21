@@ -25,7 +25,7 @@ public class ProductoDAO {
 	public List Listar() throws SQLException {
 		List<Producto> lpro=new ArrayList<>();
 			    
-		sql="SELECT producto.idProducto,categoria.nombreCategoria,proveedor.nombreProveedor, producto.nombreProducto,producto.precioProducto,producto.descripcionProducto, producto.imagenProducto,producto.estadoProducto,producto.stockProducto "
+		sql="SELECT producto.idProducto,categoria.nombreCategoria,proveedor.nombreProveedor, producto.nombreProducto,producto.precioProducto,producto.descripcionProducto, producto.imagenProducto,producto.estadoProducto,producto.stockProducto,producto.codProducto "
 				+ "FROM producto " 
 				+"JOIN categoria ON categoria.idCategoria=producto.idCategoriaFK " 
 				+"JOIN proveedor ON proveedor.idProveedor = producto.idProveedorFK";
@@ -54,11 +54,10 @@ public class ProductoDAO {
 				p.setNombreProducto(rs.getString(4));
 				p.setPrecioProducto(rs.getDouble(5));
 				p.setDescripcionProducto(rs.getString(6));
-				p.setImagenProducto(rs.getString(7));
-				
-				p.setEstadoProducto(rs.getBoolean(8));
-				
-				p.setStockProducto(rs.getInt(9));
+				p.setImagenProducto(rs.getString(7));				
+				p.setEstadoProducto(rs.getBoolean(8));				
+				p.setStockProducto(rs.getInt(9));				
+				p.setCodProducto(rs.getString(10));
 				
 				lpro.add(p);
 			}
@@ -74,7 +73,7 @@ public class ProductoDAO {
 	
 	
 	public int registrar(Producto pr) throws SQLException {
-		sql="INSERT INTO producto (idCategoriaFK,idProveedorFK, nombreProducto, precioProducto,descripcionProducto,imagenProducto,estadoProducto,stockProducto) VALUES (?,?,?,?,?,?,?,?)";
+		sql="INSERT INTO producto (idCategoriaFK,idProveedorFK, nombreProducto, precioProducto,descripcionProducto,imagenProducto,estadoProducto,stockProducto,codProducto) VALUES (?,?,?,?,?,?,?,?,?)";
 		try {
 			con=c.conectar();//abrir conexión
 			ps=con.prepareStatement(sql); //preparación
@@ -88,7 +87,9 @@ public class ProductoDAO {
 			ps.setString(6, pr.getImagenProducto());
 			ps.setBoolean(7, pr.isEstadoProducto());
 			ps.setInt(8, pr.getStockProducto());
+			ps.setString(9, pr.getCodProducto());
 			
+						
 			System.out.println(ps);
 			ps.executeUpdate();//Ejecucución sentencia
 			ps.close();//cerrar sentencia
@@ -144,6 +145,7 @@ public class ProductoDAO {
 				p.setImagenProducto (rs.getString(7));
 				p.setEstadoProducto(rs.getBoolean(8));
 				p.setStockProducto(rs.getInt(9));
+				p.setCodProducto(rs.getString(10));
 				
 				System.out.println("Se encontró el producto");
 				
@@ -159,7 +161,7 @@ public class ProductoDAO {
 	}
 	
 	public int actualizar(Producto pr) throws SQLException {
-		sql="UPDATE producto SET idCategoriaFK=?,idProveedorFK=?, nombreProducto=?, precioProducto=?,descripcionProducto=?,imagenProducto=? , estadoProducto=?, stockProducto=? "+
+		sql="UPDATE producto SET idCategoriaFK=?,idProveedorFK=?, nombreProducto=?, precioProducto=?,descripcionProducto=?,imagenProducto=? , estadoProducto=?, stockProducto=? , codProducto= ? "+
 				"WHERE idProducto="+pr.getIdProducto();
 		try {
 			
@@ -173,6 +175,9 @@ public class ProductoDAO {
 			ps.setString(6, pr.getImagenProducto());
 			ps.setBoolean(7, pr.isEstadoProducto());
 			ps.setInt(8, pr.getStockProducto());
+			ps.setString(9, pr.getCodProducto());
+			
+			
 			
 
 			
@@ -214,5 +219,67 @@ public class ProductoDAO {
 		return r;
 	}
 
+	
+	public Producto consultaporCod(String cod) throws SQLException {
+		Producto p=new Producto();
+		sql="SELECT * FROM producto WHERE codProducto= '" + cod + "'";
+		try {
+			con=c.conectar();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			System.out.println(ps);
+			
+			while(rs.next()) {
+				p.setIdProducto(rs.getInt(1));
+				
+				p.setIdCategoriaFK(new Categoria());
+				p.getIdCategoriaFK().setNombreCategoria(rs.getString(2));
+				
+				p.setIdProveedorFK(new Proveedor());
+				p.getIdProveedorFK().setNombreProveedor(rs.getString(3));
+				
+				p.setNombreProducto(rs.getString(4));
+				p.setPrecioProducto(rs.getDouble(5));
+				p.setDescripcionProducto(rs.getString(6));
+				p.setImagenProducto (rs.getString(7));
+				p.setEstadoProducto(rs.getBoolean(8));
+				p.setStockProducto(rs.getInt(9));
+				p.setCodProducto(rs.getString(10));
+				
+				System.out.println("Se encontró el producto");
+				
+			}
+		}catch(Exception e) {
+			System.out.println("Error en la consulta del producto "+e.getMessage());
+		}
+		finally {
+			con.close();
+		}
 		
+		return p;
+	}
+
+	public int actualizarstock (int id,int stock) throws SQLException {
+		sql = "update producto set stockProducto = ? where idproducto = ?";
+		
+		try {
+			con=c.conectar();
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1,stock);
+			ps.setInt(2,id);
+			
+			System.out.println(ps);
+			ps.executeUpdate();//Ejecucución sentencia
+			
+		}catch(Exception e) {
+			System.out.println("Error en la consulta del producto "+e.getMessage());
+		}
+		finally {
+			con.close();
+		}
+		
+		return r;
+	}
+	
 }

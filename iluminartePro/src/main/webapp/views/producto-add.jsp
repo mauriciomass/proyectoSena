@@ -66,7 +66,11 @@
   		<label for="stock">Stock</label>
   		<input type="text" class="form-control" name="stock" id="stock" placeholder="Ingrese el stock"/>
   	</div>
-  	
+
+  	<div class="form-group">
+  		<label for="codProducto">Codigo Producto</label>
+  		<input type="text" class="form-control" name="codProducto" id="codProducto" placeholder="Ingrese el codigo del producto"/>
+  	</div>  	
   	  	
   	<div class="form-check">
   <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" checked>

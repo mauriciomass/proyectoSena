@@ -21,7 +21,7 @@
             <th><center>Telefono</center></th>
             <th><center>Persona de Contacto</center></th> 
             <th><center>Estado</center></th>            
-            <th colspan="5"><center>Acciones</center></th>
+            <th colspan="2"><center>Acciones</center></th>
         </tr>
  </thead>
  <tbody>      

@@ -304,7 +304,7 @@ public class UsuarioDAO {
 	
 	public Usuario buscar(String numero) throws SQLException {
 		Usuario u=new Usuario();
-		sql="SELECT * FROM usuario WHERE numerodeIdentificacionUsuario="+numero;
+		sql="SELECT * FROM usuario WHERE numeroIdentificacionUsuario="+numero;
 		try {
 			con=c.conectar();
 			ps=con.prepareStatement(sql);
@@ -364,5 +364,121 @@ public class UsuarioDAO {
 		return null;
 
 	}
+	
+	public int registrarPersona (int ti) throws SQLException {
+		
+     System.out.println("Ingresa a registrarPersona");
+     
+		int maxIdUsuario = 0;
+		sql="select max(idUsuario) from usuario";
 
+			con=c.conectar(); //abrir conexion
+			ps=con.prepareStatement(sql); //preparando la sentencia
+			//ejecutamos la consulta y guardamos en el objeto rs
+			rs=ps.executeQuery();
+			//procesamos el resultado de la consulta
+
+					
+			while(rs.next()) {
+				
+				maxIdUsuario=rs.getInt(1);
+				
+			}
+			ps.close(); //cerrar sentencia
+			System.out.println("maximo id Usuario " + maxIdUsuario);   
+     
+		
+			
+		
+				if (ti == 3) {
+					
+					System.out.println("Tipo " + ti);				
+					
+				     String	sql1="INSERT INTO cliente (idUsuarioFK,idMunicipioDivipolaFK) VALUES (?,?)";
+				     
+						try {	
+							
+
+							con=c.conectar();//abrir conexión
+							
+							ps=con.prepareStatement(sql1); //preparación
+							
+							//ps.setInt(1,cl.getIdUsuarioFK().getIdUsuario());
+							ps.setInt(1,maxIdUsuario);
+							ps.setInt(2,1);
+										
+							System.out.println(ps);
+							ps.executeUpdate();//Ejecución sentencia
+							ps.close();//cerrar sentencia
+							System.out.println("Se registró una persona ");
+										
+
+						}catch(Exception e) {
+							System.out.println("Error en la consulta del usuario "+e.getMessage());
+						}
+						finally {
+							con.close();
+						}
+					
+				} else if (ti == 2) {
+					
+					System.out.println("Tipo " + ti);
+					String	sql1="INSERT INTO vendedor (idUsuarioFK) VALUES (?)";
+					
+					try {	
+						
+
+						con=c.conectar();//abrir conexión
+						
+						ps=con.prepareStatement(sql1); //preparación
+						
+						//ps.setInt(1,cl.getIdUsuarioFK().getIdUsuario());
+						ps.setInt(1,maxIdUsuario);
+									
+						System.out.println(ps);
+						ps.executeUpdate();//Ejecución sentencia
+						ps.close();//cerrar sentencia
+						System.out.println("Se registró una persona ");
+									
+
+					}catch(Exception e) {
+						System.out.println("Error en la consulta del usuario "+e.getMessage());
+					}
+					finally {
+						con.close();
+					}
+					
+				} else if (ti == 1) {
+					
+					System.out.println("Tipo " + ti);
+					String	sql1="INSERT INTO administrador (idUsuarioFK) VALUES (?)";
+					
+					try {	
+						
+
+						con=c.conectar();//abrir conexión
+						
+						ps=con.prepareStatement(sql1); //preparación
+						
+						//ps.setInt(1,cl.getIdUsuarioFK().getIdUsuario());
+						ps.setInt(1,maxIdUsuario);
+									
+						System.out.println(ps);
+						ps.executeUpdate();//Ejecución sentencia
+						ps.close();//cerrar sentencia
+						System.out.println("Se registró una persona ");
+									
+
+					}catch(Exception e) {
+						System.out.println("Error en la consulta del usuario "+e.getMessage());
+					}
+					finally {
+						con.close();
+					}
+				}
+		
+		
+		return r;
+	}
+	
 }
