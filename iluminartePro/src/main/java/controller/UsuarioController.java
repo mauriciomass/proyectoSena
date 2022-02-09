@@ -329,33 +329,36 @@ private void obtenerRoles(HttpServletRequest request) {
 }
 
 private void add(HttpServletRequest request, HttpServletResponse response) {
-	   
+	Usuario registroUsuario=new Usuario();
+	UsuarioDAO ud=new UsuarioDAO();
+	
     if(request.getParameter("tipodocumento")!=null && request.getParameter("tiporol")!=null && request.getParameter("nombre")!=null && 
        request.getParameter("apellido")!=null && request.getParameter("contrasena")!=null && request.getParameter("numero")!=null &&
        request.getParameter("direccion")!=null && request.getParameter("telefono")!=null && request.getParameter("correo")!=null ) {
        	TipoDocumento r = new TipoDocumento();
         r.setIdTipoDocumento(Integer.parseInt(request.getParameter("tipodocumento")));
-        u.setIdTipodeDocumentoFK(r);
+        
+        registroUsuario.setIdTipodeDocumentoFK(r);
         
     	TipoRol tr = new TipoRol();
     	tr.setIdRol(Integer.parseInt(request.getParameter("tiporol")));
-        u.setIdRolFK(tr);        
+    	registroUsuario.setIdRolFK(tr);        
         
-    	u.setNombreUsuario(request.getParameter("nombre"));    	
-    	u.setApellidoUsuario(request.getParameter("apellido"));
-    	u.setContrasenaUsuario(ud.MD5(request.getParameter("contrasena")));
-    	u.setNumerodeIdentificacionUsuario(request.getParameter("numero"));
-    	u.setDireccionUsuario(request.getParameter("direccion"));
-    	u.setTelefonoUsuario(request.getParameter("telefono"));
-    	u.setCorreoUsuario(request.getParameter("correo"));
+    	registroUsuario.setNombreUsuario(request.getParameter("nombre"));    	
+    	registroUsuario.setApellidoUsuario(request.getParameter("apellido"));
+    	registroUsuario.setContrasenaUsuario(ud.MD5(request.getParameter("contrasena")));
+    	registroUsuario.setNumerodeIdentificacionUsuario(request.getParameter("numero"));
+    	registroUsuario.setDireccionUsuario(request.getParameter("direccion"));
+    	registroUsuario.setTelefonoUsuario(request.getParameter("telefono"));
+    	registroUsuario.setCorreoUsuario(request.getParameter("correo"));
 
     	
     }
     if(request.getParameter("chkEstado")!=null) {
-    	u.setEstadoUsuario(true);
+    	registroUsuario.setEstadoUsuario(true);
     }
     else {
-    	u.setEstadoUsuario(false);
+    	registroUsuario.setEstadoUsuario(false);
     }
     
     String destinatario=request.getParameter("correo");
@@ -363,7 +366,7 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     String cuerpo="<h1> Gracias por registrarse en Iluminarte </h1>"
     		
     		//+ " <img src ='https://www.google.com/maps/uv?pb=!1s0x8e3f9fcf38f7cc9b%3A0x164d202916a48999!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMJzYZdNYjJ9v53Lm06UQrCwijddZr5G5Zx831h%3Dw292-h196-n-k-no!5siluminarte%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOfrS1O_T3Vijw20cXWHlU6EF4PHQsDvr7Q7HlU&hl=es#'/>"
-    		+ " <img src ='http://localhost/img/iluminarte.png'/>"
+    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte.png'/>"
     		+ " <h4> Para iniciar sesión </h4>"    			
     		+" <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>Haga click aquí</a>";
     try {
@@ -374,7 +377,7 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     }
     
     try{
-    	ud.registrar(u);
+    	ud.registrar(registroUsuario);
     	
     	
     	int persona = Integer.parseInt(request.getParameter("tiporol"));

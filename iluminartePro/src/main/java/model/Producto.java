@@ -71,7 +71,11 @@ public class Producto {
 	
 
 	public String getImagenProducto() {
-		return imagenProducto;
+		if("".equals(imagenProducto.trim())) {
+			return "https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte.png";
+		}
+		return "http://localhost/img/" + imagenProducto;
+		
 	}
 
 	public void setImagenProducto(String imagenProducto) {

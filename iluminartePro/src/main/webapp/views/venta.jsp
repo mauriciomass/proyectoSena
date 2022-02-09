@@ -92,7 +92,7 @@
 						</div>			
 								
 							<hr>
-																
+							   <img src='${producto.getImagenProducto()}'/>								
 							   <button type="submit" name="accion" value="Agregar" class="btn btn-outline-primary col text-center">Agregar</button>
 							
 												
