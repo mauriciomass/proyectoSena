@@ -92,8 +92,8 @@
 						</div>			
 								
 							<hr>
-							   <img src='${producto.getImagenProducto()}'/>								
-							   <button type="submit" name="accion" value="Agregar" class="btn btn-outline-primary col text-center">Agregar</button>
+							   <img src='${producto.getImagenProducto("SI")}'/>								
+							   <button id="Agregar" type="submit" name="accion" value="Agregar" class="btn btn-outline-primary col text-center">Agregar</button>
 							
 												
 						</div>
@@ -205,7 +205,26 @@ function validarStock(value){
 	}
 	
 };
-			
+
+function habilitar(){
+	
+	nomproducto = document.getElementById("nomproducto").value;
+	nombrescliente = document.getElementById("nombrescliente").value;
+	val = 0;
+	if(nomproducto ==""){
+		val++;
+	}
+	if(nombrescliente ==""){
+		val++;
+	}
+	
+	if(val==0){
+		document.getElementById("Agregar").disabled = false;
+	}else{
+		document.getElementById("Agregar").disabled = true;
+	}
+	
+}
 
 </script>
 

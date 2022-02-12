@@ -268,8 +268,12 @@ private void abrirForm(HttpServletRequest request, HttpServletResponse response)
 
 	private void Agregar(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		
+			
+		
 		try {
 		
+			if(request.getParameter("nomproducto")!=null ||  request.getParameter("nombrescliente")!=null) {
+			
 			this.obtenerNumeroSerie(request);
 			
 			request.setAttribute("c",u);
@@ -322,18 +326,28 @@ private void abrirForm(HttpServletRequest request, HttpServletResponse response)
 					
 			             	
 			System.out.println("Pedido buscado");
+			}else {
+				System.out.println("No agrego la información");
+			}
 		
 		}catch(Exception e){
             request.setAttribute("msje", "No agrego la información" + e.getMessage());
             System.out.println("No agrego la información" + e.getMessage());
-        }
+        	}
 		
-	}
+		}
+	
+	
+	
 	
 	private void GenerarVenta(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		
+		
+		
 		try {
 		
+			if(request.getParameter("nomproducto")!=null ||  request.getParameter("nombrescliente")!=null) {
+			
 			System.out.println("Entró a GenerarVenta");
 			
 
@@ -435,13 +449,18 @@ private void abrirForm(HttpServletRequest request, HttpServletResponse response)
 			System.out.println("Genero Venta");
 			
 			request.getRequestDispatcher("views/venta.jsp").forward(request, response);
+			
+			}else{
+				System.out.println("No hay información para generar la venta");
+			}
+
 		
 		}catch(Exception e){
             request.setAttribute("msje", "No hay información para agregar" + e.getMessage());
             System.out.println("No hay información para agregar" + e.getMessage());
-        }
+        	}
+		}
 		
-	}
 
 	private void obtenerNumeroSerie(HttpServletRequest request) throws SQLException {
 		numeroserie=pedao.GenerarSerie();

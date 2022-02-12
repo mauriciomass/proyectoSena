@@ -191,6 +191,8 @@ try {
     	
     	p.setStockProducto(Integer.parseInt(request.getParameter("stock")));
     	
+    	p.setCodProducto(request.getParameter("codProducto"));
+    	
     	Part part = request.getPart("imagen");
     	
 		  if(part == null) {
@@ -205,10 +207,7 @@ try {
 					
 					p.ImagenPhoto(imagenProd);
 				
-					
-					pro.registrar(p);
-					
-					
+										
 					
 				}
 		
@@ -219,7 +218,7 @@ try {
 			    	p.setEstadoProducto(false);
 			    }
 			 		
-				
+				pro.registrar(p);
 				
       }	
     }catch (Exception e) {
@@ -340,12 +339,8 @@ private void edit(HttpServletRequest request, HttpServletResponse response) thro
 						
 						p.ImagenPhoto(imagenProd);
 					
-						
-						pro.actualizar(p);
-						response.sendRedirect("ProductoController?accion=listar");
-					
-											
-					}
+																
+					}					
 	    	
 	 	 
 	    }
@@ -358,7 +353,10 @@ private void edit(HttpServletRequest request, HttpServletResponse response) thro
 	    
 	    p.setStockProducto(Integer.parseInt(request.getParameter("stock")));
 	   
+	    p.setCodProducto(request.getParameter("codProducto"));
 		
+	    pro.actualizar(p);
+		response.sendRedirect("ProductoController?accion=listar");
 		
 	}catch(Exception e) {
 		System.out.println("Producto NO actualizado "+e.getMessage());

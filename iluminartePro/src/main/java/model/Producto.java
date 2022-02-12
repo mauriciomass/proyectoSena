@@ -69,13 +69,26 @@ public class Producto {
 	}
 
 	
+   public String getImagenProducto() {		
+		
+		return imagenProducto;
+		
+	}
+	
 
-	public String getImagenProducto() {
+	public String getImagenProducto(String add) {		
+		
+		if(add != "SI") {
+		
 		if("".equals(imagenProducto.trim())) {
 			return "https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte.png";
-		}
+		}	
+		
 		return "http://localhost/img/" + imagenProducto;
 		
+		}else {
+		return this.getImagenProducto();
+		}
 	}
 
 	public void setImagenProducto(String imagenProducto) {
