@@ -2,10 +2,14 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,13 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Configmail;
-import model.Pedido;
-import model.TipoRol;
-import model.TipoRolDAO;
-
 import model.TipoDocumento;
 import model.TipoDocumentoDAO;
-
+import model.TipoRol;
+import model.TipoRolDAO;
 import model.Usuario;
 import model.UsuarioDAO;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -42,10 +43,27 @@ import net.sf.jasperreports.engine.util.JRLoader;
 @WebServlet("/UsuarioController")
 public class UsuarioController extends HttpServlet {
 	
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+	
+	private static final long serialVersionUID = 1L;
+	
+	Usuario u=new Usuario();
+	UsuarioDAO ud=new UsuarioDAO();
+	
 	private String host;
 	private String puerto;
 	private String remitente;
 	private String password;
+	private boolean validForm;
+	
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UsuarioController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 	
 	public void init() {
 		ServletContext contexto=getServletContext();
@@ -55,19 +73,8 @@ public class UsuarioController extends HttpServlet {
 		password=contexto.getInitParameter("password");
 	}
 	
-	
-	private static final long serialVersionUID = 1L;
-	
-	Usuario u=new Usuario();
-	UsuarioDAO ud=new UsuarioDAO();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UsuarioController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	       
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -141,8 +148,8 @@ public class UsuarioController extends HttpServlet {
                     case "edit":
                     	edit(request,response);
                     break;
-                    case "validarCorreo":
-                    	validarCorreo(request,response);
+                    case "validarFormulario":
+                    	validarFormulario(request,response);
                     break;
                     case "changeEstado":
                     	changeEstado(request,response);
@@ -160,7 +167,7 @@ public class UsuarioController extends HttpServlet {
             }
         } catch (Exception e) {
             try {
-                request.getRequestDispatcher("/mensaje.jsp").forward(request, response);
+                request.getRequestDispatcher("UsuarioController?accion=abrirForm").forward(request, response);
 
             } catch (Exception ex) {
                 System.out.println("Error" + e.getMessage());
@@ -292,6 +299,7 @@ private void abrirForm(HttpServletRequest request, HttpServletResponse response)
         try{
         	this.obtenerRoles(request);
         	this.obtenerTiposDocumentos(request);
+        	request.setAttribute("validForm", validForm);
             request.getRequestDispatcher("views/usuario-add.jsp").forward(request, response);
             System.out.println("formulario abierto");
         }catch(Exception e){
@@ -328,14 +336,16 @@ private void obtenerRoles(HttpServletRequest request) {
     }
 }
 
-private void add(HttpServletRequest request, HttpServletResponse response) {
+private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	Usuario registroUsuario=new Usuario();
 	UsuarioDAO ud=new UsuarioDAO();
+	 
 	
-    if(request.getParameter("tipodocumento")!=null && request.getParameter("tiporol")!=null && request.getParameter("nombre")!=null && 
+    if((request.getParameter("tipodocumento")!=null || request.getParameter("tipodocumento")!="Seleccione el tipo de documento") && (request.getParameter("tiporol")!=null || request.getParameter("tiporol")!="Seleccione un rol de usuario") && (request.getParameter("nombre")!=null || request.getParameter("nombre")!="") && 
        request.getParameter("apellido")!=null && request.getParameter("contrasena")!=null && request.getParameter("numero")!=null &&
-       request.getParameter("direccion")!=null && request.getParameter("telefono")!=null && request.getParameter("correo")!=null ) {
-       	TipoDocumento r = new TipoDocumento();
+       request.getParameter("direccion")!=null && request.getParameter("telefono")!=null &&  request.getParameter("correo")!=null) {
+       	
+    	TipoDocumento r = new TipoDocumento();
         r.setIdTipoDocumento(Integer.parseInt(request.getParameter("tipodocumento")));
         
         registroUsuario.setIdTipodeDocumentoFK(r);
@@ -351,30 +361,29 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     	registroUsuario.setDireccionUsuario(request.getParameter("direccion"));
     	registroUsuario.setTelefonoUsuario(request.getParameter("telefono"));
     	registroUsuario.setCorreoUsuario(request.getParameter("correo"));
-
     	
-    }
-    if(request.getParameter("chkEstado")!=null) {
-    	registroUsuario.setEstadoUsuario(true);
-    }
-    else {
-    	registroUsuario.setEstadoUsuario(false);
-    }
-    
-    String destinatario=request.getParameter("correo");
-    String asunto="BIENVENIDO A ILUMINARTE";
-    String cuerpo="<h1> Gracias por registrarse en Iluminarte </h1>"
-    		
-    		//+ " <img src ='https://www.google.com/maps/uv?pb=!1s0x8e3f9fcf38f7cc9b%3A0x164d202916a48999!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMJzYZdNYjJ9v53Lm06UQrCwijddZr5G5Zx831h%3Dw292-h196-n-k-no!5siluminarte%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOfrS1O_T3Vijw20cXWHlU6EF4PHQsDvr7Q7HlU&hl=es#'/>"
-    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte.png'/>"
-    		+ " <h4> Para iniciar sesión </h4>"    			
-    		+" <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>Haga click aquí</a>";
-    try {
-    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
-    	System.out.println("Se envió el mensaje al nuevo usuario");
-    }catch(Exception e) {
-    	System.out.println("Se produjo un error al enviar el mensaje al nuevo usuario "+e.getMessage());
-    }
+  
+	    if(request.getParameter("chkEstado")!=null) {
+	    	registroUsuario.setEstadoUsuario(true);
+	    }
+	    else {
+	    	registroUsuario.setEstadoUsuario(false);
+	    }
+	    
+		    String destinatario=request.getParameter("correo");
+		    String asunto="BIENVENIDO A ILUMINARTE";
+		    String cuerpo="<h1> Gracias por registrarse en Iluminarte </h1>"
+		    		
+		    		//+ " <img src ='https://www.google.com/maps/uv?pb=!1s0x8e3f9fcf38f7cc9b%3A0x164d202916a48999!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMJzYZdNYjJ9v53Lm06UQrCwijddZr5G5Zx831h%3Dw292-h196-n-k-no!5siluminarte%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOfrS1O_T3Vijw20cXWHlU6EF4PHQsDvr7Q7HlU&hl=es#'/>"
+		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte.png'/>"
+		    		+ " <h4> Para iniciar sesión </h4>"    			
+		    		+" <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>Haga click aquí</a>";
+		    try {
+		    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
+		    	System.out.println("Se envió el mensaje al nuevo usuario");
+		    }catch(Exception e) {
+		    	System.out.println("Se produjo un error al enviar el mensaje al nuevo usuario "+e.getMessage());
+		    }
     
     try{
     	ud.registrar(registroUsuario);
@@ -392,9 +401,11 @@ private void add(HttpServletRequest request, HttpServletResponse response) {
     }catch(Exception e){
         request.setAttribute("msje", "No se pudo registrar el usuario controller" + e.getMessage());
         System.out.println("No se pudo registrar el usuario controller" + e.getMessage());
-    }finally{
-    	//ud=null;
     }
+    
+   }else{
+	    response.sendRedirect("UsuarioController?accion=abrirForm");
+   }
 }
 
 private void eliminar(HttpServletRequest request, HttpServletResponse response) {
@@ -521,31 +532,197 @@ private void changeEstado(HttpServletRequest request, HttpServletResponse respon
  }
 
 
-private void validarCorreo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-	response.setContentType("text/html;charset=iso-8859-1");
-	PrintWriter out=response.getWriter();
+private void validarFormulario(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+  
+	  System.out.println("validarFormulario");
 	
-	 
+	  response.setContentType("text/html;charset=iso-8859-1");
+	  PrintWriter out=response.getWriter();
+	  
+	  String tipodocumento = request.getParameter("tipodocumento");
+	  
+	  System.out.println("tipodocumento "+tipodocumento);
+	  
+	  String tiporol = request.getParameter("tiporol");
+	  
+	  System.out.println("tiporol "+tiporol);
 	
-    try{
-        int cant=ud.validarCorreo(request.getParameter("correo"));
+	  String nombre = request.getParameter("nombre");
+		
+	  String email=request.getParameter("correo");
+	
+	  String apellido=request.getParameter("apellido");
+	  
+	  String numero=request.getParameter("numero");
+	  
+	  String direccion=request.getParameter("direccion");
+	  
+	  String contacto=request.getParameter("telefono");
+	  		
+		Matcher emailValidador = VALID_EMAIL_ADDRESS_REGEX.matcher(request.getParameter("correo"));
+		
+	
+		int cant=ud.validarCorreo(request.getParameter("correo"));
+		
+		int cantNumDocum=ud.validarNumeroDocumento(request.getParameter("numero"));
+		
+		
+	    	
         System.out.println("Entro por validar correo "+cant);
         
-        if(cant!=0) {
-        	System.out.println("El correo ya está registrado");
-        	out.println("El correo ya está registrado");
-        }else {
-        	System.out.println("Se ha validado su correo puede continuar con el registro");
+        if(!emailValidador.find() || email==null || email.isEmpty()) {
+        	System.out.println("El formato de correo es invalido");
+        	out.print("false;formatocorreo;El formato de correo es invalido");
+        	return;
         }
         
+        else if(cant!=0) {
+        	System.out.println("El correo ya está registrado");
+        	out.print("false;formatocorreo;El correo ya está registrado");
+        	return;
+        }
         
-    }catch(Exception e){
+        /*else if(tipodocumento == "0" ) {
+           	System.out.println("!No ha seleccionado alguna opcion!");
+           	out.print("false;formatotipodocumento;!No ha seleccionado alguna opcion!");
+           	return;
+           } 
+ 
+        else if(tiporol == "0") {
+           	System.out.println("!No ha seleccionado alguna opcion!");
+           	out.print("false;formatotiporol;!No ha seleccionado alguna opcion!");
+           	return;
+           }*/
         
-        System.out.println("No se pudo abrir el Cambio de Password" + e.getMessage());
-    }finally{
+        else if(nombre.trim().length() <= 1 || nombre.trim().length() > 50) {
+           	System.out.println("El formato del nombre es incorrecto");
+           	out.print("false;formatonombre;!Caracteres permitidos en el campo es 2 a 50!");
+           	return;
+           }        
         
-    }
+        else if(nombre == null || nombre.isEmpty() || validarTexto(nombre.trim()) == false) {
+           	System.out.println("¡Solo se admiten letras, por favor verificar!");
+           	out.print("false;formatonombre;¡Solo se admiten letras, por favor verificar!");
+           	return;
+           }
+        
+        else if(apellido.trim().length() <= 1 || apellido.trim().length() > 50) {
+           	System.out.println("!Caracteres permitidos en el campo es 2 a 50!");
+           	out.print("false;formatoapellido;!Caracteres permitidos en el campo es 2 a 50!");
+           	return;
+           }
+        
+        else if(apellido == null || apellido.isEmpty() || validarTexto(apellido.trim()) == false) {
+           	System.out.println("¡Solo se admiten letras, por favor verificar!");
+           	out.print("false;formatoapellido;¡Solo se admiten letras, por favor verificar!");
+	          	
+           	return;
+           }
+        
+        else if(cantNumDocum!=0) {
+        	System.out.println("El número de documento ya está registrado");
+        	out.print("false;formatonumdocum;¡El número de documento ya está registrado!");
+        	return;
+        }        
+ 
+        else if(numero.trim().length() < 1 || numero.trim().length() > 30) {
+           	System.out.println("!Numeros permitidos en el campo es 1 a 30!");
+           	out.print("false;formatonumdocum;!Numeros permitidos en el campo es 1 a 30!");
+           	return;
+           }
+        
+        else if(numero == null || numero.isEmpty() || validarNumeros(numero.trim()) == false) {
+           	System.out.println("¡Solo se admiten valores Númericos!");
+           	out.print("false;formatonumdocum;¡Solo se admiten valores Númericos!");
+           	return;
+           }
+        
+        else if(direccion.trim().length() < 1 || direccion.trim().length() > 50) {
+           	System.out.println("!Caracteres permitidos en el campo es 2 a 50!");
+           	out.print("false;formatodireccion;!Caracteres permitidos en el campo es 2 a 50!");
+           	return;
+           }
+        
+        else if(contacto.trim().length() < 2 || contacto.trim().length() > 40) {
+           	System.out.println("!Caracteres permitidos en el campo es 2 a 40!");
+           	out.print("false;formatocontacto;!Caracteres permitidos en el campo es 2 a 40!");
+           	return;
+           }
+       
+        else {
+        	out.print("true;!El formato de los campos es correcto¡");
+        	return;
+        }
+
 }
+
+//metodo para validar parametros de tipo int
+
+public static boolean validarNumeros(String datos) {
+	return datos.matches("[0-9]*");
+}
+
+public static boolean validarTexto(String datos) {
+	
+	    int length = 0;
+		int validaTextFalse = 0;             //variable captura el mensaje de error
+		String error = null;
+		
+		System.out.println("caracteres ascii "+datos);
+		
+		for (int x =0; x < datos.length(); x++) {
+			
+
+
+	        byte[] bytes = datos.getBytes(StandardCharsets.US_ASCII);
+	        System.out.println("ASCII Numeric Value: "+bytes[x] + " pertenece a letra " + datos.charAt(x));
+	        
+	    if ((bytes[x] == 32) || (bytes[x] == 63) || (bytes[x] >= 65 && bytes[x] <= 90) || (bytes[x]>= 97 && bytes[x] <= 122) || (bytes[x] >= 160 && bytes[x] <= 165)) {
+
+	    	
+	    	System.out.println("Caracter está dentro de los valores permitidos ");
+	    	
+	   	}else {
+	   			
+	   		validaTextFalse++;
+	   		System.out.println("Caracter está fuera de los valores permitidos ");
+	   		error="Caracter no permitido";
+	   	}
+        
+        		
+     length = (x + 1); // Cuenta la longitud del nombre
+
+    }
+		
+	if (length <= 1 || length > 50) {                // Revisa la longitud minima o maxima del campo
+		validaTextFalse=validaTextFalse+1;
+			System.out.println("no cumple con el mínimo o maximo de caracteres permitidos en el campo!");
+			error =error + " y el largo de caracteres permitidos en el campo";
+		}
+	
+	if (validaTextFalse >= 1){
+		
+		System.out.println("Texto ingresado tiene " + validaTextFalse + " errores en " + error);
+		
+		return false;
+	}else {
+		
+		System.out.println("Texto ingresado tiene " + validaTextFalse + " errores en " + error);
+	
+		return true;
+	}
+	
+	
+}
+
+
+public boolean getValidForm() {
+	return validForm;
+}
+
+public void setValidForm(boolean validForm) {
+	this.validForm = validForm;
+}
+
 
 }

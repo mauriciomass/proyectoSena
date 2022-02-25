@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAO {
+	
+	
 
 	Connection con; //objeto de conexión
 	PreparedStatement ps; //objeto para sentencias preparadas
@@ -302,6 +304,31 @@ public class UsuarioDAO {
 		return total;
 	}
 	
+	public int validarNumeroDocumento(String numeroDocumento) throws SQLException {
+		 sql="SELECT COUNT(*) AS cant FROM usuario WHERE numeroIdentificacionUsuario='"+ numeroDocumento +"'";
+			
+			int total=0;
+			try {
+				con=c.conectar();
+				ps=con.prepareStatement(sql);
+				System.out.println("La consulta es " + ps);
+				rs=ps.executeQuery();
+				
+				while(rs.next()) {
+					total=rs.getInt("cant");
+				}
+				
+				System.out.println("El total de registros es "+total);
+			}catch(Exception e) {
+				System.out.println("Error en la verificación del usuario "+e.getMessage());
+			}
+			finally {
+				con.close();
+			}
+			return total;
+		}
+	
+	
 	public Usuario buscar(String numero) throws SQLException {
 		Usuario u=new Usuario();
 		sql="SELECT * FROM usuario WHERE numeroIdentificacionUsuario="+numero;
@@ -480,5 +507,6 @@ public class UsuarioDAO {
 		
 		return r;
 	}
+	
 	
 }
