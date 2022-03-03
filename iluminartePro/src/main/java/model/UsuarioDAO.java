@@ -1,11 +1,15 @@
 package model;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+
 
 public class UsuarioDAO {
 	
@@ -142,13 +146,74 @@ public class UsuarioDAO {
 
 	
 	public void eliminar(int id) throws SQLException {
-		sql="DELETE FROM usuario WHERE idUsuario="+id;
+		
+		sql="SELECT idRolFK FROM usuario WHERE idUsuario ="+id;
+		
+		int consulRol = 0;
+		
 		System.out.println(sql);
 		try {
 			con=c.conectar();
 			ps=con.prepareStatement(sql);
-			ps.executeUpdate();
+			rs=ps.executeQuery();
+			//procesamos el resultado de la consulta
+
+					
+			while(rs.next()) {
+				
+				consulRol=rs.getInt(1);
+				System.out.println("Tipo de rol del usuario es "+consulRol);
+			}			
 			ps.close();
+			
+			if(consulRol == 1) {
+				
+				String sql1="DELETE administrador.* FROM administrador INNER JOIN usuario ON usuario.idUsuario=administrador.idUsuarioFK WHERE idUsuarioFK="+id;
+				
+				System.out.println(sql1);
+				
+				con=c.conectar();
+				ps=con.prepareStatement(sql1);
+				ps.executeUpdate();
+				ps.close();
+				System.out.println("Se eliminó el usuario administrador");
+			}
+			
+			else if(consulRol == 2) {
+				
+				String sql2="DELETE vendedor.* FROM vendedor INNER JOIN usuario ON usuario.idUsuario=vendedor.idUsuarioFK WHERE idUsuarioFK="+id;
+				
+				System.out.println(sql2);
+				
+				con=c.conectar();
+				ps=con.prepareStatement(sql2);
+				ps.executeUpdate();
+				ps.close();
+				System.out.println("Se eliminó el usuario vendedor");
+			}
+			
+			else if(consulRol == 3) {
+				
+				String sql3="DELETE cliente.* FROM cliente INNER JOIN usuario ON usuario.idUsuario=cliente.idUsuarioFK WHERE idUsuarioFK="+id;
+				
+				System.out.println(sql3);
+				
+				con=c.conectar();
+				ps=con.prepareStatement(sql3);
+				ps.executeUpdate();
+				ps.close();
+				System.out.println("Se eliminó el usuario cliente");
+			}
+			
+			
+			String sqlFinal="DELETE FROM usuario WHERE idUsuario="+id;
+			
+			System.out.println(sqlFinal);
+			
+			con=c.conectar();
+			ps=con.prepareStatement(sqlFinal);
+			ps.executeUpdate();
+			ps.close();			
 			System.out.println("Se eliminó el usuario");
 		}catch(Exception e) {
 			System.out.println("Error en la eliminación del registro "+e.getMessage());
@@ -156,6 +221,8 @@ public class UsuarioDAO {
 		finally {
 			con.close();
 		}
+		
+	
 	}
 	
 	public Usuario consultaporId(int id) throws SQLException {
@@ -506,6 +573,47 @@ public class UsuarioDAO {
 		
 		
 		return r;
+	}
+	
+  public static String upperCaseFirst(String val) {
+	  char[] arr = val.toCharArray();
+				
+		System.out.println("caracteres ascii "+val);
+		
+		for (int x =0; x < val.length(); x++) {
+			
+
+
+	        byte[] bytes = val.getBytes(StandardCharsets.US_ASCII);
+	        
+	        System.out.println("ASCII Numeric Value: "+bytes[x] + " pertenece a letra " + val.charAt(x));
+	        
+	    if (bytes[x] >= 97 && bytes[x] <= 122) {	    	
+	    	
+	        arr[x] = Character.toUpperCase(arr[x]);
+	        System.out.println("Caracter que se paso a mayuscula es " + arr[x]);
+	        
+	        break;
+	    }
+	    
+	}
+
+      return new String(arr);
+   }
+	
+	public String claves_aleatorias() {
+		   String clave;
+			
+			System.out.println(UUID.randomUUID().toString());
+			
+			clave =UUID.randomUUID().toString().substring(0,20);
+			
+			clave = clave.replace("-", "!");
+			
+			clave=upperCaseFirst(clave);
+			
+			return clave;
+
 	}
 	
 	

@@ -46,10 +46,19 @@ public class UsuarioController extends HttpServlet {
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
 			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 	
+	
+	public static final Pattern VALID_PASSWORD_REGEX = 
+			Pattern.compile("^.*(?=.{8,})(?=.*\\\\d)(?=.*[a-z])(?=.*[A-Z])(^[a-zA-Z0-9@\\\\$=!:.#%]+$)", Pattern.CASE_INSENSITIVE);
+	
+	
+	
+	
 	private static final long serialVersionUID = 1L;
 	
 	Usuario u=new Usuario();
 	UsuarioDAO ud=new UsuarioDAO();
+	
+	
 	
 	private String host;
 	private String puerto;
@@ -71,6 +80,12 @@ public class UsuarioController extends HttpServlet {
 		puerto=contexto.getInitParameter("puerto");
 		remitente=contexto.getInitParameter("remitente");
 		password=contexto.getInitParameter("password");
+		//password=contexto.getInitParameter(ud.claves_aleatorias());
+	}
+	
+	public static boolean validarPassword(String datos) {
+		
+		return datos.matches("^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(^[a-zA-Z0-9@\\$=!:.#%]+$)");
 	}
 	
 	       
@@ -105,7 +120,15 @@ public class UsuarioController extends HttpServlet {
                 			if(u.getCorreoUsuario()!=null && u.isEstadoUsuario()==true) {
                 				System.out.println("El DAO encontró el usuario y está activo.");
                 				session.setAttribute("usua", u);
-                				response.sendRedirect("UsuarioController?accion=listar");
+
+                				int roles=u.getIdRolFK().getIdRol();
+                				
+                				if(roles == 3) {
+                					response.sendRedirect("UsuarioController?accion=abrirchangepass");
+                				}else {
+                					response.sendRedirect("UsuarioController?accion=listar");
+                				}                				
+                				
                 			}else if(u.getCorreoUsuario()!=null && u.isEstadoUsuario()==false) {
                 				System.out.println("El DAO encontró el usuario y está inactivo.");
                 				request.getRequestDispatcher("UsuarioController?accion=abrirLogin&msn=Usuario inactivo, por favor consulte al administrador.").forward(request, response);
@@ -124,9 +147,53 @@ public class UsuarioController extends HttpServlet {
                 	case "abrirchangepass":
                 		abrirchangepass(request, response);
                 		break;
+                	case "changePasswordVal":                		
+                		System.out.println("Ingresa por cambio de contraseña");
+                		
+                		String passant=ud.MD5(request.getParameter("passant"));
+            			System.out.println("Contraseña antigua " + passant);
+            			
+            			String passbd=request.getParameter("passbd");
+            			System.out.println("Contraseña base de datos " + passbd);
+            			
+            			            			
+            			String valPassNew =request.getParameter("passnew");            			
+            			System.out.println(validarPassword(valPassNew.trim()));
+            			
+            			String PassNew =ud.MD5(request.getParameter("passnew"));
+            			System.out.println(PassNew.trim());
+                		
+                		try {
+                		  response.setContentType("text/html;charset=UTF-8");
+                		  PrintWriter out=response.getWriter();
+                		  
+                		  
+                		  
+                			if (!passant.trim().equals(passbd.trim())){
+                				System.out.println("!Su contraseña no coincide con la registrada,intente nuevamente¡");
+                	        	out.print("false;formatocontrasena;!Su contraseña no coincide con la registrada,intente nuevamente¡");
+                			}
+                			else if(validarPassword(valPassNew.trim()) == false){               				
+                				
+                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito y opcional un caracter especial y un largo minimo de 8 caracteres");
+                	        	out.print("false;formatopassnew;!Al menos debe tener una letra mayúscula, una minúscula,un digito y opcional un caracter especial y un largo minimo de 8 caracteres¡");
+                			}                	        
+                			else{
+                				
+                				out.print("true;!Se ha verificado su contraseña correctamente¡");
+                				              				
+                				
+                 			}             			
+                			
+                			
+                		}catch (Exception ex) {
+                            System.out.println("Error" + ex.getMessage());
+                        }               		   
+                		
+                		
+                		break;
                 	case "changePassword":
                 		changePassword(request, response);
-                		break;
                 	case "verPerfil":
                 		verPerfil(request, response);
                 		break;
@@ -345,6 +412,9 @@ private void add(HttpServletRequest request, HttpServletResponse response) throw
        request.getParameter("apellido")!=null && request.getParameter("contrasena")!=null && request.getParameter("numero")!=null &&
        request.getParameter("direccion")!=null && request.getParameter("telefono")!=null &&  request.getParameter("correo")!=null) {
        	
+    	String valorClave=ud.claves_aleatorias();
+    	
+    	
     	TipoDocumento r = new TipoDocumento();
         r.setIdTipoDocumento(Integer.parseInt(request.getParameter("tipodocumento")));
         
@@ -356,7 +426,8 @@ private void add(HttpServletRequest request, HttpServletResponse response) throw
         
     	registroUsuario.setNombreUsuario(request.getParameter("nombre"));    	
     	registroUsuario.setApellidoUsuario(request.getParameter("apellido"));
-    	registroUsuario.setContrasenaUsuario(ud.MD5(request.getParameter("contrasena")));
+    	//registroUsuario.setContrasenaUsuario(ud.MD5(request.getParameter("contrasena")));
+    	registroUsuario.setContrasenaUsuario(ud.MD5(valorClave));    	
     	registroUsuario.setNumerodeIdentificacionUsuario(request.getParameter("numero"));
     	registroUsuario.setDireccionUsuario(request.getParameter("direccion"));
     	registroUsuario.setTelefonoUsuario(request.getParameter("telefono"));
@@ -370,15 +441,25 @@ private void add(HttpServletRequest request, HttpServletResponse response) throw
 	    	registroUsuario.setEstadoUsuario(false);
 	    }
 	    
+	    	String nombreUsuario= request.getParameter("nombre");
+	    	String apellidoUsuario = request.getParameter("apellido");
+	    
 		    String destinatario=request.getParameter("correo");
 		    String asunto="BIENVENIDO A ILUMINARTE";
-		    String cuerpo="<h1> Gracias por registrarse en Iluminarte </h1>"
-		    		
+		    String cuerpo="<h1> Hola " + nombreUsuario + " " + apellidoUsuario + " Gracias por registrarse en Iluminarte </h1>"
+		    		+ "<h2> Para cambiar su clave realice los siguientes pasos: </h2>"
+		    		+ "<h3> 1. Su clave es asignada es : </h3>"
+		    		+ "<label> " + valorClave +  "</label>"
+		    		+ "<br> <br>"		    		
 		    		//+ " <img src ='https://www.google.com/maps/uv?pb=!1s0x8e3f9fcf38f7cc9b%3A0x164d202916a48999!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMJzYZdNYjJ9v53Lm06UQrCwijddZr5G5Zx831h%3Dw292-h196-n-k-no!5siluminarte%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOfrS1O_T3Vijw20cXWHlU6EF4PHQsDvr7Q7HlU&hl=es#'/>"
-		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte.png'/>"
-		    		+ " <h4> Para iniciar sesión </h4>"    			
-		    		+" <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>Haga click aquí</a>";
+		    		//+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte.png'/>"
+		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>"
+		    		
+		    		+ "<br> <br>"
+		    		+ " <h3> 2. Para iniciar sesión debe cambiar la clave asignada en el siguente  </h3>"    			
+		    		+ " <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>enlace</a>";
 		    try {
+		    	//Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
 		    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
 		    	System.out.println("Se envió el mensaje al nuevo usuario");
 		    }catch(Exception e) {
@@ -411,7 +492,7 @@ private void add(HttpServletRequest request, HttpServletResponse response) throw
 private void eliminar(HttpServletRequest request, HttpServletResponse response) {
 	
     if(request.getParameter("id")!=null) {
-    	u.setIdUsuario(Integer.parseInt(request.getParameter("id")));
+    	u.setIdUsuario(Integer.parseInt(request.getParameter("id")));    	
     }
     try{
     	ud.eliminar(u.getIdUsuario());
@@ -489,27 +570,59 @@ private void edit(HttpServletRequest request, HttpServletResponse response) {
 	
 }
 
-private void changePassword(HttpServletRequest request, HttpServletResponse response) {
+private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	if(request.getParameter("id")!=null &&  request.getParameter("passnew")!=null) {
-		
-		u.setIdUsuario(Integer.parseInt(request.getParameter("id")));
-		
-		u.setContrasenaUsuario(request.getParameter("passnew"));
-    	
-    }
+	System.out.println("Entra por changePassword");
 
-	try {
-		ud.changePassword(u);
-		response.sendRedirect("UsuarioController?accion=logout");
+		if(request.getParameter("passnew")!=null) {
+			
+						
+			u.setIdUsuario(Integer.parseInt(request.getParameter("id")));
+			
+			u.setContrasenaUsuario(ud.MD5(request.getParameter("passnew")));
+			
+						
+			System.out.println("captura datos");
+	    	
+	   
+
+		try {
+			ud.changePassword(u);
+			
+			String nombreUsuario= request.getParameter("nombre");
+	    	String apellidoUsuario = request.getParameter("apellido");
+						
+		    String destinatario=request.getParameter("correo");
+		    String asunto="BIENVENIDO A ILUMINARTE";
+		    String cuerpo="<h1>Hola " + nombreUsuario + " " + apellidoUsuario + " Gracias por usar nuestros servicios en Iluminarte </h1>"
+		    		+ "<h2> !Permitenos informarte que haz cambiado tu clave¡ </h2>"
+		    		+ "<br> <br>"		    		
+		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>"
+		    		+ "<br> <br>"
+		    		+ " <h3> 2. Inicie sesión en el siguente  </h3>"    			
+		    		+ " <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>enlace</a>";
+		    try {
+		    	//Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
+		    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
+		    	System.out.println("Se envió el mensaje al nuevo usuario");
+		    }catch(Exception e) {
+		    	System.out.println("Se produjo un error al enviar el mensaje al nuevo usuario "+e.getMessage());
+		    }
+		    
+		    response.sendRedirect("UsuarioController?accion=logout");
+			
+			
+		}catch(Exception e) {
+			System.out.println("Contraseña no actualizada "+e.getMessage());
+		}
+        	
+	}else {
+		System.out.println("Contraseña no actualizada hay algún tipo de dato inválido ");
 		
-		
-	}catch(Exception e) {
-		System.out.println("Contraseña NO actualizada "+e.getMessage());
 	}
 
-	
-}
+ }
+    	
 
 
 private void changeEstado(HttpServletRequest request, HttpServletResponse response) {
@@ -534,14 +647,17 @@ private void changeEstado(HttpServletRequest request, HttpServletResponse respon
 
 private void validarFormulario(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
   
-	  System.out.println("validarFormulario");
+	  System.out.println("validarFormulario de registrar usuario");
 	
-	  response.setContentType("text/html;charset=iso-8859-1");
+	  response.setContentType("text/html;charset=UTF-8");
 	  PrintWriter out=response.getWriter();
 	  
 	  String tipodocumento = request.getParameter("tipodocumento");
+	    
 	  
 	  System.out.println("tipodocumento "+tipodocumento);
+	  
+	  
 	  
 	  String tiporol = request.getParameter("tiporol");
 	  
@@ -582,17 +698,17 @@ private void validarFormulario(HttpServletRequest request, HttpServletResponse r
         	return;
         }
         
-        /*else if(tipodocumento == "0" ) {
+        else if(tipodocumento.equals("0")) {
            	System.out.println("!No ha seleccionado alguna opcion!");
            	out.print("false;formatotipodocumento;!No ha seleccionado alguna opcion!");
            	return;
            } 
  
-        else if(tiporol == "0") {
+        else if(tiporol.equals("0")) {
            	System.out.println("!No ha seleccionado alguna opcion!");
            	out.print("false;formatotiporol;!No ha seleccionado alguna opcion!");
            	return;
-           }*/
+           }
         
         else if(nombre.trim().length() <= 1 || nombre.trim().length() > 50) {
            	System.out.println("El formato del nombre es incorrecto");
@@ -723,6 +839,8 @@ public boolean getValidForm() {
 public void setValidForm(boolean validForm) {
 	this.validForm = validForm;
 }
+
+
 
 
 }

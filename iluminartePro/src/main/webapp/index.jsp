@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,7 +144,7 @@
         <b><br>        
         <b>Oficinas:</b><br>
             <b>Carrera 26A N. 39 - 71 <br>
-            <b>Bogotá - Colombia<br>
+            <b>BogotÃ¡ - Colombia<br>
               <p style="margin-top:10px;margin-bottom:0px;margin-left:-40px"><i class="flaticon-phone-call-2" style="padding-right:15px"></i><a class="rtin-content" href="tel:(601)7946664">(+601) 794 66 64</a></p>
               <p style="margin-top:10px;margin-bottom:0px;margin-left:-40px"><i class="flaticon-phone-call-2" style="padding-right:15px"></i><a class="rtin-content" href="tel:(601)7946664">(+57) 319 695 61 25</a></p>
               <p style="margin-top:10px;margin-bottom:0px;margin-left:-25px"><i class="flaticon-envelope"></i><a class="rtin-content" href="mailto:contactanos@lumenconcept.com">contactanos@iluminarte.com</a></p>
@@ -160,12 +160,12 @@
 
   <ul class="nav_menu-2">
 
-    <p><h3>Información:</h3></p>
+    <p><h3>InformaciÃ³n:</h3></p>
     <li><a href="https://lumenconcept.com/nosotros/">Nosotros</a></li>
     <li><a href="https://lumenconcept.com/nosotros/">Servicios</a></li>
-    <li><a href="https://lumenconcept.com/nosotros/">Proyectos de Iluminación</a></li>
+    <li><a href="https://lumenconcept.com/nosotros/">Proyectos de IluminaciÃ³n</a></li>
     <li><a href="https://lumenconcept.com/nosotros/">Cotizaciones</a></li>
-    <li><a href="https://lumenconcept.com/nosotros/">Contáctanos</a></li>
+    <li><a href="https://lumenconcept.com/nosotros/">ContÃ¡ctanos</a></li>
 
   </ul>
 
@@ -180,7 +180,7 @@
     <div class="container">
       <div class="footer-bottom-inner">
         <div class="copyright-area">
-          <div class="copyright-text">© Copyright Iluminarte 2021.<a target="_blank" href="#"></a></div>
+          <div class="copyright-text">Â© Copyright Iluminarte 2021.<a target="_blank" href="#"></a></div>
         </div>
         <div class="copyright-area">							
                           <ul class="footer-social">
