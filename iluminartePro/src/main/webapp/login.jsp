@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es-ES">
+<html lang="es">
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Ingreso - Registro</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -43,14 +43,14 @@
 
             <div class="caja__trasera">
                 <div class="caja__trasera-login">
-                    <h3>¿Ya tienes cuenta?</h3>
-                    <p>Inicia sesión para entrar en la página</p>
-                    <button id="btn__iniciar-sesion">Iniciar sesión</button>
+                    <h3>Â¿Ya tienes cuenta?</h3>
+                    <p>Inicia sesiÃ³n para entrar en la pÃ¡gina</p>
+                    <button id="btn__iniciar-sesion">Iniciar sesiÃ³n</button>
                 </div>
                 <div class="caja__trasera-register">
-                    <h3>¿Aún no tienes cuenta?</h3>
-                    <p>Regístrate para que puedas iniciar sesión</p>
-                    <button id="btn__registrarse">Regístrarte</button>
+                    <h3>Â¿AÃºn no tienes cuenta?</h3>
+                    <p>RegÃ­strate para que puedas iniciar sesiÃ³n</p>
+                    <button id="btn__registrarse">RegÃ­strarte</button>
                 </div>
             </div>
 
@@ -59,10 +59,10 @@
 
                 <!--Login-->
                 <form action="UsuarioController?accion=login" class="formulario__login" method="POST">
-                    <h2>Iniciar sesión</h2>
-                    <input type="text" name="correo" placeholder="Correo electrónico" >
-                    <input type="password" name="password" placeholder="Contraseña">
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <h2>Iniciar sesiÃ³n</h2>
+                    <input type="text" name="correo" placeholder="Correo electrÃ³nico" >
+                    <input type="password" name="password" placeholder="ContraseÃ±a">
+                    <button type="submit" class="btn btn-primary">Iniciar SesiÃ³n</button>
                     <p>
                     	<%
                     	if(request.getParameter("msn")!=null){
@@ -70,17 +70,22 @@
                     	}
                     	%>
                     </p>
+                                        
+                    <div>
+                                       
+                    	<a href ="ForgetPasswordController?accion=abrirFormForgetPassword" role="button" style = "padding:0px 0px 0px 0px"> Â¿OlvidÃ³ su contraseÃ±a? </a>
+                    </div>
                 </form>
 
                 <!--Registro-->
                 <form action="" class="formulario__register">
-                    <h2>Regístrate</h2>
+                    <h2>RegÃ­strate</h2>
                     <input type="text" placeholder="Nombres">
                     <input type="text" placeholder="Apellidos">
-                    <input type="text" placeholder="Correo electrónico">
-                    <input type="password" placeholder="Contraseña">
-                    <input type="password" placeholder="Confirmar contraseña">
-                    <button>Regístrarse</button>
+                    <input type="text" placeholder="Correo electrÃ³nico">
+                    <input type="password" placeholder="ContraseÃ±a">
+                    <input type="password" placeholder="Confirmar contraseÃ±a">
+                    <button>RegÃ­strarse</button>
                 </form>
             </div>
         </div>

@@ -10,6 +10,7 @@
   <form method="post" action="UsuarioController?accion=edit">
   	
   	<input type="hidden" class="form-control" name="id" value="${user.idUsuario}"/>
+  	<input type="hidden" class="form-control" name="contrasena" id="contrasena" value="${user.contrasenaUsuario}"/>
  	
   	<div class="form-group">
   	  <label>Tipo Documento</label>
@@ -55,11 +56,6 @@
   	<div class="form-group">
   		<label for="apellido">Apellido</label>
   		<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese el Apellido" value="${user.apellidoUsuario}"/>
-  	</div>
-  	
-  	<div class="form-group">
-  		<label for="contrasena">Contrasena</label>
-  		<input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="Ingrese la contrasena" value="${user.contrasenaUsuario}"/>
   	</div>
   	
   	 <div class="form-group">

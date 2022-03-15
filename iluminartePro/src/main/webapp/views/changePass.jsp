@@ -1,55 +1,73 @@
 <%@include file="header.jsp" %>
 <%@page session="true"%>
 
-<div class="mdl-tabs__tab-bar">
- 
- <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
-	<div class="full-width panel mdl-shadow--5dp">
+
+<div class="d-flex justify-content-center align-items-center">
+
+	
+	<div class="col-sm-3">
+			
+			
+	 <div class="card">
+				
+		<div class="card-body">
 
   
-  <h1>Cambiar Contraseña</h1>
-  
- <form method="post" action="UsuarioController?accion=changePassword" >
-  	
-	  	<input type="hidden" class="form-control" name="id" id="id" value="${usua.idUsuario}"/>
-	  	<input type="hidden" class="form-control" name="passbd" id="passbd" value="${usua.contrasenaUsuario}"/>
-	  	<input type="hidden" class="form-control" name="correo" id="correo" value="${usua.correoUsuario}"/>
-	  	<input type="hidden" class="form-control" name="nombre" id="nombre" value="${usua.nombreUsuario}"/>
-	  	<input type="hidden" class="form-control" name="apellido" id="apellido" value="${usua.apellidoUsuario}"/>
-	  	
-	  	
-	  	<div class="form-group">
-	  		<label for="passant">Contrasena Anterior</label>
-	  		<input type="password" class="form-control" name="passant" id="passant" placeholder="Ingrese la contrasena Anterior" onchange="verifypass()"/>
-	  	</div>
-	  	
-	  	<div id="passantVal" class="text-danger"> </div>
-	  	
-	  	 
-	  	 
-	  	
-	  	<div class="form-group">
-	  		<label for="passnew">Contrasena Nueva</label>
-	  		<input type="password" class="form-control" name="passnew" id="passnew" placeholder="Ingrese la contrasena Nueva" onchange="verifypass()"/>
-	  	</div>
-	  	  		
-		<div id="passnewVal" class="text-danger"> </div>
-		<div id="passVal" class="text-danger"> </div> 
-
-	
-	<div>
-		<button type="submit" class="btn btn-success btn-sm" id="guardarContrasena" disabled="disabled">Cambiar Contraseña</button>
-	</div>
-	
-	
-	
- </form>
-	</div>
- 
-
-  </div> 
-</div>
-
+		  <h1>Cambiar Contraseña</h1>
+		  
+		 <form method="post" action="UsuarioController?accion=changePassword" >
+		  	
+			  	<input type="hidden" class="form-control" name="id" id="id" value="${usua.idUsuario}"/>
+			  	<input type="hidden" class="form-control" name="passbd" id="passbd" value="${usua.contrasenaUsuario}"/>
+			  	<input type="hidden" class="form-control" name="correo" id="correo" value="${usua.correoUsuario}"/>
+			  	<div class="form-group">
+			  		<label for="nombre">Nombre</label>
+			  			<input type="text" class="form-control" name="nombre" id="nombre" value="${usua.nombreUsuario}" disabled="disabled"/>
+			  	</div>
+			    <div class="form-group">
+			  		<label for="apellido">Apellido</label>
+			  			<input type="text" class="form-control" name="apellido" id="apellido" value="${usua.apellidoUsuario}" disabled="disabled"/>
+			  	</div>
+			  	
+			  	<div class="form-group">
+			  		<label for="passant">Contraseña Anterior</label>
+			  		<input type="password" class="form-control" name="passant" id="passant" placeholder="Ingrese la contraseña Anterior" onchange="verifypass()"/>
+			  	</div>
+			  	
+			  	<div id="passantVal" class="text-danger"> </div>
+			  	 
+			  	
+			  	<div class="form-group">
+			  		<label for="passnew">Contraseña Nueva</label>
+			  		<input type="password" class="form-control" name="passnew" id="passnew" placeholder="Ingrese la contraseña Nueva" onchange="verifypass()"/>
+			  	</div>
+			  	
+			  	<div id="passnewVal" class="text-danger"> </div>
+			  	
+			  	<div class="form-group">
+			  		<label for="passnewrep">Validar Contraseña Nueva</label>
+			  		<input type="password" class="form-control" name="passnewrep" id="passnewrep" placeholder="Vuelva a Ingresar su contraseña Nueva" onchange="verifypass()"/>
+			  	</div>
+			  	  
+			  	<div id="passnewrepVal" class="text-danger"> </div>		
+				
+				<div id="passVal" class="text-info"> </div> 
+		
+			
+			<div>
+				<button type="submit" class="btn btn-success btn-sm" id="guardarContrasena" disabled="disabled" onclick="guardar()">Cambiar Contraseña</button>
+			</div>
+			
+			
+			
+			 </form>
+				</div>
+			 
+			
+			  </div> 
+			</div>
+		</div>
+	 	
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -59,17 +77,21 @@
 function verifypass(){
 	const passant=document.getElementById("passant").value;
 	const passbd=document.getElementById("passbd").value;
-	const passnew=document.getElementById("passnew").value;	
+	const passnew=document.getElementById("passnew").value;
+	const passnewrep=document.getElementById("passnewrep").value;
+	
 	const guardarContrasena=document.getElementById("guardarContrasena");
 	console.log(passant)
 	console.log(passbd)
 	console.log(passnew)
+	console.log(passnewrep)
 	$.ajax({
 		  url: "UsuarioController?accion=changePasswordVal",
 		  data: {
 			  passant:passant,
 			  passbd:passbd,
-			  passnew:passnew
+			  passnew:passnew,
+			  passnewrep:passnewrep
 		  },
 		  success: function(resultpass) {
 			  partespass= resultpass.split(";");
@@ -77,14 +99,21 @@ function verifypass(){
 	  		  $("#passantVal").html("");	
 		      $("#passVal").html("");
 		      $("#passnewVal").html("");
+		      $("#passnewrepVal").html("");
 			  if (partespass[0]=="false" && partespass[1] =="formatocontrasena"){
-					  $("#passantVal").html( "<strong>" + partespass[2] + "</strong>" );
+					  $("#passantVal").html( "<small>" + partespass[2] + "</small>" );
 					  $('#guardarContrasena').attr('disabled', 'disabled');
 					  						  
 				  }
 			  
 			  else if (partespass[0]=="false" && partespass[1] =="formatopassnew"){				  					  
 				  $('#passnewVal').html( "<small>" + partespass[2] + "</small>" );
+				  $('#guardarContrasena').attr('disabled', 'disabled');
+				  
+			  }
+			  
+			  else if (partespass[0]=="false" && partespass[1] =="formatopassnewrep"){				  					  
+				  $('#passnewrepVal').html( "<small>" + partespass[2] + "</small>" );
 				  $('#guardarContrasena').attr('disabled', 'disabled');
 				  
 			  }

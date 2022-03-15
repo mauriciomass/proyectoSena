@@ -19,7 +19,7 @@
   
   <h1>Registro de Usuarios</h1>
   
-  <form method="post" action="UsuarioController?accion=add" novalidate >
+  <form method="post" action="UsuarioController?accion=add" id="formul" novalidate >
   	
 
 	<div class="form-group">
@@ -112,8 +112,8 @@
 <div id="formVal" class="small text-info"> </div>
 
 <div class="d-flex justify-content-end">
-	<button type="submit" class="btn btn-secondary btn-sm">Cancelar</button>
-	<button type="submit" class="btn btn-success btn-sm" id="guardarUsuario" disabled="disabled">Guardar</button>
+	<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar" onclick="reasignValores()">Cancelar</button>
+	<button type="submit" class="btn btn-success btn-sm" id="guardarUsuario" disabled="disabled" onclick="guardar()">Guardar</button>
 </div>
   
   </form>
@@ -297,13 +297,36 @@ function verifyCorreo(){
 				      $("#contactoVal").html("");
 				      $("#tipoDocVal").html("");
 				      $("#tipoRolVal").html("");
-
+				      
 				  }
 				  
 			   }
-			});
+				      
+		});
 };
 
+
+
+
+/*function reasignValores() {
+	let contenedor = document.querySelector('reset');
+	let cajas      = document.querySelectorAll('.form-control');
+    contenedor.addEventListener('click', (event) => {
+    event.preventDefault();
+    cajas.forEach(caja => caja.value = '');
+    cajas[0].focus();
+  });   
+};*/
+
+function reasignValores() {
+	
+	for (var i = 0;i < 8 ;i++){
+
+		document.getElementsByClassName('form-control')[i].value = "";
+        
+	}
+     
+};
 
 
 </script>
