@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -146,10 +148,13 @@ String accion = request.getParameter("accion");
 			
 			u.setContrasenaUsuario(ud.MD5(valorClave));
 	    	
-			Date now = new Date();
-			String currentTime = "" + now.getTime();
+            LocalDateTime dateTime = LocalDateTime.now(); 
 			
-			System.out.println("Fecha: " + currentTime);
+		    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+		    
+		    String currentTime = dateTime.format(myFormatObj);  
+
+		    System.out.println("Fecha: " + currentTime);
 			
 			String urlString = "http://localhost:8080/iluminarteProRollBack/ValidacionPasswordController?method=KeyChange&enl=";
 			encoder cEncryption = new encoder();

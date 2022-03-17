@@ -202,7 +202,7 @@ public class ValidacionPasswordController extends HttpServlet {
         	u.setCorreoUsuario(dencryptedCode2);
     		u.setContrasenaUsuario(ud.MD5(string3));
         	
-        	String passDesencript=ud.MD5(string3);
+        	
         	
     		
     		u=p.consultarUsuCorreo(dencryptedCode2);
@@ -221,10 +221,8 @@ public class ValidacionPasswordController extends HttpServlet {
 			
             System.out.println("Desencriptado");
         }catch(Exception e){
-            request.setAttribute("msje", "No se pudo listar los usuarios" + e.getMessage());
-            System.out.println("No se pueden listar los usuarios" + e.getMessage());
-        }finally{
-        	//ud=null;
+            request.setAttribute("msje", "No se puede determinar el usuario " + e.getMessage());
+            System.out.println("No se puede determinar el usuario " + e.getMessage());
         }
 	}
 	
