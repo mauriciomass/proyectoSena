@@ -3,12 +3,14 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -155,7 +157,10 @@ public class VentasController extends HttpServlet {
                 	 this.lped=new ArrayList<Pedido>();
                 	 
              		 break;
-   	
+             		 
+                case "validarFormVentas":
+                	validarFormVentas(request, response);
+                	break;
                 default:
                 	
                 	this.obtenerNumeroSerie(request);
@@ -167,8 +172,8 @@ public class VentasController extends HttpServlet {
                 } 
                 
             }else {
-                    //response.sendRedirect("login.jsp");
-            	response.sendRedirect("UsuarioController?accion=abrirLogin");
+                    response.sendRedirect("login.jsp");
+            	
                 }    
             
 			request.getRequestDispatcher("views/venta.jsp").forward(request, response);
@@ -584,10 +589,37 @@ private void abrirForm(HttpServletRequest request, HttpServletResponse response)
 		
 		request.setAttribute("totalpagar",totalPagar);
 		
+		
+		
+	}
 	
+	private void validarFormVentas(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		  
+		  System.out.println("validarFormulario de Ventas");
 		
-		//request.getRequestDispatcher("views/venta.jsp").forward(request, response);
-		
+		  response.setContentType("text/html;charset=UTF-8");
+		  PrintWriter out=response.getWriter();
+		  
+		  String cant = request.getParameter("cant");
+		    
+		  
+		  System.out.println("cant "+cant);
+		  
+		  
+		  if(cant != null || !(cant.isEmpty()) || ud.validarNumeros(cant.trim()) == true) {
+	         	System.out.println("¡Valor admitido!");
+	         	out.print("true;!El formato de los campos es correcto¡");
+	         	return;
+	         }
+	      
+	      else {
+	    	  
+	    	    System.out.println("¡Valor no admitido!");
+	         	out.print("false;msncantvent;¡Valor admitido!");
+	      	
+	      	return;
+	      }
+
 	}
 	
 	

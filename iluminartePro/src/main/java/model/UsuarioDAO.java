@@ -1,7 +1,6 @@
 package model;
 
 import java.nio.charset.StandardCharsets;
-import java.security.Security;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.security.*;
+
 
 
 
@@ -618,6 +617,64 @@ public class UsuarioDAO {
 
 	}
 	
+	//metodo para validar parametros de tipo int
+
+	public boolean validarNumeros(String datos) {
+		return datos.matches("[0-9]*");
+	}
+
+	public boolean validarTexto(String datos) {
+		
+		    int length = 0;
+			int validaTextFalse = 0;             //variable captura el mensaje de error
+			String error = null;
+			
+			System.out.println("caracteres ascii "+datos);
+			
+			for (int x =0; x < datos.length(); x++) {
+				
+
+
+		        byte[] bytes = datos.getBytes(StandardCharsets.US_ASCII);
+		        System.out.println("ASCII Numeric Value: "+bytes[x] + " pertenece a letra " + datos.charAt(x));
+		        
+		    if ((bytes[x] == 32) || (bytes[x] == 63) || (bytes[x] >= 65 && bytes[x] <= 90) || (bytes[x]>= 97 && bytes[x] <= 122) || (bytes[x] >= 160 && bytes[x] <= 165)) {
+
+		    	
+		    	System.out.println("Caracter está dentro de los valores permitidos ");
+		    	
+		   	}else {
+		   			
+		   		validaTextFalse++;
+		   		System.out.println("Caracter está fuera de los valores permitidos ");
+		   		error="Caracter no permitido";
+		   	}
+	        
+	        		
+	     length = (x + 1); // Cuenta la longitud del nombre
+
+	    }
+			
+		if (length <= 1 || length > 50) {                // Revisa la longitud minima o maxima del campo
+			validaTextFalse=validaTextFalse+1;
+				System.out.println("no cumple con el mínimo o maximo de caracteres permitidos en el campo!");
+				error =error + " y el largo de caracteres permitidos en el campo";
+			}
+		
+		if (validaTextFalse >= 1){
+			
+			System.out.println("Texto ingresado tiene " + validaTextFalse + " errores en " + error);
+			
+			return false;
+		}else {
+			
+			System.out.println("Texto ingresado tiene " + validaTextFalse + " errores en " + error);
+		
+			return true;
+		}
+		
+		
+	  }
 	   
 	
 	

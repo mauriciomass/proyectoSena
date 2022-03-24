@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -60,6 +61,9 @@ public class CategoriaController extends HttpServlet {
                     	changeEstado(request,response);
                     break;
                     
+                    case "validarFormulario":
+                    	validarFormulario(request,response);
+                    break;
                     default:
                         response.sendRedirect("login.jsp");
                 }
@@ -68,7 +72,7 @@ public class CategoriaController extends HttpServlet {
             }
         } catch (Exception e) {
             try {
-                request.getRequestDispatcher("/mensaje.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 System.out.println("Error" + e.getMessage());
@@ -225,6 +229,54 @@ public class CategoriaController extends HttpServlet {
 		}catch(Exception e) {
 			System.out.println("Estado NO actualizado "+e.getMessage());
 		}
+	}
+	
+	private void validarFormulario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		System.out.println("validarFormulario de registrar un rol");
+		
+		  response.setContentType("text/html;charset=UTF-8");
+		  PrintWriter out=response.getWriter();
+		  
+		  String nombre = request.getParameter("nombre");
+		  
+		  System.out.println("nombre "+nombre);
+		  
+		  String descripcion = request.getParameter("descripcion"); 
+		    
+		  
+		  System.out.println("descripcion "+descripcion);
+		  
+	      
+	            
+	      if(nombre.trim().length() <= 1 || nombre.trim().length() > 60) {
+	         	System.out.println("El formato del nombre es incorrecto");
+	         	out.print("false;msnnombrecat;!Caracteres permitidos en el campo es 2 a 60!");
+	         	return;
+	         }        
+	      
+	      else if(nombre == null || nombre.isEmpty()) {
+	         	System.out.println("¡Solo se admiten letras, por favor verificar!");
+	         	out.print("false;msnnombrecat;¡Solo se admiten letras, por favor verificar!");
+	         	return;
+	         }
+	      
+	      else if(descripcion.trim().length() <= 1 || descripcion.trim().length() > 60) {
+	         	System.out.println("El formato del nombre es incorrecto");
+	         	out.print("false;msndescripcioncat;!Caracteres permitidos en el campo es 2 a 60!");
+	         	return;
+	         }        
+	      
+	      else if(descripcion == null || descripcion.isEmpty()) {
+	         	System.out.println("¡Solo se admiten letras, por favor verificar!");
+	         	out.print("false;msndescripcioncat;¡Solo se admiten letras, por favor verificar!");
+	         	return;
+	         }
+	      	     
+	      else {
+	      	out.print("true;!El formato de los campos es correcto¡");
+	      	return;
+	      }
+
 	}
 }
 

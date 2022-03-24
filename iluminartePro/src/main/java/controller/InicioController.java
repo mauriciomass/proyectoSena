@@ -49,7 +49,7 @@ public class InicioController extends HttpServlet {
             }
         } catch (Exception e) {
             try {
-                request.getRequestDispatcher("/mensaje.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 System.out.println("Error" + e.getMessage());

@@ -31,7 +31,7 @@
 			  	
 			  	<div class="form-group">
 			  		<label for="passant">Contraseña Anterior</label>
-			  		<input type="password" class="form-control" name="passant" id="passant" placeholder="Ingrese la contraseña Anterior" onchange="verifypass()"/>
+			  		<input type="password" class="form-control" name="passant" id="passant" placeholder="Ingrese la contraseña Anterior" onBlur="verifypass()"/>
 			  	</div>
 			  	
 			  	<div id="passantVal" class="text-danger"> </div>
@@ -39,14 +39,14 @@
 			  	
 			  	<div class="form-group">
 			  		<label for="passnew">Contraseña Nueva</label>
-			  		<input type="password" class="form-control" name="passnew" id="passnew" placeholder="Ingrese la contraseña Nueva" onchange="verifypass()"/>
+			  		<input type="password" class="form-control" name="passnew" id="passnew" placeholder="Ingrese la contraseña Nueva" onBlur="verifypass()"/>
 			  	</div>
 			  	
 			  	<div id="passnewVal" class="text-danger"> </div>
 			  	
 			  	<div class="form-group">
 			  		<label for="passnewrep">Validar Contraseña Nueva</label>
-			  		<input type="password" class="form-control" name="passnewrep" id="passnewrep" placeholder="Vuelva a Ingresar su contraseña Nueva" onchange="verifypass()"/>
+			  		<input type="password" class="form-control" name="passnewrep" id="passnewrep" placeholder="Vuelva a Ingresar su contraseña Nueva" onBlur="verifypass()"/>
 			  	</div>
 			  	  
 			  	<div id="passnewrepVal" class="text-danger"> </div>		

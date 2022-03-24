@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -60,6 +61,9 @@ public class ProveedorController extends HttpServlet {
                     case "changeEstado":
                     	changeEstado(request,response);
                     break;
+                    case "validarFormulario":
+                    	validarFormulario(request,response);
+                    break;
                     
                     default:
                         response.sendRedirect("login.jsp");
@@ -69,7 +73,7 @@ public class ProveedorController extends HttpServlet {
             }
         } catch (Exception e) {
             try {
-                request.getRequestDispatcher("/mensaje.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 System.out.println("Error" + e.getMessage());
@@ -237,5 +241,84 @@ public class ProveedorController extends HttpServlet {
 			}catch(Exception e) {
 				System.out.println("Estado NO actualizado "+e.getMessage());
 			}
+		}
+		
+		private void validarFormulario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			System.out.println("validarFormulario de registrar un rol");
+			
+			  response.setContentType("text/html;charset=UTF-8");
+			  PrintWriter out=response.getWriter();
+			  
+			  String nombre = request.getParameter("nombre");
+			  
+			  System.out.println("nombre "+nombre);
+			  
+			  String direccion = request.getParameter("direccion");			    
+			  
+			  System.out.println("direccion "+direccion);
+			  
+			  String telefono = request.getParameter("telefono");			    
+			  
+			  System.out.println("telefono "+telefono);
+			  
+			  String persona = request.getParameter("persona");			    
+			  
+			  System.out.println("persona "+persona);
+			  
+		      
+		            
+		      if(nombre.trim().length() <= 1 || nombre.trim().length() > 60) {
+		         	System.out.println("El formato del nombre es incorrecto");
+		         	out.print("false;msnnombrepro;!Caracteres permitidos en el campo es 2 a 60!");
+		         	return;
+		         }        
+		      
+		      else if(nombre == null || nombre.isEmpty()) {
+		         	System.out.println("¡Solo se admiten letras, por favor verificar!");
+		         	out.print("false;msnnombrepro;¡Solo se admiten letras, por favor verificar!");
+		         	return;
+		         }
+		      
+		      else if(direccion.trim().length() <= 1 || direccion.trim().length() > 60) {
+		         	System.out.println("El formato del nombre es incorrecto");
+		         	out.print("false;msndireccionpro;!Caracteres permitidos en el campo es 2 a 60!");
+		         	return;
+		         }        
+		      
+		      else if(direccion == null || direccion.isEmpty()) {
+		         	System.out.println("¡Solo se admiten letras, por favor verificar!");
+		         	out.print("false;msndireccionpro;¡Solo se admiten letras, por favor verificar!");
+		         	return;
+		         }
+		      
+		      else if(telefono.trim().length() <= 1 || telefono.trim().length() > 60) {
+		         	System.out.println("El formato del nombre es incorrecto");
+		         	out.print("false;msntelefonopro;!Caracteres permitidos en el campo es 2 a 60!");
+		         	return;
+		         }        
+		      
+		      else if(telefono == null || telefono.isEmpty()) {
+		         	System.out.println("¡Solo se admiten letras, por favor verificar!");
+		         	out.print("false;msntelefonopro;¡Solo se admiten letras, por favor verificar!");
+		         	return;
+		         }
+		      
+		      else if(persona.trim().length() <= 1 || persona.trim().length() > 60) {
+		         	System.out.println("El formato del nombre es incorrecto");
+		         	out.print("false;msnpersonapro;!Caracteres permitidos en el campo es 2 a 60!");
+		         	return;
+		         }        
+		      
+		      else if(persona == null || persona.isEmpty()) {
+		         	System.out.println("¡Solo se admiten letras, por favor verificar!");
+		         	out.print("false;msnpersonapro;¡Solo se admiten letras, por favor verificar!");
+		         	return;
+		         }
+		      	     
+		      else {
+		      	out.print("true;!El formato de los campos es correcto¡");
+		      	return;
+		      }
+
 		}
 	}

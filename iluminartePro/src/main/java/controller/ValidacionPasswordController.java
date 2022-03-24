@@ -125,21 +125,6 @@ public class ValidacionPasswordController extends HttpServlet {
        		
 	}
 	
-	
-	
-    /*public static Date ParseFecha(String fecha)
-    {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaDate = null;
-        try {
-            fechaDate = formato.parse(fecha);
-        } 
-        catch (ParseException ex) 
-        {
-            System.out.println(ex);
-        }
-        return fechaDate;
-    }*/
 		
 
 	/**

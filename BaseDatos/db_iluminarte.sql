@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2022 a las 01:51:46
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.11
+-- Tiempo de generación: 24-03-2022 a las 03:56:52
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -86,7 +86,9 @@ INSERT INTO `cliente` (`idCliente`, `idUsuarioFK`, `idMunicipioDivipolaFK`) VALU
 (7, 34, 1),
 (8, 35, 1),
 (9, 36, 1),
-(10, 37, 1);
+(14, 37, 1),
+(19, 50, 1),
+(20, 52, 1);
 
 -- --------------------------------------------------------
 
@@ -764,8 +766,8 @@ CREATE TABLE `tipodocumento` (
 --
 
 INSERT INTO `tipodocumento` (`idTipoDocumento`, `nombreTipoDocumento`) VALUES
-(1, 'Cedula de ciudadania'),
-(2, 'Cedula Extranjeria');
+(1, 'Cédula de ciudadania'),
+(2, 'Cédula Extranjeria');
 
 -- --------------------------------------------------------
 
@@ -786,9 +788,7 @@ CREATE TABLE `tiporol` (
 INSERT INTO `tiporol` (`idRol`, `nombreRol`, `estadoRol`) VALUES
 (1, 'Administrador', 1),
 (2, 'Vendedor', 1),
-(3, 'Cliente', 1),
-(4, 'Secretarioss', 0),
-(5, 'Secretario 1', 1);
+(3, 'Cliente', 1);
 
 -- --------------------------------------------------------
 
@@ -819,18 +819,21 @@ INSERT INTO `usuario` (`idUsuario`, `idTipoDocumentoFK`, `idRolFK`, `nombreUsuar
 (3, 1, 3, 'Yazmin', 'Gonzales', '202cb962ac59075b964b07152d234b70', '3030', 'TV 4 Este No 36 K 28', '6666', 'yaz@gamil.com', 1),
 (4, 2, 1, 'Yazmin', 'Gonzales', '202cb962ac59075b964b07152d234b70', '3031', 'carrera 4', '333333', 'y@gamil.com', 1),
 (5, 2, 2, 'Carlos', 'Romero', '202cb962ac59075b964b07152d234b70', '897887', '66', '5555555', 'carlos@misena', 1),
-(6, 1, 1, 'jesus', 'mass', '202cb962ac59075b964b07152d234b70', '45545', '55', '988987', 'mauriciomass@misena.edu.co', 1),
+(6, 1, 1, 'jesus', 'mass', '0effc17cc082aa085d66e302fcd0b8d7', '45545', '55', '988987', 'mauriciomass@misena.edu.co', 1),
 (7, 1, 1, 'Alfredo', 'Gutierrez Miranda', '202cb962ac59075b964b07152d234b70', '58752451', '89', '8525452', 'jesusmmass@gmail.com1', 1),
 (8, 1, 2, 'Luis', 'Fonseca', '202cb962ac59075b964b07152d234b70', '5484512', '33', '8525452', 'jesusmmass@gmail.com2', 1),
 (18, 1, 2, 'Karla', 'Gomez', '202cb962ac59075b964b07152d234b70', '5875245', '32655', '8525452', 'jesusmmass@gmail.com3', 1),
-(19, 2, 3, 'Lucresia', 'Arroyo', '202cb962ac59075b964b07152d234b70', '5565322', '22', '11', 'jesusmmass@gmail.com', 1),
+(19, 2, 3, 'Lucresia', 'Arroyo', '202cb962ac59075b964b07152d234b70', '5565322', '22', '11', 'jesusmmass@gmail.com4', 1),
 (31, 1, 3, 'Belinda', 'Garcia', '202cb962ac59075b964b07152d234b70', '9955', '55', '11', 'belinda@micorreo.com', 1),
 (32, 2, 2, 'Manuel', 'Perez', '202cb962ac59075b964b07152d234b70', '4324567', '89', '988987', 'manuel@manuel1.com', 1),
-(33, 1, 1, 'Vanesa', 'Lopez', '202cb962ac59075b964b07152d234b70', '5484512', '89', '8525452', 'lopezvan@van', 1),
+(33, 1, 1, 'Vanesa', 'Lopez', '202cb962ac59075b964b07152d234b70', '5484512', '89', '8525452', 'lopezvan@van.com.co', 1),
 (34, 1, 3, 'Jonatan', 'Mendez', '202cb962ac59075b964b07152d234b70', '6556', '33', '11', 'jonatan@jo', 1),
 (35, 1, 3, 'Alirio', 'Perpetuo', '202cb962ac59075b964b07152d234b70', '5677', '66', '98751', 'alirio@alirio', 1),
 (36, 2, 3, 'Cristina', 'Volpedo', '202cb962ac59075b964b07152d234b70', '76692', '78', '9756', 'CristVol@cris', 1),
-(37, 1, 3, 'Bambi', 'Leiton', '202cb962ac59075b964b07152d234b70', '89765', '544', '543465', 'leiton@leiton', 1);
+(37, 1, 3, 'Bambi', 'Leiton', '202cb962ac59075b964b07152d234b70', '89765', '544', '543465', 'leiton@leiton', 1),
+(50, 1, 3, 'Jose Antonio', 'Leiton', 'd3651e65f2f352ab394a00c3c03db5a3', '123', '22', '11', 'mack_jesus@hotmail.com', 1),
+(51, 1, 2, 'Carmelo', 'Leiton', '0effc17cc082aa085d66e302fcd0b8d7', '1235', '22', '988987', 'jesusmmass@gmail.com', 0),
+(52, 1, 3, 'jineth', 'Zuluaga', '99cf1d8943b6ecb55623906d06ec2477', '2656554', '56554545', '16144545', 'jzp@misena.edu.co', 1);
 
 -- --------------------------------------------------------
 
@@ -852,7 +855,8 @@ INSERT INTO `vendedor` (`idVendedor`, `idUsuarioFK`) VALUES
 (1, 6),
 (3, 8),
 (4, 18),
-(5, 32);
+(5, 32),
+(12, 51);
 
 --
 -- Índices para tablas volcadas
@@ -969,7 +973,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `detallepedido`
@@ -999,7 +1003,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tipodocumento`
@@ -1017,13 +1021,13 @@ ALTER TABLE `tiporol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `vendedor`
 --
 ALTER TABLE `vendedor`
-  MODIFY `idVendedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idVendedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

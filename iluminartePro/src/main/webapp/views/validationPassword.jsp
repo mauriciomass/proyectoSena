@@ -65,14 +65,14 @@
 			  	
 			  	<div class="form-group">
 			  		<label for="passnewvp">Contraseña Nueva</label>
-			  		<input type="password" class="form-control" name="passnewvp" id="passnewvp" placeholder="Ingrese la contraseña Nueva" onchange="verifypassvp()"/>
+			  		<input type="password" class="form-control" name="passnewvp" id="passnewvp" placeholder="Ingrese la contraseña Nueva" onBlur="verifypassvp()"/>
 			  	</div>
 			  	
 			  	<div id="passnewValvp" class="text-danger"> </div>
 			  	
 			  	<div class="form-group">
 			  		<label for="passnewrepvp">Repita su contraseña</label>
-			  		<input type="password" class="form-control" name="passnewrepvp" id="passnewrepvp" placeholder="Vuelva a Ingresar su contraseña" onchange="verifypassvp()"/>
+			  		<input type="password" class="form-control" name="passnewrepvp" id="passnewrepvp" placeholder="Vuelva a Ingresar su contraseña" onBlur="verifypassvp()"/>
 			  	</div>
 			  	  
 			  	  
@@ -82,7 +82,7 @@
 		
 			
 			<div>
-				<button type="submit" class="btn btn-success btn-sm" id="guardarContrasenavp" disabled="disabled" onclick="guardar()">Cambiar Contraseña</button>
+				<button type="submit" class="btn btn-success btn-sm" id="guardarContrasenavp" disabled="disabled" onclick="guardar2()">Cambiar Contraseña</button>
 			</div>
 			
 			
@@ -173,7 +173,7 @@ function verifypassvp(){
 
 </script>
 
-<script> function guardar(){
+<script> function guardar2(){
 	
 		Swal.fire({
 		  position: 'top-end',

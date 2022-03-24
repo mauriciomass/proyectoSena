@@ -1,10 +1,14 @@
 function guardar(){
-
-		Swal.fire({
-		  position: 'top-end',
-		  icon: 'success',
-		  title: 'Iluminarte envio información a su correo',
-		  showConfirmButton: false,
-		  timer: 1500
+	Swal.fire({
+	  icon: 'success',
+	  title: '!Se guardo el registro exitosamente¡',
+	  timer: 5,
+	  showClass: {
+	    popup: 'animate__animated animate__fadeInDown'
+	  },
+	  hideClass: {
+	    popup: 'animate__animated animate__fadeOutUp'
+	  }
 	})
 };
+

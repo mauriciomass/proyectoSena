@@ -25,7 +25,7 @@
 	<div class="form-group">
   	  <label>Tipo Documento</label>
            
-                <select class="form-select" aria-label="Default select example" name="tipodocumento" id="tipodocumento" required onchange="verifyCorreo()">
+                <select class="form-select" aria-label="Default select example" name="tipodocumento" id="tipodocumento" required onBlur="verifyCorreo()">
                       <option value="0">Seleccione el tipo de documento</option>
                  		<c:forEach items="${tip}" var="tip">
                             <option value="${tip.idTipoDocumento}"         
@@ -41,7 +41,7 @@
      <div class="form-group">
   	  <label>Rol de Usuario</label>
            
-                <select class="form-select" aria-label="Default select example" name="tiporol" id="tiporol" required onchange="verifyCorreo()">
+                <select class="form-select" aria-label="Default select example" name="tiporol" id="tiporol" required onBlur="verifyCorreo()">
                     <option value="0">Seleccione un rol de usuario</option>
                  		<c:forEach items="${roles}" var="rol">
                             <option value="${rol.idRol}"         
@@ -55,15 +55,15 @@
     <div id="tipoRolVal" class="text-danger"> </div>
     
 	<div class="form-group">
-  		<label for="correo">Correo Electrónico</label>
-  		<input type="email" class="form-control" name="correo" id="correo" placeholder="Ingrese el Correo" required onchange="verifyCorreo()"/>
+  		<label for="correo">Correo Electr&#243;nico</label>
+  		<input type="email" class="form-control" name="correo" id="correo" placeholder="Ingrese el Correo" required onBlur="verifyCorreo()"/>
   	</div>
   	<div id="mensaje" class="text-danger"> </div>
 
   	
   	<div class="form-group">
   		<label for="nombre">Nombre</label>
-  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el Nombre" required onchange="verifyCorreo()"/>
+  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el Nombre" required onBlur="verifyCorreo()"/>
   	</div>
   	
   	<div id="nombreVal" class="text-danger"> </div>
@@ -71,7 +71,7 @@
   	
   	<div class="form-group">
   		<label for="apellido">Apellido</label>
-  		<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese el Apellido" required onchange="verifyCorreo()"/>
+  		<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese el Apellido" required onBlur="verifyCorreo()"/>
   	</div>
   	
   	<div id="apellidoVal" class="text-danger"> </div>
@@ -83,21 +83,21 @@
   	
   	 <div class="form-group">
   		<label for="numero">No. Documento</label>
-  		<input type="text" class="form-control" name="numero" id="numero" placeholder="Ingrese el No. de Documento" required onchange="verifyCorreo()"/>
+  		<input type="text" class="form-control" name="numero" id="numero" placeholder="Ingrese el No. de Documento" required onBlur="verifyCorreo()"/>
   	</div>
   	
   	<div id="numdocumVal" class="text-danger"> </div>
   	  	
   	<div class="form-group">
-  		<label for="direccion">Dirección</label>
-  		<input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingrese la Direccion" required onchange="verifyCorreo()"/>
+  		<label for="direccion">Direcci&#243;n</label>
+  		<input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingrese la Direcci&#243;n" required onBlur="verifyCorreo()"/>
   	</div>
   	  	
   	<div id="direccionVal" class="text-danger"> </div>
   	
   	<div class="form-group">
   		<label for="telefono">Contacto</label>
-  		<input type="text" class="form-control" name="telefono" id="telefono" placeholder="Ingrese el Número de Contacto"  required onchange="verifyCorreo()"/>
+  		<input type="text" class="form-control" name="telefono" id="telefono" placeholder="Ingrese el N&#250;mero de Contacto"  required onBlur="verifyCorreo()"/>
   	</div>
   	  	
   	<div id="contactoVal" class="text-danger"> </div>
@@ -112,7 +112,7 @@
 <div id="formVal" class="small text-info"> </div>
 
 <div class="d-flex justify-content-end">
-	<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar" onclick="reasignValores()">Cancelar</button>
+	<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar">Cancelar</button>
 	<button type="submit" class="btn btn-success btn-sm" id="guardarUsuario" disabled="disabled" onclick="guardar()">Guardar</button>
 </div>
   
@@ -186,28 +186,12 @@ function verifyCorreo(){
 				  if (partes[0]=="false" && partes[1] =="formatocorreo"){
 						  $("#mensaje").html( "<strong>" + partes[2] + "</strong>" );
 						  $('#guardarUsuario').attr('disabled', 'disabled');
-					      $("#nombreVal").html("");
-					      $("#apellidoVal").html("");
-					      $("#numdocumVal").html("");
-					      $("#direccionVal").html("");
-					      $("#contactoVal").html("");
-					      $("#tipoDocVal").html("");
-					      $("#tipoRolVal").html("");
-					
-						  						  
 					  }				  
 
 				 else if (partes[0]=="false" && partes[1] =="formatotipodocumento"){					      
 					  $('#tipoDocVal').html( "<strong>" + partes[2] + "</strong>" );
 					  $('#guardarUsuario').attr('disabled', 'disabled');
-			  		  $("#mensaje").html("");	
-				      $("#nombreVal").html("");
-				      $("#apellidoVal").html("");
-				      $("#numdocumVal").html("");
-				      $("#direccionVal").html("");
-				      $("#contactoVal").html("");
-				      $("#tipoRolVal").html("");
-					  
+
 				  }
 				  
 				  else if (partes[0]=="false" && partes[1] =="formatotiporol"){					      
@@ -219,85 +203,38 @@ function verifyCorreo(){
 				  else if (partes[0]=="false" && partes[1] =="formatonombre"){					      
 						  $('#nombreVal').html( "<strong>" + partes[2] + "</strong>" );
 						  $('#guardarUsuario').attr('disabled', 'disabled');
-				  		  $("#mensaje").html("");	
-					      $("#apellidoVal").html("");
-					      $("#numdocumVal").html("");
-					      $("#direccionVal").html("");
-					      $("#contactoVal").html("");
-					      $("#tipoDocVal").html("");
-					      $("#tipoRolVal").html("");
-					
-						  
+
 					  }
 				  
 				  else if (partes[0]=="false" && partes[1] =="formatoapellido"){					      
 					  $('#apellidoVal').html( "<strong>" + partes[2] + "</strong>" );
 					  $('#guardarUsuario').attr('disabled', 'disabled');
-			  		  $("#mensaje").html("");	
-				      $("#nombreVal").html("");
-				      $("#numdocumVal").html("");
-				      $("#direccionVal").html("");
-				      $("#contactoVal").html("");
-				      $("#tipoDocVal").html("");
-				      $("#tipoRolVal").html("");
-					
-					  
+ 
 				  }
 				  
 				  else if (partes[0]=="false" && partes[1] =="formatonumdocum"){					      
 					  $('#numdocumVal').html( "<strong>" + partes[2] + "</strong>" );
 					  $('#guardarUsuario').attr('disabled', 'disabled');
-			  		  $("#mensaje").html("");	
-				      $("#nombreVal").html("");
-				      $("#apellidoVal").html("");
-				      $("#direccionVal").html("");
-				      $("#contactoVal").html("");
-				      $("#tipoDocVal").html("");
-				      $("#tipoRolVal").html("");
-					
+
 				  } 
 				  
 				  else if (partes[0]=="false" && partes[1] =="formatodireccion"){					      
 					  $('#direccionVal').html( "<strong>" + partes[2] + "</strong>" );
 					  $('#guardarUsuario').attr('disabled', 'disabled');
-			  		  $("#mensaje").html("");	
-				      $("#nombreVal").html("");
-				      $("#apellidoVal").html("");
-				      $("#numdocumVal").html("");
-				      $("#contactoVal").html("");
-				      $("#tipoDocVal").html("");
-				      $("#tipoRolVal").html("");
-				
-					  
+  
 				  }
 				  
 				  else if (partes[0]=="false" && partes[1] =="formatocontacto"){					      
 					  $('#contactoVal').html( "<strong>" + partes[2] + "</strong>" );
 					  $('#guardarUsuario').attr('disabled', 'disabled');
-			  		  $("#mensaje").html("");	
-				      $("#nombreVal").html("");
-				      $("#apellidoVal").html("");
-				      $("#numdocumVal").html("");
-				      $("#direccionVal").html("");
-				      $("#tipoDocVal").html("");
-				      $("#tipoRolVal").html("");
-				
-					  
+  
 				  }
 				  			  
 				  else if (partes[0]=="true"){
 					  console.log("Validado")					  
 					  $('#formVal').html( "<small>" + partes[1] + "</small>" );
 					  $("#guardarUsuario").removeAttr("disabled");
-			  		  $("#mensaje").html("");	
-				      $("#nombreVal").html("");
-				      $("#apellidoVal").html("");
-				      $("#numdocumVal").html("");
-				      $("#direccionVal").html("");
-				      $("#contactoVal").html("");
-				      $("#tipoDocVal").html("");
-				      $("#tipoRolVal").html("");
-				      
+      
 				  }
 				  
 			   }

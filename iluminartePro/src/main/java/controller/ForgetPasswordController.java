@@ -138,6 +138,8 @@ String accion = request.getParameter("accion");
 		if(u.getCorreoUsuario()!=null && u.isEstadoUsuario()==true) {
 			
 		
+			System.out.println("Usuario se encuentra activo");
+			
 			String nombreUsuario= u.getNombreUsuario();
 	    	String apellidoUsuario = u.getApellidoUsuario();
 	    	

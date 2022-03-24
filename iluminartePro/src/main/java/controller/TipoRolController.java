@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,6 +63,9 @@ public class TipoRolController extends HttpServlet {
                     break;
                     case "changeEstado":
                     	changeEstado(request,response);
+                    break;
+                    case "validarFormulario":
+                    	validarFormulario(request,response);
                     break;
                     
                     default:
@@ -217,5 +222,37 @@ public class TipoRolController extends HttpServlet {
 		}catch(Exception e) {
 			System.out.println("Estado NO actualizado "+e.getMessage());
 		}
+	}
+	
+	private void validarFormulario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		System.out.println("validarFormulario de registrar un rol");
+		
+		  response.setContentType("text/html;charset=UTF-8");
+		  PrintWriter out=response.getWriter();
+		  
+		  String nombre = request.getParameter("nombre");
+		    
+		  
+		  System.out.println("nombre "+nombre);
+		  
+	      
+	            
+	      if(nombre.trim().length() <= 1 || nombre.trim().length() > 20) {
+	         	System.out.println("El formato del nombre es incorrecto");
+	         	out.print("false;msnnombrerol;!Caracteres permitidos en el campo es 2 a 20!");
+	         	return;
+	         }        
+	      
+	      else if(nombre == null || nombre.isEmpty()) {
+	         	System.out.println("¡Solo se admiten letras, por favor verificar!");
+	         	out.print("false;msnnombrerol;¡Solo se admiten letras, por favor verificar!");
+	         	return;
+	         }
+	      	     
+	      else {
+	      	out.print("true;!El formato de los campos es correcto¡");
+	      	return;
+	      }
+
 	}
 }

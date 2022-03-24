@@ -12,18 +12,23 @@
   	
   	<div class="form-group">
   		<label for="nombre">Nombre Rol</label>
-  		<input type="text" class="form-control" name="nombre" id="descripcion" placeholder="Ingrese el nombre del rol" value="${roles.idRol}"/>
+  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre del rol" value="${roles.idRol}" onBlur="verifyRole()"/>
   	</div>
   	
-  	<div class="form-check">
-  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" checked>
-  <label class="form-check-label" for="flexCheckChecked">
-    Activo
-  </label>
-</div>
+  	<div id="msnrolVal" class="text-danger"> </div>
+  	
+		<div class="form-check">
+		  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" checked>
+		  <label class="form-check-label" for="flexCheckChecked">
+		    Activo
+		  </label>
+		</div>
+
+	
+	<div id="formVal" class="text-success"> </div>
 
 <div>
-<button type="submit" class="btn btn-primary">Guardar</button>
+<button type="submit" class="btn btn-primary" id="guardarrol" disabled="disabled" onclick="guardar()">Guardar</button>
 </div>
   
   </form>
@@ -31,6 +36,46 @@
     </div> 
    </div> 
  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+	
+function verifyRole(){
+
+		const guardarrol=document.getElementById("guardarrol");
+		var nombre = document.getElementById("nombre").value;
+		
+		console.log(nombre)
+		$.ajax({
+			  url: "TipoRolController?accion=validarFormulario",
+			  data: {
+			    nombre: nombre
+			    },
+			  success: function(resultrol ) {
+				  partes= resultrol.split(";");
+				  console.log(partes)
+		  		  $("#msnrolVal").html("");
+				  $("#formVal").html("");
+
+				  if (partes[0]=="false" && partes[1] =="msnnombrerol"){
+						  $("#msnrolVal").html( "<small>" + partes[2] + "</small>" );
+						  $('#guardarrol').attr('disabled', 'disabled');
+					  
+					  }	
+				  
+				  else if (partes[0]=="true"){
+					  console.log("Validado")					  
+					  $('#formVal').html( "<small>" + partes[1] + "</small>" );
+					  $("#guardarrol").removeAttr("disabled");
+				  }
+				  
+			   }
+				      
+		});
+};
+
+
+</script>
 
 
 <%@include file="footer.jsp" %>

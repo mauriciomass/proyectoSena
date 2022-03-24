@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +12,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +34,8 @@ import model.ProveedorDAO;
 import model.TipoDocumento;
 import model.TipoRol;
 import model.TipoRolDAO;
+import model.Usuario;
+import model.UsuarioDAO;
 
 
 @MultipartConfig
@@ -43,13 +47,18 @@ public class ProductoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	
-	Producto p=new Producto();
-	ProductoDAO pro=new ProductoDAO();
+
 	
 	private String pathFiles = "C:\\xampp\\htdocs\\"+File.separator+"img\\"+File.separator;
 	
 	private File uploads = new File(pathFiles);
 	private String[] extens = {".ico", ".png", ".jpg", ".jpeg"};
+	
+	Usuario u=new Usuario();
+	UsuarioDAO ud=new UsuarioDAO();
+	
+	Producto p=new Producto();
+	ProductoDAO pro=new ProductoDAO();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -91,7 +100,11 @@ public class ProductoController extends HttpServlet {
                     case "changeEstado":
                     	changeEstado(request,response);
                     break;
-                      
+                    
+                    case "validarFormularioPro":
+                    	validarFormularioPro(request,response);
+                    
+                    break;
                     default:
                         response.sendRedirect("login.jsp");
                 }
@@ -100,7 +113,7 @@ public class ProductoController extends HttpServlet {
             }
         } catch (Exception e) {
             try {
-                request.getRequestDispatcher("/mensaje.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
 
             } catch (Exception ex) {
                 System.out.println("Error" + e.getMessage());
@@ -384,6 +397,124 @@ private void changeEstado(HttpServletRequest request, HttpServletResponse respon
 	}
 }
 
+private void validarFormularioPro(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+	  
+	  System.out.println("validarFormulario de registrar un producto");
+	
+	  response.setContentType("text/html;charset=UTF-8");
+	  PrintWriter out=response.getWriter();
+	  
+	  String categoria = request.getParameter("categoria");
+	    
+	  
+	  System.out.println("categoria "+categoria);
+	  
+	  
+	  
+	  String proveedor = request.getParameter("proveedor");
+	  
+	  System.out.println("proveedor "+proveedor);
+	
+	  String nombre = request.getParameter("nombre");
+		
+	  String precio=request.getParameter("precio");
+	  
+	  System.out.println("precio "+precio);
+
+	  String descripcion=request.getParameter("descripcion");
+	  
+	  String imagen=request.getParameter("imagen");
+	  
+	  String stock=request.getParameter("stock");
+	  
+	  String codProducto=request.getParameter("codProducto");
+	
+
+    if(categoria.equals("0")) {
+       	System.out.println("!No ha seleccionado alguna opcion!");
+       	out.print("false;msncategoriapro;!No ha seleccionado alguna opcion!");
+       	return;
+       }        
+   
+    else if(proveedor.equals("0")) {
+       	System.out.println("!No ha seleccionado alguna opcion!");
+       	out.print("false;msnproveedorpro;!No ha seleccionado alguna opcion!");
+	          	
+       	return;
+       }
+    
+    else if(nombre.trim().length() <= 1 || nombre.trim().length() > 60) {
+       	System.out.println("!Caracteres permitidos en el campo es 2 a 60!");
+       	out.print("false;msnnombrepro;!Caracteres permitidos en el campo es 2 a 60!");
+       	return;
+       }
+    
+    else if(nombre == null || nombre.isEmpty()) {
+       	System.out.println("¡Solo se admiten letras, por favor verificar!");
+       	out.print("false;msnnombrepro;¡Solo se admiten letras, por favor verificar!");
+	          	
+       	return;
+       }
+    
+
+    else if(precio == null || precio.isEmpty() || ud.validarNumeros(precio.trim()) == false) {
+       	System.out.println("¡Valor no admitido, por favor verificar!");
+       	out.print("false;msnpreciopro;¡Valor no admitido, por favor verificar!");
+	          	
+       	return;
+       }
+    
+    else if(descripcion.trim().length() <= 1 || descripcion.trim().length() > 60) {
+       	System.out.println("!Caracteres permitidos en el campo es 2 a 60!");
+       	out.print("false;msndescripcionpro;!Caracteres permitidos en el campo es 2 a 60!");
+       	return;
+       }
+    
+    else if(descripcion == null || descripcion.isEmpty()) {
+       	System.out.println("¡Se debe llenar el campo, por favor verificar!");
+       	out.print("false;msndescripcionpro;¡Se debe llenar el campo, por favor verificar!");
+	          	
+       	return;
+       }
+    
+    else if(imagen == null || imagen.isEmpty()) {
+       	System.out.println("¡Debe escoger una imagen, por favor verificar!");
+       	out.print("false;msnimagenpro;¡Debe escoger una imagen, por favor verificar!");
+	          	
+       	return;
+       }
+    
+    else if(stock.trim().length() < 1 || stock.trim().length() > 11) {
+       	System.out.println("!Caracteres permitidos en el campo es 1 a 11!");
+       	out.print("false;msnstockpro;!Caracteres permitidos en el campo es 1 a 11!");
+       	return;
+       }
+    
+    else if(stock == null || stock.isEmpty() || ud.validarNumeros(stock.trim()) == false) {
+       	System.out.println("¡Valor no admitido, por favor verificar!");
+       	out.print("false;msnstockpro;¡Valor no admitido, por favor verificar!");
+	          	
+       	return;
+       }
+    
+    else if(codProducto.trim().length() <= 1 || codProducto.trim().length() > 5) {
+       	System.out.println("!Caracteres permitidos en el campo es 1 a 5!");
+       	out.print("false;msncodpro;!Caracteres permitidos en el campo es 1 a 5!");
+       	return;
+       }
+    
+    else if(codProducto == null || codProducto.isEmpty()) {
+       	System.out.println("¡Se debe llenar el campo, por favor verificar!");
+       	out.print("false;msncodpro;¡Se debe llenar el campo, por favor verificar!");
+	          	
+       	return;
+       }
+    else {
+    	out.print("true;!El formato de los campos es correcto¡");
+    	return;
+    }
+
+}
 
 }
 

@@ -31,7 +31,7 @@
 							<div class="col-sm-6 d-flex">
 							
 								<input type="hidden" name="tiporolVend" value="${usua.numerodeIdentificacionUsuario}" class="form-control">
-								<input type="text" name="codigocliente" value="${c.getNumerodeIdentificacionUsuario()}"  class="form-control col-sm-6" placeholder="Documento">
+								<input type="text" name="codigocliente" value="${c.getNumerodeIdentificacionUsuario()}"  class="form-control col-sm-6" placeholder="Documento" >
 								<button type="submit" name="accion" value="BuscarCliente"  class="btn btn-outline-info bi bi-search"  ></button>
 								
 								
@@ -74,28 +74,31 @@
 						
 							<div class="col-sm-6 d-flex">
 							
-								<input type="text" name="precio" value="${producto.getPrecioProducto()}" class="form-control" placeholder="s/.0.00" readonly >
+								<input type="number" name="precio" value="${producto.getPrecioProducto()}" class="form-control" placeholder="s/.0.00" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off readonly >
 								
 							</div>
 							
 							
 							<div class="col-sm-3">
 							
-								<input type="number" value="1" name="cant" placeholder="" class="form-control" id ="cant" onkeyup="validarStock(this.value)" onclick= "validarStock(this.value)">
+								<input type="number" value="1" name="cant" placeholder="" class="form-control" id ="cant" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off onkeyup="validarStock(this.value)" onclick= "validarStock(this.value);verifyVentas()">
 							</div>
 							
 							<div class="col-sm-3">
 							
-								<input type="text" name="stock" id="stock" value="${producto.getStockProducto()}" placeholder="stock" class="form-control" readonly >
+								<input type="number" name="stock" id="stock" value="${producto.getStockProducto()}" placeholder="stock" class="form-control" readonly>
 							</div>
 							
-						</div>			
+						</div>
+						
+						<div id="msncodigoclienteVal" class="text-danger"> </div>
+					    <div id="formVal" class="small text-success"> </div>			
 								
 							<hr>
 							   <img src='${producto.getImagenProducto("SI")}'/>								
-							   <button id="Agregar" type="submit" name="accion" value="Agregar" class="btn btn-outline-primary col text-center">Agregar</button>
+							   <button id="Agregar" type="submit" name="accion" value="Agregar" class="btn btn-success col text-center">Agregar</button>
 							
-												
+							   		
 						</div>
 					
 					</div>
@@ -187,6 +190,43 @@
 
 <script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+	
+function verifyVentas(){
+
+		const Agregar=document.getElementById("Agregar");
+		const cant = document.getElementById("cant").value;
+		
+		console.log(cant)
+		$.ajax({
+			  url: "VentasController?accion=validarFormVentas",
+			  data: {
+				  cant: cant
+			    },
+			  success: function(resultventas ) {
+				  partes= resultventas.split(";");
+				  console.log(partes)
+		  		  $("#msncantventVal").html("");
+				  $("#formVal").html("");
+				  if (partes[0]=="false" && partes[1] =="msncantvent"){
+						  $("#msncantventVal").html( "<small>" + partes[2] + "</small>" );
+						  $('#Agregar').attr('disabled', 'disabled');
+					  
+					  }	
+				  
+				  else if (partes[0]=="true"){
+					  console.log("Validado")					  
+					  $('#formVal').html( "<small>" + partes[1] + "</small>" );
+					  $("#Agregar").removeAttr("disabled");
+				  }
+				  
+			   }
+				      
+		});
+};
+
 
 function validarStock(value){ 
 
@@ -201,30 +241,25 @@ function validarStock(value){
 	
 	if(value >stock){
 		
-		alert("Error: El valor de la cantidad es mayor al stock del producto");
+		//alert("Error: El valor de la cantidad es mayor al stock del producto");
+		Swal.fire({
+			  icon: 'error',
+			  title: 'Error: El valor de la cantidad es mayor al stock del producto',
+			  text: 'Hay algún error!',
+			  footer: 'Por favor, revise el valor'
+			});
+	}
+	
+	else if (value < 1){
+		Swal.fire({
+			  icon: 'error',
+			  title: 'Error: El valor no es admitido, por favor revisar',
+			  text: 'Hay algún error!',
+			  footer: 'Por favor, revise el valor'
+			});
 	}
 	
 };
-
-function habilitar(){
-	
-	nomproducto = document.getElementById("nomproducto").value;
-	nombrescliente = document.getElementById("nombrescliente").value;
-	val = 0;
-	if(nomproducto ==""){
-		val++;
-	}
-	if(nombrescliente ==""){
-		val++;
-	}
-	
-	if(val==0){
-		document.getElementById("Agregar").disabled = false;
-	}else{
-		document.getElementById("Agregar").disabled = true;
-	}
-	
-}
 
 
 </script>
