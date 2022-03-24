@@ -1,4 +1,5 @@
 <%@include file="header.jsp" %>
+	<link rel="stylesheet" href="css/estilos_venta.css">
 <!--  <div class="flex-fill flex-grow-1 ms-3 overflow-hidden">-->
 
 <div class="mdl-tabs__tab-bar">
@@ -6,7 +7,7 @@
  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 <div class="full-width panel mdl-shadow--5dp"> 
 
-		<h1>Registrar Venta</h1>
+	
 		
 <form action="VentasController"  method="POST">		
 	<div class="d-flex">
@@ -17,8 +18,15 @@
 				<div class="card">
 				
 					<div class="card-body">
+					<h1><small>Registrar Venta</small></h1>
+					
+						<div class="d-flex">
+								<label class="col-sm-6 col-form-label">NumeroSerie</label>
+								<input type="text" name="Nroserie" value="${nserie}" class="form-control" readonly>
+							</div>
 					
 						<div class="form-group">
+						
 						
 							<label>Datos del Cliente</label>
 							
@@ -31,7 +39,7 @@
 							<div class="col-sm-6 d-flex">
 							
 								<input type="hidden" name="tiporolVend" value="${usua.numerodeIdentificacionUsuario}" class="form-control">
-								<input type="text" name="codigocliente" value="${c.getNumerodeIdentificacionUsuario()}"  class="form-control col-sm-6" placeholder="Documento" >
+								<input type="text" name="codigocliente" value="${c.getNumerodeIdentificacionUsuario()}"  class="form-control col-sm-6" placeholder="No. Documento">
 								<button type="submit" name="accion" value="BuscarCliente"  class="btn btn-outline-info bi bi-search"  ></button>
 								
 								
@@ -81,24 +89,26 @@
 							
 							<div class="col-sm-3">
 							
-								<input type="number" value="1" name="cant" placeholder="" class="form-control" id ="cant" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off onkeyup="validarStock(this.value)" onclick= "validarStock(this.value);verifyVentas()">
+								<input type="number" value="1" name="cant" placeholder="" class="form-control" id ="cant" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off onkeyup="validarStock(this.value)" onclick= "validarStock(this.value)">
 							</div>
 							
 							<div class="col-sm-3">
 							
-								<input type="number" name="stock" id="stock" value="${producto.getStockProducto()}" placeholder="stock" class="form-control" readonly>
+								<input type="number" name="stock" id="stock" value="${producto.getStockProducto()}" placeholder="stock" class="form-control" readonly >
 							</div>
 							
 						</div>
 						
 						<div id="msncodigoclienteVal" class="text-danger"> </div>
-					    <div id="formVal" class="small text-success"> </div>			
+					    <div id="formVal" class="small text-success"> </div>		
 								
 							<hr>
 							   <img src='${producto.getImagenProducto("SI")}'/>								
-							   <button id="Agregar" type="submit" name="accion" value="Agregar" class="btn btn-success col text-center">Agregar</button>
+							   <button id="Agregar" type="submit" name="accion" value="Agregar" class="bi bi-cart3 text-success" style="font-size:40px" ></button>
 							
-							   		
+							
+				
+												
 						</div>
 					
 					</div>
@@ -113,16 +123,10 @@
 		<div>
 			<div class="col-ms-7">
 			
-			<div class="card">
-				<div class="card-body">
-				
-					</div>
-							<div class="d-flex">
-								<label class="col-sm-6 col-form-label">NumeroSerie</label>
-								<input type="text" name="Nroserie" value="${nserie}" class="form-control" readonly>
-							</div>
+			
+						
 					
-					</div>
+			
 					<br>		
 				<table class="table table-hover" id="table">
 				
@@ -151,7 +155,7 @@
 					 		<td id="subtotal">${list.getSubtotal()}</td>
 					 		<td class="d-flex">
 					 			<!--  <a href="#" class="btn btn-warning">Editar</a>-->
-					 			<button type="submit" name="accion" value="editaId_${list.getIdProducto()}" class="btn btn-warning bi bi-pencil" ></button>					 			
+					 			<button type="submit" name="accion" value="editaId_${list.getIdProducto()}" class="btn btn-success bi bi-upload" ></button>					 			
 					 			<button type="submit" name="accion" value="eliminaId_${list.getIdProducto()}" class="btn btn-danger bi bi-trash" ></button>
 					 		</td>
 					 	
@@ -187,8 +191,6 @@
 	</div>
 
 </div>
-
-<script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

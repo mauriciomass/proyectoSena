@@ -5,8 +5,11 @@
  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 	<div class="full-width panel mdl-shadow--5dp">
 	
+	
+ 
+ <h1><small>Lista de Categorias</small></h1>
 
-  <h1>Lista de Categorias</h1>
+
   <a type="button" class="btn btn-primary" href="CategoriaController?accion=abrirForm">
   <i class="bi bi-plus-circle"></i> 
   Agregar Categoria
@@ -16,7 +19,7 @@
  <thead>
        <tr>
             <th>Id</th>
-            <th>Nombre de la Categoria</th>
+            <th><center>Nombre de la Categoria</center></th>
             <th><center>Descripción de la Categoria</center></th>  
             <th><center>Estado</center></th>            
             <th colspan="3"><center>Acciones</center></th>
@@ -31,25 +34,25 @@
      	<td>${categoria.getDescripcionCategoria()}</td>
      	
      	<c:if test="${categoria.getEstadoCategoria() == true}">
-           <td><span class="badge bg-success active">Categoria Activo</span></td> 
+        <td> <i class="bi bi-file-person text-success text-center"  style="font-size:30px"  ></i></td> 
         </c:if>
         <c:if test="${categoria.getEstadoCategoria() == false}">
-            <td><span class="badge bg-danger active">Categoria Inactivo</span></td> 
+              <td><i class="bi bi-file-person-fill text-danger"  style="font-size:30px" ></i></td> 
         </c:if>
      	
     	<td>
         <c:if test="${categoria.getEstadoCategoria() == true}">
            <a rol="button" 
-           class="btn btn-danger btn-sm" 
+           
            onclick="cambiare(event,${categoria.getIdCategoria()},${categoria.getEstadoCategoria()},'Categoria')"> 
-        Inactivar
+         <i class="bi bi-toggle-on text-success"  style="font-size:25px"></i>
         </a>
         </c:if>
         <c:if test="${categoria.getEstadoCategoria() == false}">
             <a rol="button" 
-            class="btn btn-success btn-sm" 
+         
             onclick="cambiare(event,${categoria.getIdCategoria()},${categoria.getEstadoCategoria()},'Categoria')">
-        Activar
+         <i class="bi bi-toggle-off text-danger" style="font-size:25px" ></i>
         </a>
         </c:if> 
         </td>
@@ -57,15 +60,16 @@
         
         <td>
         <a rol="button" 
-        class="btn btn-warning" 
+      
         href="CategoriaController?accion=verCategoria&id=${categoria.getIdCategoria()}">
-        <i class="bi bi-pencil"></i> 
+          <i class="bi bi-pencil text-warning"  style="font-size:25px"></i>
         </a>
-
-	    <a rol="button" 
-	    class="btn btn-danger" 
+      </td>
+ 
+      <td>
+	    <a rol="button" 	
 	    onclick="borrar(event,${categoria.getIdCategoria()},'Categoria')">
-	    <i class="bi bi-trash"></i> 
+	    <i class="bi bi-trash text-info" style="font-size:25px" ></i> 
 	    </a>
 	    
 	    </td>

@@ -1,4 +1,6 @@
 <%@include file="header.jsp" %>
+	<link rel="stylesheet" href="css/Estilos_role_add.css">
+
   <!--  <div class="flex-fill flex-grow-1 ms-3">-->
  <div class="mdl-tabs__tab-bar">
  
@@ -6,36 +8,43 @@
 						<div class="full-width panel mdl-shadow--5dp">
 					
 
-  <h1>Registro de Roles</h1>
-  
-  <form method="post" action="TipoRolController?accion=addRol">
-  	
-  	<div class="form-group">
-  		<label for="nombre">Nombre Rol</label>
-  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre del rol" value="${roles.idRol}" onBlur="verifyRole()"/>
-  	</div>
-  	
-  	<div id="msnrolVal" class="text-danger"> </div>
-  	
-		<div class="form-check">
-		  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" checked>
-		  <label class="form-check-label" for="flexCheckChecked">
-		    Activo
-		  </label>
-		</div>
+<div class="contenedor__todo">
+				
+				  <div class="formulario__register">
 
-	
-	<div id="formVal" class="text-success"> </div>
-
-<div>
-<button type="submit" class="btn btn-primary" id="guardarrol" disabled="disabled" onclick="guardar()">Guardar</button>
-</div>
-  
-  </form>
-       </div> 
-    </div> 
-   </div> 
- 
+							  <h1>Registro de Roles</h1>
+							  
+							  <form method="post" action="TipoRolController?accion=addRol">
+							  	
+							  	<div class="form-group">
+							  		<label for="nombre">Nombre Rol</label>
+							  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre del rol" value="${roles.idRol}" onBlur="verifyRole()"/>
+							  	</div>
+							  	
+							  	<div id="msnrolVal" class="text-danger"> </div>
+							  	
+							  	<div class="form-check">
+							  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" checked>
+							  <label class="form-check-label" for="flexCheckChecked">
+							    Activo
+							  </label>
+							</div>
+							
+							<div id="formVal" class="text-success"> </div>
+							
+							<div class="d-flex justify-content-end">
+							<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar">Cancelar</button>
+							<button type="submit" class="btn btn-primary" id="guardarrol" disabled="disabled" onclick="guardar()">Guardar</button>
+							</div>
+							  
+							  </form>
+							       </div> 
+							    </div> 
+							   </div> 
+							 
+							  </div> 
+   				</div> 
+   				
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
@@ -76,6 +85,6 @@ function verifyRole(){
 
 
 </script>
-
+ 
 
 <%@include file="footer.jsp" %>

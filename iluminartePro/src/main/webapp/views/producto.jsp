@@ -6,7 +6,9 @@
  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 <div class="full-width panel mdl-shadow--5dp"> 
 
-<h1>Lista de Productos</h1>
+
+<h1><small>Lista de Productos</small></h1>
+
   <a type="button" class="btn btn-primary" href="ProductoController?accion=abrirForm">
   <i class="bi bi-plus-circle"></i> 
   Agregar Producto
@@ -26,7 +28,7 @@
              <th>Stock</th>
              <th>Cod</th>                            
             <th><center>Estado</center></th>                        
-            <th colspan="2"><center>Acciones</center></th>
+            <th colspan="3"><center>Acciones</center></th>
             
        </tr>
         
@@ -74,25 +76,26 @@
         <td>${p.getCodProducto()}</td>  
           
         <c:if test="${p.isEstadoProducto() == true}">
-           <td><span class="badge bg-success active">Producto Activo</span></td> 
+       <td> <i class="bi bi-file-check text-success text-center"  style="font-size:30px"  ></i></td> 
         </c:if>
         <c:if test="${p.isEstadoProducto() == false}">
-            <td><span class="badge bg-danger active">Producto Inactivo</span></td> 
+     <td><i class="bi bi-file-earmark-excel text-danger"  style="font-size:30px" ></i></td> 
         </c:if>
+        
+
+        
         
         <td>
         <c:if test="${p.isEstadoProducto() == true}">
            <a rol="button" 
-           class="btn btn-danger btn-sm" 
-           onclick="cambiare(event,${p.getIdProducto()},${p.isEstadoProducto()},'Producto')"> 
-        Inactivar
+                    onclick="cambiare(event,${p.getIdProducto()},${p.isEstadoProducto()},'Producto')"> 
+         <i class="bi bi-toggle-on text-success"  style="font-size:25px"></i>
         </a>
         </c:if>
         <c:if test="${p.isEstadoProducto() == false}">
             <a rol="button" 
-            class="btn btn-success btn-sm" 
-            onclick="cambiare(event,${p.getIdProducto()},${p.isEstadoProducto()},'Producto')">
-        Activar
+                 onclick="cambiare(event,${p.getIdProducto()},${p.isEstadoProducto()},'Producto')">
+            <i class="bi bi-toggle-off text-danger" style="font-size:25px"></i>
         </a>
         </c:if> 
         </td>
@@ -100,15 +103,16 @@
         
         <td>
         <a rol="button" 
-        class="btn btn-warning" 
+        
         href="ProductoController?accion=ver&id=${p.getIdProducto()}">
-        <i class="bi bi-pencil"></i> 
+            <i class="bi bi-pencil text-warning" style="font-size:25px"></i> 
         </a>
+  </td>
 
-	    <a rol="button" 
-	    class="btn btn-danger" 
+ <td>
+	    <a rol="button" 	  
 	    onclick="borrar(event,${p.getIdProducto()},'Producto')">
-	    <i class="bi bi-trash"></i> 
+		    <i class="bi bi-trash text-info"  style="font-size:25px" ></i> 
 	    </a>
 	    
 	    </td>

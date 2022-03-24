@@ -1,11 +1,16 @@
 <%@include file="header.jsp" %>
+	<link rel="stylesheet" href="css/Estilos_usu_edi.css">
 <div class="mdl-tabs__tab-bar">
  
  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 	<div class="full-width panel mdl-shadow--5dp">
 
+ <div class="contenedor__todo">
+				
+				  <div class="formulario__register">
+
   
-  <h1>Registro de Usuarios</h1>
+  <h1>Editar Usuario</h1>
   
   <form method="post" action="UsuarioController?accion=edit">
   	
@@ -16,7 +21,8 @@
   	  <label>Tipo Documento</label>
            
                 <select class="form-select" name="tipodocumento" autofocus=0 id="tipodocumento">
-                      <c:forEach items="${tip}" var="tip">
+                      
+                 		<c:forEach items="${tip}" var="tip">
                             <option value="${tip.idTipoDocumento}" 
                              <c:if test="${tip.idTipoDocumento == user.idTipodeDocumentoFK.idTipoDocumento}">
                                    selected
@@ -34,7 +40,6 @@
   	  <label>Rol de Usuario</label>
            
                 <select class="form-select" name="tiporol" id="tiporol">
-                      
                        <c:forEach items="${roles}" var="rol">
                             <option value="${rol.idRol}" 
                             <c:if test="${rol.idRol == user.idRolFK.idRol}">
@@ -47,8 +52,9 @@
                                              
     </div>
     
-    <div id="tipoRolVal" class="text-danger"> </div>
-    
+	<div id="tipoRolVal" class="text-danger"> </div>
+
+  	
   	<div class="form-group">
   		<label for="nombre">Nombre</label>
   		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el Nombre" value="${user.nombreUsuario}" required onBlur="verifyEdir()"/>
@@ -60,7 +66,6 @@
   		<label for="apellido">Apellido</label>
   		<input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese el Apellido" value="${user.apellidoUsuario}" required onBlur="verifyEdir()"/>
   	</div>
-  	
   	<div id="apellidoVal" class="text-danger"> </div>
   	
   	 <div class="form-group">
@@ -97,13 +102,16 @@
     Activo
   </label>
 </div>
+  	
 
 <div class="d-flex justify-content-end">
-	<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar">Cancelar</button>
-	<button type="submit" class="btn btn-success btn-sm" id="guardarUsuario" disabled="disabled" onclick="guardar()">Guardar</button>
+<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar">Cancelar</button>
+<button type="submit" class="btn btn-success btn-sm" id="guardarUsuario" disabled="disabled" onclick="guardar()">Guardar</button>
 </div>
   
   </form>
+  </div> 
+</div>
   </div> 
 </div>
 

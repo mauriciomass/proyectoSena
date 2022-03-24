@@ -1,10 +1,14 @@
 <%@include file="header.jsp" %>
+	<link rel="stylesheet" href="css/Estilos_pro_add.css">
 
 <div class="mdl-tabs__tab-bar">
  
  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 	<div class="full-width panel mdl-shadow--5dp">
 
+  <div class="contenedor__todo">
+				
+				  <div class="formulario__register">
   
   <h1>Registro de Productos</h1>
   
@@ -40,6 +44,7 @@
                                              
     </div>
     
+
 	<div id="msnproveedorVal" class="text-danger"> </div>
 
   	
@@ -58,8 +63,8 @@
   	<div id="msnprecioproVal" class="text-danger"> </div>
   	
   	<div class="form-group">
-  		<label for="descripcion">Descripción</label>
-  		<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Ingrese la Descripción" onBlur="verifyProducto()"/>
+  		<label for="descripcion">Descripci&#243;n</label>
+  		<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Ingrese la Descripci&#243;n" onBlur="verifyProducto()"/>
   	</div>
   	
   	<div id="msndescripcionVal" class="text-danger"> </div>
@@ -80,11 +85,11 @@
   	<div id="msnstockVal" class="text-danger"> </div>
 
   	<div class="form-group">
-  		<label for="codProducto">Código Producto</label>
-  		<input type="text" class="form-control" name="codProducto" id="codProducto" placeholder="Ingrese el codigo del producto" onBlur="verifyProducto()"/>
+  		<label for="codProducto">C&#243;digo Producto</label>
+  		<input type="text" class="form-control" name="codProducto" id="codProducto" placeholder="Ingrese el c&#243;digo del producto" onBlur="verifyProducto()"/>
   	</div>
   	
-  	<div id="msncodproVal" class="text-danger"> </div>	
+  	<div id="msncodproVal" class="text-danger"> </div>
   	  	
   	<div class="form-check">
   <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" checked>
@@ -95,12 +100,15 @@
 
 <div id="formVal" class="text-success"> </div>
 
-<div>
+<div class="d-flex justify-content-end">
+<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar">Cancelar</button>
 <button type="submit" class="btn btn-primary" id="guardarproducto" disabled="disabled" onclick="guardar()">Guardar</button>
 </div>
   
   </form>
   </div> 
+</div>
+</div>
 </div>
 </div>
 

@@ -28,9 +28,9 @@ $(document).ready(function(){
     });
     /*Salir del sistema*/
     $('.btn-exit').on('click', function(){
-    	swal({
-		  	title:'¿Salir del sistema?',
-		 	text: "La sesion actual se cerrara y saldra del sistema.",
+    	Swal({
+		  	title:"¿Salir del sistema?",
+		 	text: "La sesi\u00F3n actual se cerrara y saldra del sistema.",
 		  	type: 'warning',
 		  	showCancelButton: true,
 		  	confirmButtonText: 'Salir',

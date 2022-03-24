@@ -233,6 +233,8 @@ try {
 			 		
 				pro.registrar(p);
 				
+				response.sendRedirect("ProductoController?accion=listar");
+				
       }	
     }catch (Exception e) {
 				e.printStackTrace();
@@ -420,12 +422,20 @@ private void validarFormularioPro(HttpServletRequest request, HttpServletRespons
 	  String precio=request.getParameter("precio");
 	  
 	  System.out.println("precio "+precio);
+	  
+	  int precioVal=Integer.parseInt(request.getParameter("precio"));
+	  
+	  System.out.println("precioVal "+precioVal);
 
 	  String descripcion=request.getParameter("descripcion");
 	  
 	  String imagen=request.getParameter("imagen");
 	  
 	  String stock=request.getParameter("stock");
+	  
+	  int stockVal=Integer.parseInt(request.getParameter("stock"));
+	  
+	  System.out.println("stockVal "+stockVal);
 	  
 	  String codProducto=request.getParameter("codProducto");
 	
@@ -456,6 +466,12 @@ private void validarFormularioPro(HttpServletRequest request, HttpServletRespons
        	return;
        }
     
+    else if(precioVal <= 0 ) {
+       	System.out.println("¡Valor no admitido, por favor verificar!");
+       	out.print("false;msnpreciopro;¡Valor no admitido, por favor verificar!");
+	          	
+       	return;
+       }   
 
     else if(precio == null || precio.isEmpty() || ud.validarNumeros(precio.trim()) == false) {
        	System.out.println("¡Valor no admitido, por favor verificar!");
@@ -481,6 +497,12 @@ private void validarFormularioPro(HttpServletRequest request, HttpServletRespons
        	System.out.println("¡Debe escoger una imagen, por favor verificar!");
        	out.print("false;msnimagenpro;¡Debe escoger una imagen, por favor verificar!");
 	          	
+       	return;
+       }
+    
+    else if(stockVal <= 0) {
+       	System.out.println("¡Valor no admitido, por favor verificar!");
+       	out.print("false;msnstockpro;¡Valor no admitido, por favor verificar!");
        	return;
        }
     

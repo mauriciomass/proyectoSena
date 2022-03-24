@@ -18,12 +18,14 @@ if(session.getAttribute("usua")!=null){
 	<title>Iluminarte</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="css/normalize.css">
+	
+	
 	<link rel="stylesheet" href="css/sweetalert2.css">
+	
 	<link rel="stylesheet" href="css/material.min.css">
-	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
-	<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">	
 	<link rel="stylesheet" href="css/main.css">
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
@@ -96,17 +98,7 @@ if(session.getAttribute("usua")!=null){
 			</div>
 			<nav class="full-width">
 				<ul class="full-width list-unstyle menu-principal">
-					<li class="full-width">
-						<a href="InicioController?accion=abrirForm" class="full-width">
-							<div class="navLateral-body-cl">
-								<i class="zmdi zmdi-store"></i>
-							</div>
-							<div class="navLateral-body-cr hide-on-tablet">
-								INICIO
-							</div>
-						</a>
-					</li>
-					
+									
 					<li class="full-width" <c:if test="${usua.idRolFK.idRol!=1}"> hidden </c:if>>
 						<a href="TipoRolController?accion=listarRoles" class="full-width">
 							<div class="navLateral-body-cl">
@@ -208,10 +200,12 @@ if(session.getAttribute("usua")!=null){
 	</section>
 	
 	</body>
-</html> 
+</html>
+
 
  <% 
   }else{
 	  request.getRequestDispatcher("login.jsp").forward(request,response);
   }
   %>
+

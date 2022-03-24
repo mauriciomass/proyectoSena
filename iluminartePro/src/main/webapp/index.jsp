@@ -1,216 +1,976 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%> 
+  <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>IluMinarte- Inicio</title>
+    <title>Menú iluminarte</title>
 
-    <!-- Styles -->
-     
-     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-     
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/stylescar.css"> 
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-   <!--   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">-->
+    <link rel="stylesheet" href="css/estilos2.css">
 
+     
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+       <a href="https://storyset.com/team">Team illustrations by Storyset</a>
+   
+     
+ 
+</head>
 <body>
 
-	
-  <header id="header">    
-    <nav class="menu">
-
    
-      <a href="index.jsp"><img class="logo" src="img/iluminarte.png" alt="logo"></a>
-         <div class="nav">
-         <li><a href="indexA.html">  Sobre nosotros </a> </li>  
-         <li><a href="indexA.html">  Contactanos</a> </li>  
-         <li><a href="indexA.html">  Tienda </a> </li>       
-         
-        </div>
-
-         <div class="list-container">
-             <ul class="lists">
-                 <li><a href="UsuarioController?accion=abrirLogin" class="fas fa-user-tie"></a></li>     
-              <li><a href="index.jsp" class="fas fa-cart-arrow-down"></a></li>           
-              </ul>
-         </div>
-     </nav>
-
-  
-
-
-
-     <section class="carousel">
-     
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">                  
-          <img src="assets/img/img2.jpg" class="d-block w-100" alt="Galeria">                
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/img3.jpg" class="d-block w-100" alt="Galeria">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/img4.jpg" class="d-block w-100" alt="Galeria">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/img5.jpg" class="d-block w-100" alt="Galeria">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/img6.jpg" class="d-block w-100" alt="Galeria">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/img7.jpg" class="d-block w-100" alt="Galeria">
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/img8.jpg" class="d-block w-100" alt="Galeria">
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-  </section>
-
-
-  <hear2>
-    
-            <nav class="nav">
-              
-              <div class="user">       
-               Tienda       
+  <header id="header">
+        <div class="container__header">
+            <div class="logo">
+                <img src="img/iluminarte.png" alt="">
             </div>
-          
-           
-                <li><a href="indexA.html">  <i class="fas fa-home"></i> Residencial </a> </li>  
-                <li><a href="indexA.html">  <i class="fas fa-building"></i> Comercial </a> </li>  
-                <li><a href="indexA.html">  <i class="fas fa-city"></i> Industrial </a> </li>  
-                <li><a href="indexA.html">  <i class="fas fa-lightbulb"></i> Electricos </a> </li>  
-                <li><a href="indexA.html">  <i class="fas fa-phone-volume"></i> Contactanos </a> </li>  
-                 
-                             
-                        
-               
-            
-        </nav>
-    
-    </header> 
-     
-    <!-- About Us -->
-    <section class="about-us">
-        <div class="info">
-            <h3>Acerca de nosotros</h3>
-            <p>Somos una empresa que desea expandir sus productos a nivel nacional creando el mayor impacto por medio de ideas creativas,que permiten iluminar tus espacios con estilo.</p>
-            <hr>
-        </div>
-       
-    </section>
+          <div class="container__nav">
+                <nav id="nav">               
+                    <ul>
+                        <li><a href="#" class="select">Inicio</a></li>
+                        <li><a href="#cover">Tienda</a></li>
+                        <li><a href="#container__pro">Nuestros proyectos</a></li>
+                        <li><a href="login.jsp">Iniciar sesión</a></li>
+                    </ul>
+                </nav>
 
-    <!-- Gallery -->
-    <section class="gallery-section">
-       
-             
+                
+                <div class="btn__menu" id="btn_menu"><i class="fas fa-bars"></i></div>
 
-        <!-- Modal -->
-         <div class="modal">
-             <span id="closeModal"><i class="fas fa-times"></i></span>
-             <img id="imgModal">
-             <p id="caption"></p>
-         </div>
-
-    </section>
-   
-
- <!-- Footer -->
- 
- <footer class="site-footer">
-  <div class="footer-top-area">
-  <div class="container">
-     <div class="row">
-      <div class="col-lg-3 col-sm-6 col-12"><div id="metro_about-2" class="widget widget_metro_about"> 	
-        <ul> 
-        <span class="rtin-content"></span>
-        <b><br>        
-        <b>Oficinas:</b><br>
-            <b>Carrera 26A N. 39 - 71 <br>
-            <b>BogotÃ¡ - Colombia<br>
-              <p style="margin-top:10px;margin-bottom:0px;margin-left:-40px"><i class="flaticon-phone-call-2" style="padding-right:15px"></i><a class="rtin-content" href="tel:(601)7946664">(+601) 794 66 64</a></p>
-              <p style="margin-top:10px;margin-bottom:0px;margin-left:-40px"><i class="flaticon-phone-call-2" style="padding-right:15px"></i><a class="rtin-content" href="tel:(601)7946664">(+57) 319 695 61 25</a></p>
-              <p style="margin-top:10px;margin-bottom:0px;margin-left:-25px"><i class="flaticon-envelope"></i><a class="rtin-content" href="mailto:contactanos@lumenconcept.com">contactanos@iluminarte.com</a></p>
-         
-      </ul>
+            </div>
 
         </div>
-      </div>
-
-      
-
-<div>
-
-  <ul class="nav_menu-2">
-
-    <p><h3>InformaciÃ³n:</h3></p>
-    <li><a href="https://lumenconcept.com/nosotros/">Nosotros</a></li>
-    <li><a href="https://lumenconcept.com/nosotros/">Servicios</a></li>
-    <li><a href="https://lumenconcept.com/nosotros/">Proyectos de IluminaciÃ³n</a></li>
-    <li><a href="https://lumenconcept.com/nosotros/">Cotizaciones</a></li>
-    <li><a href="https://lumenconcept.com/nosotros/">ContÃ¡ctanos</a></li>
-
-  </ul>
-
-</div>
-</div>
-</div>
-</div>
+    </header>
 
 
-<div class="footer-sep"></div>
-      <div class="footer-bottom-area footer-bottom-area-new-2">
-    <div class="container">
-      <div class="footer-bottom-inner">
-        <div class="copyright-area">
-          <div class="copyright-text">Â© Copyright Iluminarte 2021.<a target="_blank" href="#"></a></div>
-        </div>
-        <div class="copyright-area">							
-                          <ul class="footer-social">
-                                  <li><a target="_blank" href=""><i class="fab fa-facebook"></i></a></li>                                  
-                                  <li><a target="_blank" href=""><i class="fab fa-instagram-square"></i></a></li>
-                                  <li><a target="_blank" href=""><i class="fab fa-pinterest"></i></a></li>
-                        
-            </ul>
-                        
-        </div>
-                      <ul class="payment-icons payment-icons-grayscale">
-                                                                 
-                                  <li><img width="60" height="36" src="https://lumenconcept.com/wp-content/uploads/2020/09/Payment-Visa.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy"></li>
-                                  <li><img width="60" height="36" src="https://lumenconcept.com/wp-content/uploads/2020/09/Payment-MasterCard.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy"></li>
-                                  <li><img width="60" height="36" src="https://lumenconcept.com/wp-content/uploads/2020/09/Payment-PSE.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy"></li>
-                                  <li><img width="60" height="36" src="https://lumenconcept.com/wp-content/uploads/2020/09/Payment-Baloto.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy"></li>
-                                  <li><img width="60" height="36" src="https://lumenconcept.com/wp-content/uploads/2020/09/Payment-Efecty.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" loading="lazy"></li>
-                                   </ul>
-                  
-      </div>
+<div class="container__all" id="container_all">    
+
+                
+                <h2> Carrousel iluminate</h2>  
+                <div class="container-all">       
+                <div class="content-Carrousel">
+                <figure><img src="assets/img/img1.jpg"> </figure>
+                <figure><img src="assets/img/img2.jpg"> </figure>
+                <figure><img src="assets/img/img3.jpg"> </figure>
+                <figure><img src="assets/img/img4.jpg"> </figure>
+                <figure><img src="assets/img/img5.jpg"> </figure>
+                <figure><img src="assets/img/img6.jpg"> </figure>
+                <figure><img src="assets/img/img7.jpg"> </figure>
+                <figure><img src="assets/img/img8.jpg"> </figure>
+                <figure><img src="assets/img/img11.jpg"> </figure>
+                <figure><img src="assets/img/img13.jpg"> </figure>                
+                                              
+                </div> 
+                </div>               
     </div>
-  </div>
-          </footer>
 
 
-<!-- Scripts -->
-<script src="https://kit.fontawesome.com/35db202371.js" crossorigin="anonymous"></script>
-<script src="js/app.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+   <div id="cover" class="cover">         
+            
+              
+                        <main>                
+                 <h1> categorias de productos  </h1>    
+                 
+                  <div class="container__cover">   
+                                                  
+               <div class="box">  
+                 <li><a href="#Residencial">
+                     <i class="fas fa-home"></i> </li>           
+                     <h5> Residencial</h5>  
+                     <h4> Residencial</h4> 
+                                
+               </div>
+               
+          
+               
+               
+               <div class="box">  
+                     <li><a href="#Comercial">
+                     <i class="fas fa-building"></i>  </li>              
+                    <h5> Comercial </h5> 
+                    <h4> Comercial </h4>       
+                      
+               </div> 
+               
+               <div class="box"> 
+                        <li><a href="#Industrial">
+                     <i class="fas fa-city"></i> </li>                
+                     <h5> Industrial</h5>    
+                     <h4> Industrial</h4>   
+                                     
+               </div>
+               
+               <div class="box"> 
+                     <li><a href="#Eléctricos">
+                      <i class="fas fa-lightbulb"></i> </li>               
+                     <h5> Eléctricos</h5>  
+                     <h4> Eléctricos</h4>    
+                                
+               </div>
+                 
+              
+            
+             </main>      
+ </div>
+
+
+
+
+  <div class="container__pro" id="container__pro">
+
+        <div class="coverp">
+
+            <div class="container__coverp">
+
+                <div class="container__infop">
+                    <h1>Tus ideas nuestros retos</h1>                    
+                    <p>En Iluminarte hacemos  realidad  tus más  ambiciosas  ideas de iluminación, que esperas  para contactarnos.</p>
+                    <input type="button" value="Cotiza ya!">
+                </div>
+                <div class="container__vector">                    
+                    <img src="assets/img/creative-team-animate.svg">
+                </div>
+            </div>
+
+        </div>
+        
+          </div>
+        
+        
+        
+        
+        
+        
+  <div class="cover2">   
+  
+         
+        
+                                      
+                 <h1> TIENDA 
+                   <i class="fas fa-lightbulb"></i> </h1>          
+                   
+                         <div class="row">&nbsp;</div>
+                
+           
+                
+                
+                 <div  class="container__tienda">
+                 
+                    <h2 id="Residencial">   Residencial   
+                     <i class="fas fa-home"></i>   </h2>        
+                    
+                </div>
+                
+                                                       
+        
+        <section class="cards">
+
+        <article class="card card--1">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$848.211</span>
+                <h3 class="card__by">ABD2260-1</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">Lámpara Colgante Delia Negra</a></span>
+            </div>
+        </article>
+        
+        <article class="card card--2">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$892.560</span>
+                <h3 class="card__by">ABD2142-2</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Onix 7 W Luz Neutra - Dia Luz
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--3">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                     <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$264.763</span>
+                <h3 class="card__by">ABD1322-3</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   Lámpara Dorada - DKS LAB
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--4">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                     <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$359.766</span>
+                <h3 class="card__by">ABD637-4</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Lámpara Star Led 1.20 Mt Luz Blanca - Dia Luz
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--5">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$538.651</span>
+                <h3 class="card__by">ABD2208-5</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Do Wblack 12 W Luz Blanca
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--6">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                     <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$703.973</span>
+                <h3 class="card__by">ABD740-6</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Lamp Colg Nature 1L E27
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--7">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                   <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$432.900</span>
+                <h3 class="card__by">ABD1093-7</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                  Lámpara Oden Black - Vintario
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--8">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                   <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$316.293</span>
+                <h3 class="card__by">iMac Pro i7 2018</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                     Techo Yugo Estilo Rustica
+                </a></span>
+            </div>
+        </article>
+        
+        
+       
+        
+    </section>
+        
+               
+          <div class="container__tienda">
+                    <h2 id="Comercial">  Comercial  
+                    <i class="fas fa-building"></i>  </h2>                   
+                    
+                </div>
+             
+          
+        
+                <section class="cards_2">
+
+        <article class="card card--9">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                   <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$167.767</span>
+                <h3 class="card__by">ABD102-9</h3>
+                 <span class="card__by"> <a href="" class="card__author" title="">
+                    Lampara Hermetica Led 2X20W 
+                </a></span>
+            </div>
+        </article>
+        
+        <article class="card card--10">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                     <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$143.429</span>
+                <h3 class="card__by">ABD168-108</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   Panel Led 30x120 De 40W luz blanca
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--11">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                  <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$105.615</span>
+                <h3 class="card__by">ABD119-11</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Panel Led 60x60 40W 6500K 40BK
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--12">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                  <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$184.099</span>
+                <h3 class="card__by">ABD1374-12</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Panel Led 3000K Redondo
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--13">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$187.394</span>
+                <h3 class="card__by">ABD2235-13</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Lámpara LED Sobreponer 40W 6500K 120Cm 110V
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--14">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                     <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$164.330</span>
+                <h3 class="card__by">ABD2026-14</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Lampara Led De Taller Para Iluminacion De Garaje
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--15">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                     <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$140.533</span>
+                <h3 class="card__by">ABD282-15</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Panel de LED Integrado 
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--16">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                  <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$121.329</span>
+                <h3 class="card__by">ABD1373-16</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Lámparas LED con controlador de corriente
+                </a></span>
+            </div>
+        </article>
+        
+        
+       
+        
+    </section>
+        
+        
+        
+        
+        
+        
+        
+              
+          <div class="container__tienda">
+                     <h2 id="Industrial">  Industrial  
+                        <i class="fas fa-city"></i>   </h2>             
+                     
+                         
+                    
+                </div>
+             
+          
+        
+                <section class="cards_3">
+
+        <article class="card card--17">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$179.405</span>
+                <h3 class="card__by">ABD526-17</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   1x100w LED blanco frío 9000LM
+                </a></span>
+            </div>
+        </article>
+        
+        <article class="card card--18">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$134.832</span>
+                <h3 class="card__by">ABD1209-18</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   Lámpara antipolvo con rejilla
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--19">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$190.611</span>
+                <h3 class="card__by">ABD1570-19</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Reflector Led con sensor
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--20">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$124.049</span>
+                <h3 class="card__by">ABD2600-20</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    PROYECTOR EXTERIOR LED 80w y 130w OSRAM
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--21">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                   <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$127.212</span>
+                <h3 class="card__by">ABD1674-21</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   Luminario para superposte de 840W 
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--22">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                  <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$151.437</span>
+                <h3 class="card__by">ABD1844-22</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Luminaria Industrial de 80W
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--23">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                   <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$123.186</span>
+                <h3 class="card__by">ABD1490-23</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Luminaria Vial de 100W con fuente de poder integrada
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--24">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                   <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$126.527</span>
+                <h3 class="card__by">ABD2138-24</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Lámpara Colgante decorativa Porto
+                </a></span>
+            </div>
+        </article>
+        
+        
+       
+        
+    </section>
+        
+        
+        
+
+        
+              
+        
+        
+        
+              
+          <div class="container__tienda">
+                    <h2 id="Eléctricos">   Eléctricos 
+                     <i class="fas fa-lightbulb"></i>   </h2>                  
+                    
+                </div>
+             
+          
+        
+                <section class="cards_4">
+
+        <article class="card card--25">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$86.441</span>
+                <h3 class="card__by">ABD2077-25</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Bombillo E40 Led Master 
+                </a></span>
+            </div>
+        </article>
+        
+        <article class="card card--26">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                    <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$86.441</span>
+                <h3 class="card__by">ABD1433-26</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   Multitoma o regleta
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--27">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$117.733</span>
+                <h3 class="card__by">ABD2547-27</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                  Bala Led de Incrustar
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--28">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                         <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$116.827</span>
+                <h3 class="card__by">ABD708-28</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Bombillo Bulbo Gu4 led
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--29">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                      <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$176.864</span>
+                <h3 class="card__by">ABD1662-29</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   Spots led para riel
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--30">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$112.321</span>
+                <h3 class="card__by">ABD1050-30</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                   Spot cinematográfico acordeón
+                </a></span>
+            </div>
+        </article>
+        
+        
+        
+         <article class="card card--31">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                        <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$186.927</span>
+                <h3 class="card__by">ABD478-31</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Cinta Led Neón Flex Rollo por 100 Metros RGB
+                </a></span>
+            </div>
+        </article>
+        
+        
+         <article class="card card--32">  
+            <div class="card__info-hover"> 
+                <div class="card__clock-info">
+                   <span class="card__time"> <i class="fa fa-shopping-basket"></i> </span>
+                </div> 
+            </div>
+            <div class="card__img"></div>
+            <a href="#" class="card_link">
+                <div class="card__img--hover"></div>
+            </a>
+            <div class="card__info">
+                <span class="card__category">$65.142</span>
+                <h3 class="card__by">ABD2514-32</h3>
+                <span class="card__by"> <a href="" class="card__author" title="">
+                    Bala de piso GU10
+                </a></span>
+            </div>
+        </article>
+        
+        
+       
+        
+    </section>
+        
+        
+        
+              
+        
+        
+                  
+  
+        
+        <Footer>
+            <div class="container__footer">
+
+                <div class="box__footer">
+                    <div class="logo">
+                        <img src="img/iluminarte.png" alt="">
+                    </div>                  
+                </div>
+
+                <div class="box__footer">
+                    <h2>Categorias</h2>
+                    <a href="#Residencial">Residencial</a>
+                    <a href="#Comercial">Comercial</a>
+                    <a href="#Industrial">Industrial</a>
+                    <a href="#Eléctricos">Eléctricos</a>
+                </div>
+
+                <div class="box__footer">
+                    <h2>Proyectos</h2>
+                    <a href="#container__pro">Cotiza con nosotros</a>
+                    <a href="#">telefono</a>
+                    <a href="#">Direccion</a>                             
+                </div>
+
+                <div class="box__footer">
+                    <h2>Redes Sociales</h2>
+                    <a href="#"><i class="fab fa-facebook-square"></i> Facebook</a>
+                    <a href="#"><i class="fab fa-twitter-square"></i> Twitter</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> Linkedin</a>
+                    <a href="#"><i class="fab fa-instagram-square"></i> Instagram</a>
+                </div>
+            </div>
+
+            <div class="box__copyright">
+                <hr>
+             
+            </div>
+        </Footer>    
+            
+
+<script> 
+   
+window.onscroll = function(){
+
+    scroll = document.documentElement.scrollTop;
+
+    header = document.getElementById("header");
+
+    if (scroll > 20){
+        header.classList.add('nav_mod');
+    }else if(scroll < 20){
+        header.classList.remove('nav_mod');
+    }
+
+}
+
+document.getElementById("btn_menu").addEventListener("click", mostrar_menu);
+
+menu = document.getElementById("header");
+body = document.getElementById("container_all");
+nav = document.getElementById("nav");
+
+function mostrar_menu(){
+    
+    menu.classList.toggle('move_content');
+    body.classList.toggle('move_content');
+    nav.classList.toggle('move_nav');
+}
+
+
+window.addEventListener("resize", function(){
+
+    if(window.innerWidth > 760){
+        menu.classList.remove('move_content');
+    body.classList.remove('move_content');
+    nav.classList.remove('move_nav');
+    }
+
+})
+
+</script>
 
 </body>
 </html>
+  

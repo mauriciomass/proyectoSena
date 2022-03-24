@@ -220,13 +220,12 @@ private void changePasswordVP(HttpServletRequest request, HttpServletResponse re
 			    String enlace="http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin";
 			    
 			    String asunto="BIENVENIDO A ILUMINARTE";
-			    String cuerpo="<h1>Hola " + nombreUsuario + " " + apellidoUsuario + " Gracias por usar nuestros servicios en Iluminarte </h1>"
+			    String cuerpo="<h1>Hola " + nombreUsuario + " " + apellidoUsuario + " gracias por usar nuestros servicios en Iluminarte </h1>"
 			    		+ "<h2> !Permitenos informarte que haz cambiado tu clave¡ </h2>"
-			    		+ "<br> <br>"		    		
-			    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>"
 			    		+ "<br> <br>"
 			    		+ " <h3> Inicie sesión en el siguente  </h3>"    			
-			    		+ " <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>" + enlace + "</a>";
+			    		+ " <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>" + enlace + "</a>"
+			    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>";
 			    try {
 			    	//Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
 			    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
@@ -235,7 +234,7 @@ private void changePasswordVP(HttpServletRequest request, HttpServletResponse re
 			    	System.out.println("Se produjo un error al enviar el mensaje al nuevo usuario "+e.getMessage());
 			    }
 			    
-			    response.sendRedirect("UsuarioController?accion=logout");
+			    response.sendRedirect("UsuarioController?accion=abrirLogin");
 				
 				
 			}catch(Exception e) {

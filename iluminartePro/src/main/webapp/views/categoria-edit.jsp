@@ -1,45 +1,55 @@
 <%@include file="header.jsp" %>
-	<div class="mdl-tabs__tab-bar">
-	 
-	 <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
-		<div class="full-width panel mdl-shadow--5dp">
-		
-	  
-	  <h1>Actualizar de Categoria</h1>
-	  
-	  <form method="post" action="CategoriaController?accion=editCategoria">
-	  	
-	  	<input type="hidden" class="form-control" name="id" value="${categoria.idCategoria}"/>
-	  	
-	  	<div class="form-group">
-	  		<label for="nombre">Nombre de la Categoria</label>
-	  		<input type="text" class="form-control" name="nombre" id="nombre" onBlur="verifyCategoriaEdit()" placeholder="Ingrese el nombre de la Categoria" value="${categoria.nombreCategoria}"/>
-	  	
-	  	<div id="msnnombreVal" class="text-danger"> </div>
-	  		<label for="descripcion">Descripción de la Categoria</label>
-	  		<input type="text" class="form-control" name="descripcion" id="descripcion" onBlur="verifyCategoriaEdit()" placeholder="Ingrese la descripcion de la Categoria" value="${categoria.descripcionCategoria}"/>
-	  	<div id="msndescripcionVal" class="text-danger"> </div>	
-	  	</div>
-	  	
-	  	<div class="form-check">
-	  	
-	  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" 
-	  <c:out value="${categoria.estadoCategoria==false ? 'unchecked':'checked'}" default=""/>>
-	  <label class="form-check-label" for="flexCheckChecked">
-		${categoria.estadoCategoria==false ? 'Marca la casilla para activar':'Desmarca la casilla para Inactivar'}
-	  </label>
-	</div>
+<link rel="stylesheet" href="css/Estilos_role_add.css">
+<div class="mdl-tabs__tab-bar">
+ 
+ <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+	<div class="full-width panel mdl-shadow--5dp">
 	
-	<div id="formVal" class="text-success"> </div>
-	
-	<div>
-	<button type="submit" class="btn btn-primary" id="guardarcategoria" disabled="disabled" onclick="guardar()">Guardar</button>
-	</div>
-	  
-	  </form>
-	  </div>
-	  </div>
-	</div> 
+		<div class="contenedor__todo">
+				
+				  <div class="formulario__register">
+  
+  <h1>Actualizar de Categoria</h1>
+  
+  <form method="post" action="CategoriaController?accion=editCategoria">
+  	
+  	<input type="hidden" class="form-control" name="id" value="${categoria.idCategoria}"/>
+  	
+  	<div class="form-group">
+  		<label for="nombre">Nombre de la Categoria</label>
+  		<input type="text" class="form-control" name="nombre" id="nombre" onBlur="verifyCategoriaEdit()" placeholder="Ingrese el nombre de la Categoria" value="${categoria.nombreCategoria}"/>
+  	
+  		<div id="msnnombreVal" class="text-danger"> </div>
+  	
+  		<label for="descripcion">Descripción de la Categoria</label>
+  		<input type="text" class="form-control" name="descripcion" id="descripcion" onBlur="verifyCategoriaEdit()" placeholder="Ingrese la descripción de la Categoria" value="${categoria.descripcionCategoria}"/>
+  		
+  		<div id="msndescripcionVal" class="text-danger"> </div>	
+  	
+  	</div>
+  	
+  	<div class="form-check">
+  	
+  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" 
+  <c:out value="${categoria.estadoCategoria==false ? 'unchecked':'checked'}" default=""/>>
+  <label class="form-check-label" for="flexCheckChecked">
+	${categoria.estadoCategoria==false ? 'Marca la casilla para activar':'Desmarca la casilla para Inactivar'}
+  </label>
+</div>
+
+<div id="formVal" class="text-success"> </div>
+
+<div class="d-flex justify-content-end">
+<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar">Cancelar</button>
+<button type="submit" class="btn btn-primary" id="guardarcategoria" disabled="disabled" onclick="guardar()">Guardar</button>
+</div>
+  
+  </form>
+  </div>
+  </div>
+</div> 
+ </div>
+</div> 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -91,7 +101,6 @@ function verifyCategoriaEdit(){
 
 
 </script>
-
 
 
 <%@include file="footer.jsp" %>

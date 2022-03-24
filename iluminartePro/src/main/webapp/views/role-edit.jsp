@@ -1,8 +1,14 @@
 <%@include file="header.jsp" %>
+<link rel="stylesheet" href="css/Estilos_role_add.css">
+
 <div class="mdl-tabs__tab-bar">
  
  <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 						<div class="full-width panel mdl-shadow--5dp">
+		
+		<div class="contenedor__todo">
+				
+				  <div class="formulario__register">
 		
   
   <h1>Actualizar de Roles</h1>
@@ -13,28 +19,31 @@
   	
   	<div class="form-group">
   		<label for="nombre">Nombre del Rol</label>
-  		<input type="text" class="form-control" name="nombre" id="nombre" onBlur="verifyRoleEdit()" placeholder="Ingrese el nombre" value="${tiporol.nombreRol}"/>
+  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre" onBlur="verifyRoleEdit()" value="${tiporol.nombreRol}"/>
   	</div>
   	
   	<div id="msnrolVal" class="text-danger"> </div>
   	
   	<div class="form-check">
-  	
-  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" 
-  <c:out value="${tiporol.estadoRol==false ? 'unchecked':'checked'}" default=""/>>
-  <label class="form-check-label" for="flexCheckChecked">
-	${tiporol.estadoRol==false ? 'Marca la casilla para activar':'Desmarca la casilla para Inactivar'}
-  </label>
-</div>
+			  	
+	  <input class="form-check-input" type="checkbox" name="chkEstado" id="chkEstado" 
+	  	<c:out value="${tiporol.estadoRol==false ? 'unchecked':'checked'}" default=""/>>
+		  <label class="form-check-label" for="flexCheckChecked">
+			${tiporol.estadoRol==false ? 'Marca la casilla para activar':'Desmarca la casilla para Inactivar'}
+		  </label>
+	</div>
+	
+	<div id="formVal" class="text-success"> </div>
 
-<div id="formVal" class="text-success"> </div>
-
-<div>
-<button type="submit" class="btn btn-primary" id="guardarrol" disabled="disabled" onclick="guardar()">Guardar</button>
-</div>
+	<div class="d-flex justify-content-end">
+		<button class="btn btn-secondary btn-sm" name="Cancelar" id="Cancelar">Cancelar</button>
+		<button type="submit" class="btn btn-primary" id="guardarrol" disabled="disabled" onclick="guardar()">Guardar</button>
+	</div>
   
   </form>
   </div> 
+</div>
+</div>
 </div>
 </div>
 
