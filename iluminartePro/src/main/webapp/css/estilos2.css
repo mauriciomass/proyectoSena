@@ -133,7 +133,7 @@ nav ul li a{
 
 
 h1{
-
+    font-family: 'Poppins', sans-serif;
 	text-transform: uppercase;
 	text-align: center;
 	font-size: 60px;
@@ -142,11 +142,9 @@ h1{
 	 text-shadow: 2px 2px 3px rgba(249, 249, 163, 0.8);
 	 -webkit-background-clip:text;
 	 -moz-background-clip:text;
-	 background-clip:text;
+	 
 	
 }
-
-
 
 
 .container-all{	

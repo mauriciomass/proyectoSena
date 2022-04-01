@@ -50,7 +50,7 @@
   	
   	<div class="form-group">
   		<label for="nombre">Nombre</label>
-  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el Nombre del Producto" onBlur="verifyProducto()"/>
+  		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el Nombre del Producto" onBlur="verifyProducto()" value="${producto.nombreProducto}"/>
   	</div>
   	
   	<div id="msnnombreVal" class="text-danger"> </div>
@@ -118,21 +118,21 @@
 	
 function verifyProducto(){
 	
-		var listatd = document.getElementById("categoria");
+		var listapr = document.getElementById("categoria");
 		
-		var indicetd = listatd.selectedIndex;
+		var indicepr = listapr.selectedIndex;
 		
-		var opciontd = listatd.options[indicetd];
+		var opcionpr = listapr.options[indicepr];
 		
-		var valortd = opciontd.value;
+		var valorpr = opcionpr.value;
 		
-		var listatr = document.getElementById("proveedor");
+		var listapr2 = document.getElementById("proveedor");
 		
-		var indicetr = listatr.selectedIndex;
+		var indicepr2 = listapr2.selectedIndex;
 		
-		var opciontr = listatr.options[indicetr];
+		var opcionpr2 = listapr2.options[indicepr2];
 		
-		var valortr = opciontr.value;
+		var valorpr2 = opcionpr2.value;
 	
 		const nombre=document.getElementById("nombre").value;		
 		const precio=document.getElementById("precio").value;
@@ -144,8 +144,8 @@ function verifyProducto(){
 		const guardarproducto=document.getElementById("guardarproducto");
 
 		
-		console.log(valortd)
-		console.log(valortr)
+		console.log(valorpr)
+		console.log(valorpr2)
 		console.log(nombre)
 		console.log(precio)
 		console.log(descripcion)
@@ -155,8 +155,8 @@ function verifyProducto(){
 		$.ajax({
 			  url: "ProductoController?accion=validarFormularioPro",
 			  data: {
-				categoria: valortd,
-				proveedor: valortr,
+				categoria: valorpr,
+				proveedor: valorpr2,
 				nombre: nombre,
 				precio: precio,
 				descripcion: descripcion,

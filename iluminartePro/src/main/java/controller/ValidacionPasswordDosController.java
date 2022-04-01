@@ -121,13 +121,13 @@ public class ValidacionPasswordDosController extends HttpServlet {
 	                			}
 	                		  else if(validarPassword(passnewvp.trim()) == false){               				
 	                				
-	                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres");
-	                	        	out.print("false;passnewvp;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres¡");
+	                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres");
+	                	        	out.print("false;passnewvp;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres¡");
 	                			}
 	                			else if(validarPassword(passnewrepvp.trim()) == false){               				
 	                				
-	                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres");
-	                	        	out.print("false;passnewrepvp;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres¡");
+	                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres");
+	                	        	out.print("false;passnewrepvp;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres¡");
 	                			}
 	                			else if(!passnewvp.trim().equals(passnewrepvp.trim())){               				
 	                				
@@ -136,8 +136,8 @@ public class ValidacionPasswordDosController extends HttpServlet {
 	                			}
 	                			else if(dias > 1){               				
 	                				
-	                				System.out.println("Su enlace venció, por favor dirigirse al modulo de olvido su contraseña");
-	                	        	out.print("false;diasvp;!Su enlace venció, por favor dirigirse al modulo de olvido su contraseña¡");
+	                				System.out.println("Su enlace venció, por favor dirigirse al módulo de olvidó su contraseña");
+	                	        	out.print("false;diasvp;!Su enlace venció, por favor dirigirse al módulo de olvidó su contraseña¡");
 	                			}
 	                			else{
 	                				
@@ -219,12 +219,15 @@ private void changePasswordVP(HttpServletRequest request, HttpServletResponse re
 			    
 			    String enlace="http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin";
 			    
+			    String imgclick="<img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/click.jpg'/>";
+			    
 			    String asunto="BIENVENIDO A ILUMINARTE";
-			    String cuerpo="<h1>Hola " + nombreUsuario + " " + apellidoUsuario + " gracias por usar nuestros servicios en Iluminarte </h1>"
+			    String cuerpo="<h1>Hola " + nombreUsuario + " " + apellidoUsuario + ",gracias por usar nuestros servicios en Iluminarte </h1>"
 			    		+ "<h2> !Permitenos informarte que haz cambiado tu clave¡ </h2>"
 			    		+ "<br> <br>"
-			    		+ " <h3> Inicie sesión en el siguente  </h3>"    			
-			    		+ " <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>" + enlace + "</a>"
+			    		+ " <h3> Inicie sesión, haz  </h3>"    			
+			    		+ " <a href= ' " + enlace + ">" + imgclick + "</a>"
+			    		+ "<br> <br>"
 			    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>";
 			    try {
 			    	//Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);

@@ -149,6 +149,8 @@ String accion = request.getParameter("accion");
 	    	u.setIdUsuario(u.getIdUsuario());
 			
 			u.setContrasenaUsuario(ud.MD5(valorClave));
+			
+			ud.changePassword(u);
 	    	
             LocalDateTime dateTime = LocalDateTime.now(); 
 			
@@ -159,6 +161,7 @@ String accion = request.getParameter("accion");
 		    System.out.println("Fecha: " + currentTime);
 			
 			String urlString = "http://localhost:8080/iluminarteProRollBack/ValidacionPasswordController?method=KeyChange&enl=";
+			String imgclick="<img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/click.jpg'/>";
 			encoder cEncryption = new encoder();
 			String secretKey = "Agarez1";
 			String encryptedCode1 = cEncryption.encryptCode(secretKey,currentTime);
@@ -172,15 +175,15 @@ String accion = request.getParameter("accion");
 		    String asunto="BIENVENIDO A ILUMINARTE";
 		    String cuerpo="<h1> Hola " + nombreUsuario + " " + apellidoUsuario + " Gracias por registrarse en Iluminarte </h1>"
 		    		+ "<h2> Para cambiar su clave realice el siguiente paso: </h2>"
-		    		+ "<br> <br>"		    		
-		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>"
 		    		+ "<br> <br>"
-		    		+ " <h3> Para iniciar sesión debe cambiar la clave asignada en el siguente enlace: </h3>"
-		    		+ " <a href= " + link + ">" + link + "</a>";
+		    		+ " <h3> Para iniciar sesión debe cambiar la clave asignada , haz: </h3>"
+		    		+ " <a href= " + link + ">" + imgclick + "</a>"
+		    		+ "<br> <br>"
+		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>";
 		    		
 		    try {
 		    	//Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
-		    	ud.changePassword(u);
+		    	
 		    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
 		    	System.out.println("Se envió el mensaje al nuevo usuario");
 		    	response.sendRedirect("login.jsp");
@@ -226,8 +229,8 @@ String accion = request.getParameter("accion");
 	  int cant=ud.validarCorreo(request.getParameter("correo"));
 	  
         if(!emailValidador.find() || correo==null || correo.isEmpty()) {
-        	System.out.println("!El formato de correo es invalido¡");
-        	out.print("false;correoforgpass;!El formato de correo es invalido¡");
+        	System.out.println("!El formato de correo no es válido¡");
+        	out.print("false;correoforgpass;!El formato de correo no es válido¡");
         	return;
         }
         

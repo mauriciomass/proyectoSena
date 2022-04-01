@@ -39,8 +39,9 @@
 							<div class="col-sm-6 d-flex">
 							
 								<input type="hidden" name="tiporolVend" value="${usua.numerodeIdentificacionUsuario}" class="form-control">
-								<input type="text" name="codigocliente" value="${c.getNumerodeIdentificacionUsuario()}"  class="form-control col-sm-6" placeholder="No. Documento">
-								<button type="submit" name="accion" value="BuscarCliente"  class="btn btn-outline-info bi bi-search"  ></button>
+								<input type="text" name="codigocliente" id="codigocliente" value="${c.getNumerodeIdentificacionUsuario()}"  class="form-control col-sm-6" placeholder="No. Documento" onBlur="verifyVentas()">
+								<div id="msncodclienteVal" class="text-danger"> </div>
+								<button type="submit" name="accion" id="BuscarCliente" value="BuscarCliente"  class="btn btn-outline-info bi bi-search"></button>
 								
 								
 							
@@ -99,7 +100,7 @@
 							
 						</div>
 						
-						<div id="msncodigoclienteVal" class="text-danger"> </div>
+						
 					    <div id="formVal" class="small text-success"> </div>		
 								
 							<hr>
@@ -198,37 +199,41 @@
 	
 function verifyVentas(){
 
-		const Agregar=document.getElementById("Agregar");
-		const cant = document.getElementById("cant").value;
+		const BuscarCliente=document.getElementById("BuscarCliente");
+		const codigocliente = document.getElementById("codigocliente").value;
 		
-		console.log(cant)
+		
+		console.log(codigocliente)
 		$.ajax({
-			  url: "VentasController?accion=validarFormVentas",
+			  url: "VentasController?menu=NuevaVenta&accion=validarFormVentas",
 			  data: {
-				  cant: cant
+				  codigocliente:codigocliente
 			    },
-			  success: function(resultventas ) {
-				  partes= resultventas.split(";");
-				  console.log(partes)
-		  		  $("#msncantventVal").html("");
+			  success: function(resultventas) {
+				  partesVent= resultventas.split(";");
+				  console.log(partesVent)
+				  $("#msncodclienteVal").html("");
 				  $("#formVal").html("");
-				  if (partes[0]=="false" && partes[1] =="msncantvent"){
-						  $("#msncantventVal").html( "<small>" + partes[2] + "</small>" );
-						  $('#Agregar').attr('disabled', 'disabled');
+				  if (partesVent[0]=="false" && partesVent[1] =="msncodcliente"){
+						  $("#msncodclienteVal").html( "<small>" + partesVent[2] + "</small>" );
+						  $('#BuscarCliente').attr('disabled', 'disabled');
 					  
-					  }	
+					  }
 				  
-				  else if (partes[0]=="true"){
+				  else if (partesVent[0]=="true"){
 					  console.log("Validado")					  
-					  $('#formVal').html( "<small>" + partes[1] + "</small>" );
-					  $("#Agregar").removeAttr("disabled");
+					  $('#formVal').html( "<small>" + partesVent[1] + "</small>" );
+					  $("#BuscarCliente").removeAttr("disabled");
 				  }
 				  
 			   }
 				      
 		});
-};
+}
 
+</script>
+
+<script>
 
 function validarStock(value){ 
 

@@ -600,22 +600,23 @@ private void abrirForm(HttpServletRequest request, HttpServletResponse response)
 		  response.setContentType("text/html;charset=UTF-8");
 		  PrintWriter out=response.getWriter();
 		  
-		  String cant = request.getParameter("cant");
+
+		  
+		  String codigocliente = request.getParameter("codigocliente");
 		    
+
 		  
-		  System.out.println("cant "+cant);
 		  
-		  
-		  if(cant != null || !(cant.isEmpty()) || ud.validarNumeros(cant.trim()) == true) {
-	         	System.out.println("¡Valor admitido!");
-	         	out.print("true;!El formato de los campos es correcto¡");
+           if(codigocliente != null || codigocliente.isEmpty() || ud.validarNumeros(codigocliente.trim()) == false) {
+	         	System.out.println("¡Valor no admitido!");
+	         	out.print("false;msncodcliente;!Valor no admitido¡");
 	         	return;
 	         }
 	      
 	      else {
 	    	  
-	    	    System.out.println("¡Valor no admitido!");
-	         	out.print("false;msncantvent;¡Valor admitido!");
+	    	    System.out.println("¡Valor admitido!");
+	         	out.print("true;¡Valor admitido!");
 	      	
 	      	return;
 	      }

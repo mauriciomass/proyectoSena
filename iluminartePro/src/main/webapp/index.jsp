@@ -47,7 +47,7 @@
 <div class="container__all" id="container_all">    
 
                 
-                <h2> Carrousel iluminate</h2>  
+                <h2> Carrousel Iluminarte</h2>  
                 <div class="container-all">       
                 <div class="content-Carrousel">
                 <figure><img src="assets/img/img1.jpg"> </figure>
@@ -70,7 +70,7 @@
             
               
                         <main>                
-                 <h1> categorias de productos  </h1>    
+                 <h1> categorías de productos  </h1>    
                  
                   <div class="container__cover">   
                                                   
@@ -103,7 +103,7 @@
                
                <div class="box"> 
                      <li><a href="#Eléctricos">
-                      <i class="fas fa-lightbulb"></i> </li>               
+                      <i class="fas fa-lightbulb"></i></a></li>             
                      <h5> Eléctricos</h5>  
                      <h4> Eléctricos</h4>    
                                 
@@ -143,12 +143,9 @@
         
         
   <div class="cover2">   
-  
-         
-        
-                                      
-                 <h1> TIENDA 
-                   <i class="fas fa-lightbulb"></i> </h1>          
+                             
+                 <h1>Tienda</h1>
+                 	          
                    
                          <div class="row">&nbsp;</div>
                 
@@ -458,7 +455,7 @@
                 <span class="card__category">$164.330</span>
                 <h3 class="card__by">ABD2026-14</h3>
                 <span class="card__by"> <a href="" class="card__author" title="">
-                    Lampara Led De Taller Para Iluminacion De Garaje
+                    Lámpara Led De Taller Para Iluminación De Garaje
                 </a></span>
             </div>
         </article>
@@ -899,7 +896,7 @@
                 </div>
 
                 <div class="box__footer">
-                    <h2>Categorias</h2>
+                    <h2>Categorías</h2>
                     <a href="#Residencial">Residencial</a>
                     <a href="#Comercial">Comercial</a>
                     <a href="#Industrial">Industrial</a>
@@ -909,8 +906,8 @@
                 <div class="box__footer">
                     <h2>Proyectos</h2>
                     <a href="#container__pro">Cotiza con nosotros</a>
-                    <a href="#">telefono</a>
-                    <a href="#">Direccion</a>                             
+                    <a href="#">Télefono</a>
+                    <a href="#">Dirección</a>                             
                 </div>
 
                 <div class="box__footer">

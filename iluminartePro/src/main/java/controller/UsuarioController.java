@@ -156,18 +156,22 @@ public class UsuarioController extends HttpServlet {
                 				request.getRequestDispatcher("UsuarioController?accion=abrirLogin&msn=Usuario inactivo, por favor consulte al administrador.").forward(request, response);
                 			}
                 			else if(!emailValidador.find() || valCorreo==null || valCorreo.isEmpty()) {
-                             	System.out.println("El formato de correo es invalido");
+                             	System.out.println("El formato de correo no es válido");
                              	
                              	
-                             	String msn = "El formato de correo es inválido";
+                             	String msn = "El formato de correo no es válido";
                              	request.getRequestDispatcher("UsuarioController?accion=abrirLogin&msn=" + URLEncoder.encode(msn, StandardCharsets.UTF_8))
                                 .forward(request, response);
                              	
                              	                      
                              }
                 			else if(cant==0) {
-                            	System.out.println("El correo no esta registrado");
-                            	request.getRequestDispatcher("UsuarioController?accion=abrirLogin&msn=El correo no esta registrado").forward(request, response);
+                            	System.out.println("El correo no está registrado");
+                            	
+                             	String msn2 = "El correo no está registrado";
+                             	request.getRequestDispatcher("UsuarioController?accion=abrirLogin&msn=" + URLEncoder.encode(msn2, StandardCharsets.UTF_8))
+                                .forward(request, response);
+
             
                             }
                             
@@ -232,13 +236,13 @@ public class UsuarioController extends HttpServlet {
 	                			}
                 			else if(validarPassword(valPassNew.trim()) == false){               				
                 				
-                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres");
-                	        	out.print("false;formatopassnew;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres¡");
+                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres");
+                	        	out.print("false;formatopassnew;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres¡");
                 			}
                 			else if(validarPassword(valPassNewRep.trim()) == false){               				
                 				
-                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres");
-                	        	out.print("false;formatopassnewrep;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres¡");
+                				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres");
+                	        	out.print("false;formatopassnewrep;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres¡");
                 			}
                 			else if(!valPassNew.trim().equals(valPassNewRep.trim())){               				
                 				
@@ -299,14 +303,14 @@ public class UsuarioController extends HttpServlet {
 	                  		    PrintWriter out=response.getWriter();
                 			
 	                  	        if(tipodocumentoRegistrarse.equals("0")) {
-	                  	           	System.out.println("!No ha seleccionado alguna opcion!");
-	                  	           	out.print("false;msntipodocument;!No ha seleccionado alguna opcion!");
+	                  	           	System.out.println("!Seleccione alguna opción!");
+	                  	           	out.print("false;msntipodocument;!Seleccione alguna opción!");
 	                  	           	return;
 	                  	           } 
 	                  	 
 	                  	        else if(tiporolRegistrarse.equals("0")) {
-	                  	           	System.out.println("!No ha seleccionado alguna opcion!");
-	                  	           	out.print("false;msntiporol;!No ha seleccionado alguna opcion!");
+	                  	           	System.out.println("!Seleccione alguna opción!");
+	                  	           	out.print("false;msntiporol;!Seleccione alguna opción!");
 	                  	           	return;
 	                  	           }
                 			
@@ -347,13 +351,13 @@ public class UsuarioController extends HttpServlet {
 	                	            }
 	                	         else if(validarPassword(contrasenaNuevaRegistrarse.trim()) == false){               				
 	                 				
-	                 				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres");
-	                 	        	out.print("false;msnpassnew;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres¡");
+	                 				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres");
+	                 	        	out.print("false;msnpassnew;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres¡");
 	                 			 }
 	                 			 else if(validarPassword(contrasenaConfirmReg.trim()) == false){               				
 	                 				
-	                 				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres");
-	                 	        	out.print("false;msnpassnewrep;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo minimo de 8 caracteres¡");
+	                 				System.out.println("Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres");
+	                 	        	out.print("false;msnpassnewrep;!Al menos debe tener una letra mayúscula, una minúscula,un digito,opcional un caracter especial y un largo mínimo de 8 caracteres¡");
 	                 			 }
 	                 			 else if(!contrasenaNuevaRegistrarse.trim().equals(contrasenaConfirmReg.trim())){               				
 	                 				
@@ -367,8 +371,8 @@ public class UsuarioController extends HttpServlet {
 	                 	        }        
 	                 	 
 	                 	        else if(numeroRegistrarse.trim().length() < 1 || numeroRegistrarse.trim().length() > 30) {
-	                 	           	System.out.println("!Numeros permitidos en el campo es 1 a 30!");
-	                 	           	out.print("false;msnnumdocum;!Numeros permitidos en el campo es 1 a 30!");
+	                 	           	System.out.println("!Números permitidos en el campo es 1 a 30!");
+	                 	           	out.print("false;msnnumdocum;!Números permitidos en el campo es 1 a 30!");
 	                 	           	return;
 	                 	           }
 	                 	        
@@ -662,16 +666,18 @@ private void add(HttpServletRequest request, HttpServletResponse response) throw
 			System.out.println("Encriptado 2: " + encryptedCode2);
 			System.out.println("Encriptado 3: " + valorClave);
 			String link = urlString + encryptedCode1 + "@" + encryptedCode2 + "@" + valorClave;
+			
+			String imgclick="<img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/click.jpg'/>";
 	    
 		    
 		    String asunto="BIENVENIDO A ILUMINARTE";
-		    String cuerpo="<h1> Hola " + nombreUsuario + " " + apellidoUsuario + " Gracias por registrarse en Iluminarte </h1>"
+		    String cuerpo="<h1> Hola " + nombreUsuario + " " + apellidoUsuario + ", gracias por registrarse en Iluminarte </h1>"
 		    		+ "<h2> Para cambiar su clave realice el siguiente paso: </h2>"
-		    		+ "<br> <br>"		    		
-		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>"
 		    		+ "<br> <br>"
-		    		+ " <h3> Para iniciar sesión debe cambiar la clave asignada en el siguente enlace: </h3>"
-		    		+ " <a href= " + link + ">" + link + "</a>";
+		    		+ " <h3> Para iniciar sesión debe cambiar la clave asignada, haz : </h3>"
+		    		+ " <a href= " + link + ">" + imgclick + "</a>"
+		    		+ "<br> <br>"		    		
+		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>";
 		    		
 		    try {
 		    	//Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
@@ -806,14 +812,19 @@ private void changePassword(HttpServletRequest request, HttpServletResponse resp
 		    
 		    String enlace="http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin";
 		    
+		    String imgclick="<img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/click.jpg'/>";
+		    
 		    String asunto="BIENVENIDO A ILUMINARTE";
 		    String cuerpo="<h1>Hola " + nombreUsuario + " " + apellidoUsuario + " Gracias por usar nuestros servicios en Iluminarte </h1>"
 		    		+ "<h2> !Permitenos informarte que haz cambiado tu clave¡ </h2>"
-		    		+ "<br> <br>"		    		
-		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>"
 		    		+ "<br> <br>"
-		    		+ " <h3> Inicie sesión en el siguente enlace </h3>"    			
-		    		+ " <a href='http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin'>" + enlace + "</a>";
+		    		+ " <h3> Inicie sesión, haz </h3>"    			
+		    		+ " <a href= " + enlace + ">" + imgclick + "</a>"
+		    		+ "<br> <br>"		    		
+		    		+ " <img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/iluminarte2.jpeg'/>";
+		    
+	
+		    
 		    try {
 		    	//Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
 		    	Configmail.enviarCorreo(host, puerto, remitente, password, destinatario, asunto, cuerpo);
@@ -1160,13 +1171,15 @@ private void validarFormEdit(HttpServletRequest request, HttpServletResponse res
 			String urlString = "http://localhost:8080/iluminarteProRollBack/UsuarioController?accion=abrirLogin";
 			
 			String correoAdmin ="agarez2022@gmail.com";
+			
+			String imgclick="<img width='150' height='100' src ='https://pagina-jesus-mass.s3.us-east-2.amazonaws.com/click.jpg'/>";
 					    
 		    
 		    String asunto="BIENVENIDO A ILUMINARTE";
 		    String cuerpo="<h1> Hola " + nombreUsuario + " " + apellidoUsuario + " gracias por registrarse en Iluminarte </h1>"
-		    		+ "<h2> Para iniciar sesión y si eres un cliente hacer click en el siguiente enlace: </h2>"
+		    		+ "<h2> Para iniciar sesión y si eres un cliente haz: </h2>"
 		    		+ "<br> <br>"
-		    		+ " <a href= " + urlString + ">" + urlString + "</a>"
+		    		+ " <a href= " + urlString + ">" + imgclick + "</a>"
 		    		+ " <h3> Si eres un empleado por favor comunicarse con el administrador para que activar la cuenta </h3>"
 		    		+ "<br> <br>"
 		    		+ "<a href= "+ correoAdmin + ">"  + correoAdmin  +"</a>"

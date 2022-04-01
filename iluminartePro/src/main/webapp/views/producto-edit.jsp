@@ -69,8 +69,8 @@
   	<div id="msnprecioproVal" class="text-danger"> </div>
   	
   	<div class="form-group">
-  		<label for="descripcion">Contrasena</label>
-  		<input type="text" class="form-control" name="descripcion" id="descripcion" onBlur="verifyProductoEdit()" placeholder="Ingrese la Descripcion" value="${producto.descripcionProducto}"/>
+  		<label for="descripcion">Descripción</label>
+  		<input type="text" class="form-control" name="descripcion" id="descripcion" onBlur="verifyProductoEdit()" placeholder="Ingrese la Descripción" value="${producto.descripcionProducto}"/>
   	</div>
   	
   	<div id="msndescripcionVal" class="text-danger"> </div>
@@ -90,7 +90,7 @@
   	<div id="msnstockVal" class="text-danger"> </div>
   	
   	<div class="form-group">
-  		<label for="codProducto">Codigo Producto</label>
+  		<label for="codProducto">Código Producto</label>
   		<input type="text" class="form-control" name="codProducto" id="codProducto" onBlur="verifyProductoEdit()" placeholder="Ingrese el codigo del producto" value="${producto.codProducto}"/>  		
   	</div>
   	
@@ -168,8 +168,8 @@ function verifyProductoEdit(){
 				stock: stock,
 				codProducto: codProducto
 			  },
-			  success: function(resultproducto) {
-				  partes= resultproducto.split(";");
+			  success: function(resultproductoedit) {
+				  partes= resultproductoedit.split(";");
 				  console.log(partes)
 		  		  $("#msncategoriaVal").html("");	
 			      $("#msnproveedorVal").html("");

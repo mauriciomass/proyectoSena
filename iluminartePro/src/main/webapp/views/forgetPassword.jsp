@@ -46,7 +46,7 @@
                             
                 <div class="contenedor__login-register">
                     <!--Login-->
-                    <form action="ForgetPasswordController?accion=" method="POST" id="olvidoContrasena" class="formulario__login">
+                    <form action="ForgetPasswordController?accion=envioCorreo" method="POST" id="olvidoContrasena" class="formulario__login">
                         <h2>Escriba su correo</h2>
                         
                         <input type="hidden" class="form-control" name="id" id="id" value="${usuaval.idUsuario}"/>
